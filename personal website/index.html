@@ -711,8 +711,14 @@ function handleSubmit(e) {
   const email = document.getElementById('f-email').value;
   const msg = document.getElementById('f-msg').value;
   if (name && email && msg) {
-    document.getElementById('contact-form').style.display = 'none';
-    document.getElementById('contact-thanks').style.display = 'block';
+    fetch('https://formspree.io/f/xqejbyov', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name, email, message: msg })
+    }).then(() => {
+      document.getElementById('contact-form').style.display = 'none';
+      document.getElementById('contact-thanks').style.display = 'block';
+    });
   }
 }
 </script>
