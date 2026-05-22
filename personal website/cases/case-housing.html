@@ -1,0 +1,848 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>What Drives Housing Prices in U.S. High-Poverty Neighborhoods? — Frida Li</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Inter', sans-serif;
+  color: #1a1208;
+  background: #faf7f2;
+  line-height: 1.6;
+}
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: #f0ece4; }
+::-webkit-scrollbar-thumb { background: #c8b8a4; border-radius: 3px; }
+
+h1, h2, h3, h4 { font-family: 'Space Grotesk', sans-serif; }
+
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  background: rgba(250, 247, 242, 0.92);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.3s;
+  height: 60px;
+  display: flex; align-items: center;
+  padding: 0 56px;
+  justify-content: space-between;
+}
+nav.scrolled { border-bottom-color: #e8e0d4; }
+.nav-back {
+  font-family: 'Inter', sans-serif;
+  font-size: 12px; font-weight: 400; letter-spacing: 0.7px;
+  text-transform: uppercase; text-decoration: none;
+  color: #6b5c4a; padding: 5px 10px; border-radius: 20px;
+  transition: color 0.2s, background 0.2s;
+  display: inline-flex; align-items: center; gap: 8px;
+}
+.nav-back:hover { color: #b85c38; background: rgba(184,92,56,0.06); }
+.nav-back .arrow { font-family: 'Space Grotesk', sans-serif; font-size: 14px; }
+.nav-logo {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 17px; font-weight: 500;
+  color: #1a1208; cursor: pointer; text-decoration: none;
+  letter-spacing: -0.2px;
+}
+
+.section-inner { max-width: 1160px; margin: 0 auto; padding: 0 56px; }
+
+.case-hero {
+  padding-top: 140px;
+  padding-bottom: 80px;
+  border-bottom: 1px solid #e8e0d4;
+  background: #faf7f2;
+}
+.case-hero-inner {
+  max-width: 1160px; margin: 0 auto; padding: 0 56px;
+}
+.case-eyebrow {
+  font-size: 10px; letter-spacing: 2.5px; text-transform: uppercase;
+  color: #b85c38; font-weight: 500; margin-bottom: 28px;
+}
+.case-h1 {
+  font-size: 60px; font-weight: 400; line-height: 1.04;
+  color: #1a1208; margin-bottom: 28px; letter-spacing: -1px;
+  max-width: 900px;
+}
+.case-h1 em { font-style: normal; color: #b85c38; }
+.case-lede {
+  font-size: 19px; color: #4a3e2e; line-height: 1.7;
+  max-width: 720px; font-weight: 300;
+  margin-bottom: 56px;
+}
+.meta-row {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px;
+  padding-top: 32px; border-top: 1px solid #e8e0d4;
+}
+.meta-k {
+  font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase;
+  color: #9a8878; margin-bottom: 6px;
+}
+.meta-v {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 16px; font-weight: 500; color: #1a1208;
+}
+
+.hero-figure {
+  margin: 56px auto 0;
+  max-width: 1080px;
+  background: #fff;
+  border: 1px solid #e8e0d4;
+  border-radius: 4px;
+  padding: 18px 18px 14px;
+}
+.hero-figure img {
+  width: 100%; height: auto; display: block; border-radius: 2px;
+}
+.hero-figure-cap {
+  font-size: 12px; color: #9a8878; letter-spacing: 0.3px;
+  margin-top: 12px; text-align: center; font-style: italic;
+}
+
+.case-body { padding: 56px 0 96px; background: #faf7f2; }
+
+.case-block {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 80px;
+  padding: 56px 0;
+}
+.case-block:first-child { padding-top: 24px; }
+.section-divider { border: none; border-top: 1px solid #e8e0d4; margin: 0; }
+
+.case-h2 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 28px;
+  font-weight: 500;
+  color: #1a1208;
+  letter-spacing: -0.3px;
+  position: sticky;
+  top: 96px;
+  align-self: start;
+}
+.case-h2 .case-num {
+  display: block;
+  font-family: 'Inter', sans-serif;
+  font-size: 10px; letter-spacing: 2.5px; text-transform: uppercase;
+  color: #b85c38; font-weight: 500; margin-bottom: 10px;
+}
+
+.case-prose { max-width: 740px; }
+.case-prose p {
+  font-size: 16px; line-height: 1.85;
+  color: #4a3e2e;
+  margin-bottom: 22px;
+}
+.case-prose p strong { color: #1a1208; font-weight: 600; }
+.case-prose p em { color: #b85c38; font-style: normal; font-weight: 500; }
+
+.case-h3 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 17px; font-weight: 500;
+  color: #1a1208; margin: 32px 0 10px;
+  letter-spacing: 0.1px;
+}
+
+.case-list { list-style: none; padding: 0; margin: 14px 0 0; }
+.case-list li {
+  position: relative;
+  padding: 9px 0 9px 24px;
+  font-size: 15.5px; line-height: 1.6;
+  color: #4a3e2e;
+  border-bottom: 1px dashed #e8e0d4;
+}
+.case-list li:last-child { border-bottom: none; }
+.case-list li::before {
+  content: ''; position: absolute;
+  left: 0; top: 19px;
+  width: 10px; height: 1px; background: #b85c38;
+}
+.case-list li strong { color: #1a1208; font-weight: 600; }
+
+.rq-list { list-style: none; padding: 0; margin: 16px 0 0; }
+.rq-list li {
+  display: grid; grid-template-columns: 56px 1fr; gap: 12px; align-items: baseline;
+  padding: 14px 0;
+  border-bottom: 1px dashed #e8e0d4;
+}
+.rq-list li:last-child { border-bottom: none; }
+.rq-list li .tag {
+  font-family: 'Inter', sans-serif;
+  font-size: 11px; letter-spacing: 1.5px;
+  color: #b85c38; font-weight: 500;
+}
+.rq-list li p {
+  margin: 0; font-size: 16px; line-height: 1.5; color: #1a1208;
+}
+.rq-list li p strong { font-weight: 600; }
+
+.callout {
+  margin-top: 22px;
+  padding: 20px 24px;
+  background: rgba(184,92,56,0.06);
+  border-left: 3px solid #b85c38;
+  border-radius: 0 4px 4px 0;
+}
+.callout-label {
+  font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase;
+  color: #b85c38; font-weight: 500; margin-bottom: 6px;
+}
+.callout-body {
+  font-size: 15.5px; line-height: 1.7; color: #1a1208;
+}
+.callout-body strong { font-weight: 600; }
+
+.callout.dark {
+  background: #1a1208;
+  border-left: 3px solid #b85c38;
+}
+.callout.dark .callout-label { color: #c89438; }
+.callout.dark .callout-body { color: #f5f0e8; }
+.callout.dark .callout-body strong { color: #ffffff; }
+.callout.dark .callout-body em { color: #f5c898; font-style: normal; font-weight: 600; }
+
+.pair-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 18px;
+  margin-top: 18px;
+}
+.pair-card {
+  background: #fff;
+  border: 1px solid #e8e0d4;
+  border-top: 3px solid #b85c38;
+  padding: 22px 24px 24px;
+  border-radius: 0 0 4px 4px;
+}
+.pair-tag {
+  font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase;
+  color: #b85c38; font-weight: 500; margin-bottom: 8px;
+}
+.pair-title {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 17px; font-weight: 500;
+  color: #1a1208; margin-bottom: 10px;
+}
+.pair-body {
+  font-size: 14.5px; line-height: 1.7; color: #4a3e2e;
+}
+
+/* city cards (three cities) */
+.city-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px;
+  margin-top: 18px;
+}
+.city-card {
+  background: #fff;
+  border: 1px solid #e8e0d4;
+  border-top: 3px solid #b85c38;
+  padding: 20px 22px 22px;
+  border-radius: 0 0 4px 4px;
+}
+.city-card .tag {
+  font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase;
+  color: #b85c38; font-weight: 500; margin-bottom: 8px;
+}
+.city-card .name {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 20px; font-weight: 500;
+  color: #1a1208; margin-bottom: 12px;
+  letter-spacing: -0.2px;
+}
+.city-card .row {
+  display: flex; justify-content: space-between;
+  padding: 7px 0;
+  font-size: 13.5px; color: #6b5c4a;
+  border-top: 1px dashed #e8e0d4;
+}
+.city-card .row .v {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 500; color: #1a1208;
+}
+
+/* data source list */
+.source-list {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 10px 22px;
+  margin-top: 18px;
+}
+.source-item {
+  display: grid; grid-template-columns: 90px 1fr; gap: 14px;
+  padding: 12px 0; border-bottom: 1px dashed #e8e0d4;
+  font-size: 14px; line-height: 1.55;
+}
+.source-item .nm {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 13.5px; font-weight: 500; color: #b85c38;
+  letter-spacing: 0.1px;
+}
+.source-item .dsc { color: #4a3e2e; }
+
+/* findings cards */
+.find-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;
+  margin-top: 18px;
+}
+.find-card {
+  background: #fff;
+  border: 1px solid #e8e0d4;
+  border-top: 3px solid #b85c38;
+  padding: 22px 24px;
+  border-radius: 0 0 4px 4px;
+  display: flex; flex-direction: column; gap: 14px;
+}
+.find-head {
+  display: flex; justify-content: space-between; align-items: baseline;
+}
+.find-head .grp {
+  font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase;
+  color: #b85c38; font-weight: 500;
+}
+.find-head .ask {
+  font-size: 10px; letter-spacing: 1px; text-transform: uppercase;
+  color: #9a8878;
+}
+.find-hero {
+  display: flex; flex-direction: column; gap: 6px;
+  padding: 12px 14px;
+  background: rgba(184,92,56,0.06);
+  border-left: 3px solid #b85c38;
+}
+.find-hero .lbl {
+  font-size: 10px; letter-spacing: 1.2px; text-transform: uppercase;
+  color: #b85c38; font-weight: 500;
+}
+.find-hero .txt {
+  font-size: 14px; line-height: 1.55; color: #1a1208;
+  font-weight: 500;
+}
+.find-take {
+  font-size: 14.5px; line-height: 1.6; color: #4a3e2e;
+}
+.find-take strong { color: #1a1208; font-weight: 600; }
+
+/* stat grid (impact / numbers) */
+.stat-grid {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px;
+  margin-top: 20px;
+}
+.stat-card {
+  background: #fff;
+  border: 1px solid #e8e0d4;
+  padding: 22px 22px 20px;
+  border-radius: 4px;
+}
+.stat-num {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 30px; font-weight: 400;
+  letter-spacing: -0.7px; line-height: 1.1;
+  color: #b85c38;
+}
+.stat-label {
+  font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase;
+  color: #9a8878; margin-top: 10px;
+}
+
+/* tool chips */
+.chip-row {
+  display: flex; flex-wrap: wrap; gap: 6px;
+  margin-top: 14px;
+}
+.chip {
+  font-size: 11.5px;
+  padding: 4px 10px;
+  border-radius: 20px;
+  background: rgba(184,92,56,0.08);
+  color: #9a3a1a;
+  border: 1px solid rgba(184,92,56,0.2);
+  font-weight: 500;
+  letter-spacing: 0.1px;
+}
+.chip.alt {
+  background: #ede8e0;
+  color: #4a3e2e;
+  border-color: #d8cdba;
+}
+
+/* contribution row */
+.contrib-list {
+  list-style: none; padding: 0; margin: 14px 0 0;
+}
+.contrib-list li {
+  display: grid; grid-template-columns: 200px 1fr; gap: 18px;
+  padding: 11px 0;
+  border-bottom: 1px dashed #e8e0d4;
+  font-size: 15px;
+}
+.contrib-list li:last-child { border-bottom: none; }
+.contrib-list li .role {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 13px; font-weight: 500;
+  color: #b85c38; letter-spacing: 0.1px;
+  text-transform: uppercase;
+}
+.contrib-list li .who { color: #4a3e2e; }
+.contrib-list li .who strong { color: #1a1208; font-weight: 600; }
+
+/* deck embed */
+.deck-section {
+  background: #1a1208;
+  padding: 80px 0;
+  margin-top: 0;
+}
+.deck-inner {
+  max-width: 1280px; margin: 0 auto; padding: 0 56px;
+}
+.deck-eyebrow {
+  font-size: 10px; letter-spacing: 2.5px; text-transform: uppercase;
+  color: #c89438; font-weight: 500; margin-bottom: 16px;
+}
+.deck-h2 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 36px; font-weight: 400;
+  color: #faf7f2; letter-spacing: -0.5px;
+  margin-bottom: 16px;
+}
+.deck-sub {
+  font-size: 15px; color: #c8b8a4; line-height: 1.7;
+  max-width: 720px; margin-bottom: 32px;
+}
+.deck-frame-wrap {
+  position: relative;
+  background: #000;
+  border: 1px solid #3a2e22;
+  border-radius: 6px;
+  overflow: hidden;
+  aspect-ratio: 16 / 9;
+  box-shadow: 0 30px 80px rgba(0,0,0,0.4);
+}
+.deck-frame-wrap iframe {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%; border: 0;
+}
+.deck-meta {
+  display: flex; justify-content: space-between; align-items: center;
+  margin-top: 18px; padding-top: 18px;
+  border-top: 1px solid #3a2e22;
+}
+.deck-meta-info {
+  font-size: 12px; color: #9a8878;
+  letter-spacing: 0.2px;
+}
+.deck-open {
+  font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase;
+  color: #c89438; text-decoration: none; font-weight: 500;
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 8px 14px; border: 1px solid #c89438;
+  border-radius: 2px;
+  transition: background 0.2s, color 0.2s;
+}
+.deck-open:hover { background: #c89438; color: #1a1208; }
+
+/* repo cta */
+.repo-cta {
+  margin-top: 24px;
+  display: block;
+  padding: 28px 32px;
+  background: #faf7f2;
+  border: 1px solid #e8e0d4;
+  border-radius: 4px;
+  text-decoration: none;
+  transition: border-color 0.2s, transform 0.2s;
+  color: inherit;
+}
+.repo-cta:hover { border-color: #b85c38; transform: translateY(-2px); }
+.repo-cta-label {
+  font-size: 10px; letter-spacing: 2px; text-transform: uppercase;
+  color: #b85c38; margin-bottom: 8px; font-weight: 500;
+}
+.repo-cta-title {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 19px; font-weight: 500; color: #1a1208;
+  display: flex; justify-content: space-between; align-items: baseline;
+  gap: 24px;
+}
+.repo-cta-title .arrow { font-size: 18px; color: #b85c38; }
+.repo-cta-sub {
+  font-size: 13px; color: #6b5c4a; margin-top: 6px;
+}
+
+footer {
+  background: #1a1208; color: #9a8878;
+  padding: 36px 56px;
+  display: flex; justify-content: space-between; align-items: center;
+}
+.footer-logo { font-family: 'Space Grotesk', sans-serif; font-size: 14px; color: #c8b8a4; }
+.footer-links { display: flex; gap: 24px; }
+.footer-links a {
+  font-size: 10px; color: #6b5c4a; letter-spacing: 0.8px;
+  text-transform: uppercase; text-decoration: none;
+  transition: color 0.2s; white-space: nowrap;
+}
+.footer-links a:hover { color: #c8b8a4; }
+.footer-copy { font-size: 12px; }
+
+.fade-up { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
+.fade-up.visible { opacity: 1; transform: translateY(0); }
+
+@media (max-width: 900px) {
+  .case-h1 { font-size: 44px; }
+  .case-block { grid-template-columns: 1fr; gap: 20px; }
+  .case-h2 { position: static; }
+  .meta-row { grid-template-columns: repeat(2, 1fr); }
+  .pair-grid, .find-grid, .city-grid { grid-template-columns: 1fr; }
+  .stat-grid { grid-template-columns: repeat(2, 1fr); }
+  .source-list { grid-template-columns: 1fr; }
+  .contrib-list li { grid-template-columns: 1fr; gap: 4px; }
+}
+</style>
+</head>
+<body>
+
+<nav id="main-nav">
+  <a class="nav-back" href="../Frida Li - Website.html#projects"><span class="arrow">←</span> Back to portfolio</a>
+  <a class="nav-logo" href="../Frida Li - Website.html">Frida Li, MA</a>
+</nav>
+
+<!-- HERO -->
+<section class="case-hero">
+  <div class="case-hero-inner">
+    <div class="case-eyebrow fade-up">Social Science Study · 2024 · University of Chicago</div>
+    <h1 class="case-h1 fade-up">What Drives <em>Housing Prices</em> in U.S. High-Poverty Neighborhoods?</h1>
+    <p class="case-lede fade-up">A team final project for MACS 30112 (Computational Content Analysis) at the University of Chicago, asking whether housing attributes or neighborhood resources better explain prices in high-poverty census tracts across <strong>New York City, Los Angeles, and Chicago</strong> — and whether those drivers hold up at the inter-city level.</p>
+    <div class="meta-row fade-up">
+      <div><div class="meta-k">Course</div><div class="meta-v">MACS 30112 · UChicago</div></div>
+      <div><div class="meta-k">Role</div><div class="meta-v">Co-investigator · 3-person team</div></div>
+      <div><div class="meta-k">Approach</div><div class="meta-v">Scraping · GIS · regression</div></div>
+      <div><div class="meta-k">Year</div><div class="meta-v">2024 · Winter</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="case-body">
+  <div class="section-inner">
+
+    <!-- Background -->
+    <div class="case-block">
+      <h2 class="case-h2"><span class="case-num">01</span>Background &amp; Question</h2>
+      <div class="case-prose">
+        <p>Housing prices are usually framed as a function of the house — square footage, age, type, condition. But in <strong>high-poverty neighborhoods</strong> the calculus is different: the neighborhood itself carries weight that a normal hedonic model can miss. Parks, public transit, hospitals, schools, crime exposure, and demographic composition all enter the price.</p>
+        <p>For high-poverty residents this matters concretely. Their housing search is constrained — by budget, by program eligibility, by where they already work and have family — and the wrong weighting in a policy or appraisal model can entrench segregation. Understanding which attributes <em>actually</em> drive price in these tracts is a prerequisite for evidence-based intervention.</p>
+
+        <div class="callout dark">
+          <div class="callout-label">Primary research question</div>
+          <div class="callout-body">What are the key drivers of housing prices in <em>U.S. high-poverty neighborhoods</em>, and do those drivers hold across cities?</div>
+        </div>
+
+        <h3 class="case-h3">Two-level analysis · structured as two sub-questions</h3>
+        <ol class="rq-list">
+          <li><span class="tag">L1</span><p><strong>City-level.</strong> Within a single city, which housing and neighborhood attributes most strongly predict listing prices in high-poverty tracts?</p></li>
+          <li><span class="tag">L2</span><p><strong>Inter-city level.</strong> Do those drivers replicate across NYC, LA, and Chicago — and where do the three cities diverge?</p></li>
+        </ol>
+
+        <p>We chose New York City, the City of Los Angeles, and Chicago as the three representative cities — different in form (dense vertical, sprawled horizontal, gridded mid-rise), different in transit and housing stock, but each with well-documented and well-mapped high-poverty geography.</p>
+      </div>
+    </div>
+
+    <hr class="section-divider"/>
+
+    <!-- Cities & Scope -->
+    <div class="case-block">
+      <h2 class="case-h2"><span class="case-num">02</span>Cities &amp; Scope</h2>
+      <div class="case-prose">
+        <p>"High-poverty neighborhood" is the U.S. Census Bureau threshold — a tract where the poverty rate is <strong>20% or higher</strong>. We pulled the most recent neighborhood-level poverty data from three government-backed sources (NYU Furman Center, ArcGIS, Illinois Policy), filtered to that threshold, and joined it to Redfin listings inside those neighborhoods. The point cloud below plots that filter directly — red dots are the in-scope high-poverty neighborhoods (Hyde Park, where UChicago sits, is highlighted in yellow).</p>
+
+        <figure class="hero-figure" style="margin: 24px 0 32px;">
+          <img src="../assets/case-housing-cover.png" alt="2022 Poverty Rate by Neighborhood — NYC, LA, Chicago"/>
+          <figcaption class="hero-figure-cap">2022 poverty rate by neighborhood across NYC, LA, and Chicago. Red points mark high-poverty neighborhoods (>20%) — the subset this study investigates.</figcaption>
+        </figure>
+
+        <div class="city-grid">
+          <div class="city-card">
+            <div class="tag">City 01</div>
+            <div class="name">New York City</div>
+            <div class="row"><span>Form</span><span class="v">Dense, vertical</span></div>
+            <div class="row"><span>Poverty source</span><span class="v">NYU Furman Center</span></div>
+            <div class="row"><span>Open data</span><span class="v">NYC Open Data</span></div>
+          </div>
+          <div class="city-card">
+            <div class="tag">City 02</div>
+            <div class="name">Los Angeles</div>
+            <div class="row"><span>Form</span><span class="v">Sprawled, horizontal</span></div>
+            <div class="row"><span>Poverty source</span><span class="v">ArcGIS dashboard</span></div>
+            <div class="row"><span>Open data</span><span class="v">LA GeoHub</span></div>
+          </div>
+          <div class="city-card">
+            <div class="tag">City 03</div>
+            <div class="name">Chicago</div>
+            <div class="row"><span>Form</span><span class="v">Gridded, mid-rise</span></div>
+            <div class="row"><span>Poverty source</span><span class="v">Illinois Policy</span></div>
+            <div class="row"><span>Open data</span><span class="v">City of Chicago</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <hr class="section-divider"/>
+
+    <!-- Approach -->
+    <div class="case-block">
+      <h2 class="case-h2"><span class="case-num">03</span>Approach</h2>
+      <div class="case-prose">
+        <p>We built a per-listing dataset that joined <strong>housing attributes</strong> (size, age, type, condition, asking price) with <strong>neighborhood attributes</strong> (distance to parks, transit, hospitals; crime exposure; demographics) for every Redfin listing in every high-poverty neighborhood across the three cities. Then we modeled price against both attribute families, first within each city and then across all three.</p>
+
+        <h3 class="case-h3">Pipeline · three stages</h3>
+        <div class="pair-grid">
+          <div class="pair-card">
+            <div class="pair-tag">Stage 01 · Collection</div>
+            <div class="pair-title">Scrape, geocode, join.</div>
+            <div class="pair-body"><strong>Selenium + BeautifulSoup</strong> on Redfin for real-time asking prices and housing attributes; each city's open-data portal for spatial layers (parks, transit stops, hospitals, crime incidents); City-Data and the three poverty sources for demographic context. Distances to amenities computed per listing.</div>
+          </div>
+          <div class="pair-card">
+            <div class="pair-tag">Stage 02 · Cleaning</div>
+            <div class="pair-title">Filter to in-scope tracts.</div>
+            <div class="pair-body">Listings filtered to tracts with poverty rate ≥ 20%. Outliers in price and size capped. Categorical housing-type variables collapsed into <strong>single-family</strong>, <strong>multi-family</strong>, <strong>condo / coop</strong>, <strong>other</strong>. Three cleaned CSVs ready for regression — one per city, plus an inter-city neighborhood-level table.</div>
+          </div>
+          <div class="pair-card">
+            <div class="pair-tag">Stage 03 · Modeling</div>
+            <div class="pair-title">Two-level regression in R.</div>
+            <div class="pair-body">OLS regression of listing price on housing + neighborhood attributes, fit separately within each city and pooled at the inter-city level. Reported standardized coefficients to allow comparison of the relative weight of <em>housing</em> vs. <em>neighborhood</em> drivers within and across cities.</div>
+          </div>
+          <div class="pair-card">
+            <div class="pair-tag">Stage 04 · Visualization</div>
+            <div class="pair-title">Map first, table second.</div>
+            <div class="pair-body">Choropleth + scatter maps via <strong>plotly + shapely + geopandas</strong>: poverty by neighborhood, listing density inside in-scope tracts, and amenity overlays. Coefficient tables and forest-style plots from <strong>ggplot2 + jtools</strong> for the regression readouts.</div>
+          </div>
+        </div>
+
+        <h3 class="case-h3">Data sources</h3>
+        <div class="source-list">
+          <div class="source-item"><div class="nm">Redfin</div><div class="dsc">Real-time asking prices and housing attributes across the U.S.</div></div>
+          <div class="source-item"><div class="nm">NYC Open Data</div><div class="dsc">Free public data published by NYC agencies and partners.</div></div>
+          <div class="source-item"><div class="nm">LA GeoHub</div><div class="dsc">The city's public platform for location-based open data.</div></div>
+          <div class="source-item"><div class="nm">Chicago Data</div><div class="dsc">Chicago's open infrastructure spatial data portal.</div></div>
+          <div class="source-item"><div class="nm">City-Data</div><div class="dsc">Free annually updated information for U.S. cities.</div></div>
+          <div class="source-item"><div class="nm">Furman · ArcGIS · Illinois Policy</div><div class="dsc">Three government-backed platforms for poverty rate by neighborhood.</div></div>
+        </div>
+
+        <h3 class="case-h3">Tools</h3>
+        <div class="chip-row">
+          <span class="chip">Python · pandas</span>
+          <span class="chip">geopandas</span>
+          <span class="chip">shapely</span>
+          <span class="chip">plotly</span>
+          <span class="chip">selenium</span>
+          <span class="chip">beautifulsoup4</span>
+          <span class="chip">requests</span>
+          <span class="chip alt">R · tidyverse</span>
+          <span class="chip alt">jtools</span>
+          <span class="chip alt">Hmisc</span>
+          <span class="chip alt">ggplot2</span>
+          <span class="chip alt">patchwork</span>
+        </div>
+      </div>
+    </div>
+
+    <hr class="section-divider"/>
+
+    <!-- Findings: Inter-city -->
+    <div class="case-block">
+      <h2 class="case-h2"><span class="case-num">04</span>Findings · Inter-city</h2>
+      <div class="case-prose">
+        <p>Pooled across the three cities, the headline result was that <em>where</em> a house sits matters more than <em>what</em> the house is.</p>
+
+        <div class="callout">
+          <div class="callout-label">Headline finding</div>
+          <div class="callout-body">In U.S. high-poverty neighborhoods, <strong>neighborhood attributes outweighed housing attributes</strong> as drivers of asking price. Inside the home, the usual signals still held — but the neighborhood layer carried more weight overall.</div>
+        </div>
+
+        <div class="find-grid">
+          <div class="find-card">
+            <div class="find-head">
+              <span class="grp">Held · As expected</span>
+              <span class="ask">Inside the house</span>
+            </div>
+            <div class="find-hero">
+              <div class="lbl">Size, age, buyer demographics</div>
+              <div class="txt">Larger houses command higher prices. Younger houses are more popular than older. Asian buyers tend to find lower-priced listings.</div>
+            </div>
+            <div class="find-take">The standard hedonic signals still apply in high-poverty tracts — they just don't dominate the equation the way a non-poverty-filtered model would suggest.</div>
+          </div>
+
+          <div class="find-card">
+            <div class="find-head">
+              <span class="grp">Unexpected</span>
+              <span class="ask">Parks</span>
+            </div>
+            <div class="find-hero">
+              <div class="lbl">Proximity ≠ premium</div>
+              <div class="txt">Being closer to a park did <strong>not</strong> mean a higher price — in high-poverty tracts it tracked with <strong>higher exposure to risky events</strong> (e.g. robbery).</div>
+            </div>
+            <div class="find-take">The "park premium" assumed in most urban hedonic literature inverts here. In these tracts, the park is a risk variable as much as an amenity — and the listing price reflects it.</div>
+          </div>
+
+          <div class="find-card">
+            <div class="find-head">
+              <span class="grp">Unexpected</span>
+              <span class="ask">Public transit</span>
+            </div>
+            <div class="find-hero">
+              <div class="lbl">No preference for buses</div>
+              <div class="txt">Proximity to public transit — buses in particular — showed <strong>no premium</strong> in any of the three cities.</div>
+            </div>
+            <div class="find-take">A reminder that "transit access" is not a single thing. In these tracts, bus access didn't act as an amenity buyers paid for — likely because reliance, not preference, drives transit use here.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <hr class="section-divider"/>
+
+    <!-- Findings: City-level -->
+    <div class="case-block">
+      <h2 class="case-h2"><span class="case-num">05</span>Findings · Per city</h2>
+      <div class="case-prose">
+        <p>The inter-city findings held at the city level too — but each city carried its own local preference on top.</p>
+
+        <div class="find-grid">
+          <div class="find-card">
+            <div class="find-head">
+              <span class="grp">Chicago</span>
+              <span class="ask">Housing type</span>
+            </div>
+            <div class="find-hero">
+              <div class="lbl">Single-family premium</div>
+              <div class="txt">Chicago valued <strong>single-family residential</strong> properties considerably more than NYC or LA — the strongest housing-type effect across the three cities.</div>
+            </div>
+            <div class="find-take">Consistent with Chicago's housing-stock composition: single-family is a more meaningful share of the inventory than in the other two cities, and the market prices it accordingly.</div>
+          </div>
+
+          <div class="find-card">
+            <div class="find-head">
+              <span class="grp">Los Angeles</span>
+              <span class="ask">Business atmosphere</span>
+            </div>
+            <div class="find-hero">
+              <div class="lbl">Commercial proximity premium</div>
+              <div class="txt">LA placed more weight on <strong>business atmosphere</strong> — proximity to commercial activity — than either Chicago or NYC.</div>
+            </div>
+            <div class="find-take">Plausibly tied to LA's polycentric form: commercial nodes are more dispersed, so being near one matters more for daily life and re-sale.</div>
+          </div>
+
+          <div class="find-card">
+            <div class="find-head">
+              <span class="grp">New York City</span>
+              <span class="ask">Hospital proximity</span>
+            </div>
+            <div class="find-hero">
+              <div class="lbl">Less weight on hospitals</div>
+              <div class="txt">NYC placed <strong>less emphasis</strong> on convenience of getting to a hospital than Chicago or LA — the smallest hospital-proximity coefficient of the three.</div>
+            </div>
+            <div class="find-take">A dense transit-rich city flattens hospital-distance effects: when most listings sit inside a short transit ride of multiple hospitals, the variable simply has less variance to price.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <hr class="section-divider"/>
+
+    <!-- Contributions -->
+    <div class="case-block">
+      <h2 class="case-h2"><span class="case-num">06</span>My Contributions</h2>
+      <div class="case-prose">
+        <p>A three-person team — Xuewei Li (me), Kuang Sheng, and Tian Lan. Responsibilities were split end-to-end so each of us touched collection, analysis, and presentation.</p>
+
+        <ul class="contrib-list">
+          <li><span class="role">Lead · my work</span><span class="who"><strong>Poverty-rate data collection &amp; cleaning</strong> across all three cities; scoping the high-poverty threshold and tract filter.</span></li>
+          <li><span class="role">Shared · my work</span><span class="who"><strong>Neighborhood-attribute collection &amp; cleaning</strong> — parks, transit, hospitals, crime — partnered with Tian Lan.</span></li>
+          <li><span class="role">Shared · my work</span><span class="who"><strong>Data visualization</strong> for the readout, including the hero scatter and the per-city choropleths — partnered with Kuang Sheng.</span></li>
+          <li><span class="role">Lead · my work</span><span class="who"><strong>Progress report + final presentation</strong> — drafted with Kuang Sheng; delivered with both teammates.</span></li>
+          <li><span class="role">Team</span><span class="who">Kuang Sheng led <strong>housing-attribute</strong> collection &amp; cleaning. Tian Lan led <strong>data analysis</strong> (the regression layer).</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <hr class="section-divider"/>
+
+    <!-- Reflection -->
+    <div class="case-block">
+      <h2 class="case-h2"><span class="case-num">07</span>Reflection</h2>
+      <div class="case-prose">
+        <p>Two takeaways I carry forward from this study, methodologically and substantively.</p>
+
+        <h3 class="case-h3">01 · Filtering the sample is half the finding</h3>
+        <p>Most urban hedonic work pools all neighborhoods together and ends up averaging away exactly the dynamics we wanted to see. Restricting to <strong>high-poverty tracts</strong> was the move that surfaced the park inversion and the transit non-effect — both of which would have been buried inside a city-wide regression. <em>The poverty filter wasn't a constraint, it was the lens.</em></p>
+
+        <h3 class="case-h3">02 · Robustness in social science comes from the inter-city test</h3>
+        <p>Each city-level finding became more credible once it survived the inter-city pool — and where the inter-city result held but a single city diverged, that divergence was a finding in its own right (Chicago's single-family premium, LA's commercial atmosphere, NYC's hospital flattening). Building the analysis as <strong>two levels rather than one</strong> turned what would have been three parallel papers into a single nested argument.</p>
+
+        <h3 class="case-h3">03 · Map first, table second</h3>
+        <p>Before any regression we drew the hero scatter and three choropleths. They forced us to sanity-check the poverty filter, the tract joins, and the listing density before we asked R for a coefficient. Half the data-cleaning bugs we caught were caught visually — and the same maps did most of the explanatory work in the final readout.</p>
+
+        <a class="repo-cta" href="https://github.com/macs30112-winter24/final-project-umai" target="_blank" rel="noopener">
+          <div class="repo-cta-label">Source code &amp; data</div>
+          <div class="repo-cta-title"><span>macs30112-winter24 / final-project-umai</span><span class="arrow">↗</span></div>
+          <div class="repo-cta-sub">Scrapers, cleaned CSVs, R regression script, and the plotly + geopandas mapping notebook.</div>
+        </a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ── DECK EMBED ── -->
+<section class="deck-section">
+  <div class="deck-inner">
+    <div class="deck-eyebrow">Full presentation</div>
+    <h2 class="deck-h2">The deck, in full.</h2>
+    <p class="deck-sub">The slides we presented at the MACS 30112 final readout, including the full set of choropleths, regression tables, and per-city coefficient comparisons.</p>
+
+    <div class="deck-frame-wrap">
+      <iframe
+        src="https://docs.google.com/presentation/d/1BUg9T88q1ukFAOcyZfjmlg_gqt3SNNtc/embed?start=false&loop=false&delayms=3000"
+        allow="autoplay; fullscreen"
+        allowfullscreen="true"
+        title="UMAI · Housing Prices in High-Poverty Neighborhoods · Full Deck">
+      </iframe>
+    </div>
+
+    <div class="deck-meta">
+      <div class="deck-meta-info">Google Slides · use arrow keys to navigate · click ⛶ for fullscreen</div>
+      <a class="deck-open" href="https://docs.google.com/presentation/d/1BUg9T88q1ukFAOcyZfjmlg_gqt3SNNtc/edit" target="_blank" rel="noopener">
+        Open in Google Slides <span style="font-size:13px;">↗</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span class="footer-logo">Frida Li, MA · User Researcher</span>
+  <div class="footer-links">
+    <a href="../Frida Li - Website.html#about">About</a>
+    <a href="../Frida Li - Website.html#projects">Projects</a>
+    <a href="../Frida Li - Website.html#contact">Contact</a>
+  </div>
+  <span class="footer-copy">© 2026</span>
+</footer>
+
+<script>
+const nav = document.getElementById('main-nav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 30);
+});
+
+const fadeEls = document.querySelectorAll('.fade-up');
+const fadeObs = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.1 });
+fadeEls.forEach(el => {
+  const r = el.getBoundingClientRect();
+  if (r.top < window.innerHeight) el.classList.add('visible');
+  else fadeObs.observe(el);
+});
+</script>
+</body>
+</html>

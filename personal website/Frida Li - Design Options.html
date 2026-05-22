@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Frida Li – Design Options</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=DM+Mono:wght@400;500&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script type="text/babel" src="design-canvas.jsx"></script>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { overflow: hidden; }
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+
+/* ─── OPTION 1: Warm Minimal ─────────────────────────────────
+   Cream background · Playfair Display serif headers · Terracotta accent
+   Generous whitespace, thin hairlines, understated elegance
+   ──────────────────────────────────────────────────────────── */
+function Option1() {
+  const [active, setActive] = React.useState('about');
+  const nav = ['about','projects','writing','contact'];
+
+  const styles1 = {
+    root: { fontFamily: "'DM Sans', sans-serif", background: '#faf7f2', minHeight: '100%', color: '#2a2318' },
+    header: { padding: '32px 48px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid #e8e0d4' },
+    logo: { fontFamily: "'Playfair Display', serif", fontSize: 20, fontWeight: 400, letterSpacing: 0.3 },
+    nav: { display: 'flex', gap: 32 },
+    navItem: (a) => ({ fontSize: 13, fontWeight: 400, letterSpacing: 0.8, textTransform: 'uppercase', cursor: 'pointer', color: a ? '#b85c38' : '#6b5c4a', borderBottom: a ? '1px solid #b85c38' : 'none', paddingBottom: 2, transition: 'color 0.2s' }),
+    hero: { padding: '72px 48px 56px', borderBottom: '1px solid #e8e0d4' },
+    heroEye: { fontSize: 11, letterSpacing: 2, textTransform: 'uppercase', color: '#b85c38', marginBottom: 20, fontWeight: 500 },
+    heroName: { fontFamily: "'Playfair Display', serif", fontSize: 52, fontWeight: 400, lineHeight: 1.1, marginBottom: 20, color: '#1a1208' },
+    heroSub: { fontSize: 15, color: '#6b5c4a', lineHeight: 1.7, maxWidth: 480 },
+    section: { padding: '48px 48px 40px' },
+    secLabel: { fontSize: 11, letterSpacing: 2, textTransform: 'uppercase', color: '#b85c38', marginBottom: 28, fontWeight: 500 },
+    jobRow: { marginBottom: 28, paddingBottom: 28, borderBottom: '1px solid #e8e0d4' },
+    jobTitle: { fontFamily: "'Playfair Display', serif", fontSize: 17, fontWeight: 400, marginBottom: 4 },
+    jobMeta: { fontSize: 12, color: '#9a8878', letterSpacing: 0.3 },
+    jobDesc: { fontSize: 13, color: '#5a4a38', lineHeight: 1.7, marginTop: 8, maxWidth: 420 },
+    skillTag: { display: 'inline-block', border: '1px solid #d4c8bc', padding: '4px 12px', fontSize: 11, letterSpacing: 0.5, marginRight: 8, marginBottom: 8, color: '#6b5c4a', borderRadius: 2 },
+  };
+
+  return (
+    <div style={styles1.root}>
+      <div style={styles1.header}>
+        <span style={styles1.logo}>Frida Li</span>
+        <nav style={styles1.nav}>
+          {nav.map(n => <span key={n} style={styles1.navItem(active===n)} onClick={() => setActive(n)}>{n}</span>)}
+        </nav>
+      </div>
+      <div style={styles1.hero}>
+        <div style={styles1.heroEye}>UX Researcher</div>
+        <div style={styles1.heroName}>I study how people<br/><em>experience</em> technology.</div>
+        <div style={styles1.heroSub}>I'm a UX researcher who specializes in qualitative methods, consumer insights, and human-robot interaction. Currently open to new opportunities.</div>
+      </div>
+      <div style={styles1.section}>
+        <div style={styles1.secLabel}>Experience</div>
+        {[
+          { title: 'User Experience Researcher / Consumer Insights', org: 'Anker Innovations', date: 'Feb 2025 – Feb 2026', desc: 'Led consumer research initiatives to inform product strategy and UX direction across global markets.' },
+          { title: 'Research Assistant', org: 'Human-Robot Interaction Lab', date: 'Mar – Dec 2024', desc: 'Conducted studies exploring how people build trust and rapport with social robots.' },
+          { title: 'UX Researcher Intern', org: 'TikTok', date: 'Apr – Aug 2023', desc: 'Ran mixed-methods research to surface user needs for content discovery features.' },
+        ].map(j => (
+          <div key={j.org} style={styles1.jobRow}>
+            <div style={styles1.jobTitle}>{j.title}</div>
+            <div style={styles1.jobMeta}>{j.org} · {j.date}</div>
+            <div style={styles1.jobDesc}>{j.desc}</div>
+          </div>
+        ))}
+        <div style={styles1.secLabel}>Skills</div>
+        {['User Interviews','Usability Testing','Survey Design','Affinity Mapping','Figma','Statistical Analysis','Python'].map(s => (
+          <span key={s} style={styles1.skillTag}>{s}</span>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+/* ─── OPTION 2: Editorial Bold ───────────────────────────────
+   White bg · Outfit sans-serif · Large typographic hero
+   Amber/ochre accent · asymmetric grid feel
+   ──────────────────────────────────────────────────────────── */
+function Option2() {
+  const [active, setActive] = React.useState('about');
+  const nav = ['about','projects','writing','contact'];
+
+  const s2 = {
+    root: { fontFamily: "'Outfit', sans-serif", background: '#ffffff', minHeight: '100%', color: '#111' },
+    header: { padding: '24px 40px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' },
+    logo: { fontSize: 15, fontWeight: 600, letterSpacing: -0.3, color: '#111' },
+    nav: { display: 'flex', gap: 4 },
+    navItem: (a) => ({ fontSize: 13, fontWeight: 500, cursor: 'pointer', padding: '6px 14px', borderRadius: 20, background: a ? '#e8a020' : 'transparent', color: a ? '#fff' : '#555', transition: 'all 0.2s' }),
+    accent: { background: '#e8a020', padding: '64px 40px 56px' },
+    accentSub: { fontSize: 12, fontWeight: 600, letterSpacing: 2, textTransform: 'uppercase', color: 'rgba(255,255,255,0.75)', marginBottom: 16 },
+    accentName: { fontFamily: "'Outfit', sans-serif", fontSize: 56, fontWeight: 600, lineHeight: 1.0, color: '#fff', letterSpacing: -1, marginBottom: 20 },
+    accentDesc: { fontSize: 15, color: 'rgba(255,255,255,0.85)', lineHeight: 1.6, maxWidth: 440, fontWeight: 300 },
+    body: { padding: '48px 40px' },
+    twoCol: { display: 'grid', gridTemplateColumns: '140px 1fr', gap: '0 32px', marginBottom: 32 },
+    colLabel: { fontSize: 11, fontWeight: 600, letterSpacing: 1.5, textTransform: 'uppercase', color: '#e8a020', paddingTop: 3 },
+    jobTitle: { fontSize: 15, fontWeight: 600, marginBottom: 2, lineHeight: 1.3 },
+    jobMeta: { fontSize: 12, color: '#999', marginBottom: 6 },
+    jobDesc: { fontSize: 12.5, color: '#555', lineHeight: 1.65 },
+    divider: { borderTop: '1px solid #f0f0f0', margin: '24px 0' },
+    pill: { display: 'inline-block', background: '#fff8ed', border: '1px solid #f5d9a0', color: '#8a5f10', fontSize: 11, fontWeight: 500, padding: '4px 12px', borderRadius: 20, marginRight: 6, marginBottom: 6 },
+  };
+
+  return (
+    <div style={s2.root}>
+      <div style={s2.header}>
+        <span style={s2.logo}>Frida Li ↗</span>
+        <nav style={s2.nav}>
+          {nav.map(n => <span key={n} style={s2.navItem(active===n)} onClick={() => setActive(n)}>{n}</span>)}
+        </nav>
+      </div>
+      <div style={s2.accent}>
+        <div style={s2.accentSub}>UX Researcher & Consumer Insights</div>
+        <div style={s2.accentName}>Turning messy<br/>human behavior<br/>into clarity.</div>
+        <div style={s2.accentDesc}>I use qualitative and quantitative methods to understand people — and help teams build things they'll actually love.</div>
+      </div>
+      <div style={s2.body}>
+        <div style={s2.twoCol}>
+          <div style={s2.colLabel}>Experience</div>
+          <div>
+            {[
+              { title: 'UX Researcher / Consumer Insights', org: 'Anker Innovations', date: 'Feb 2025 – Feb 2026', desc: 'Led research to inform product strategy and UX for global consumer electronics.' },
+              { title: 'Research Assistant, HRI Lab', org: 'University Research', date: 'Mar – Dec 2024', desc: 'Studied human-robot interaction patterns and social trust formation.' },
+              { title: 'UX Researcher Intern', org: 'TikTok', date: 'Apr – Aug 2023', desc: 'Mixed-methods research for content discovery features at scale.' },
+              { title: 'Graduate Researcher', org: 'Australian National University', date: 'Feb – Dec 2022', desc: 'Conducted foundational academic research on digital interaction.' },
+            ].map((j,i) => (
+              <div key={i} style={{ marginBottom: 20 }}>
+                <div style={s2.jobTitle}>{j.title}</div>
+                <div style={s2.jobMeta}>{j.org} · {j.date}</div>
+                <div style={s2.jobDesc}>{j.desc}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+        <div style={s2.divider}/>
+        <div style={s2.twoCol}>
+          <div style={s2.colLabel}>Skills</div>
+          <div>
+            {['User Interviews','Usability Testing','Survey Design','Affinity Mapping','Figma','Statistical Analysis','Python','Report Writing'].map(s => (
+              <span key={s} style={s2.pill}>{s}</span>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* ─── OPTION 3: Cozy Academic ────────────────────────────────
+   Sand bg · Cormorant Garamond large serif · DM Mono accents
+   Sage green · dense but airy, footnote-style metadata
+   ──────────────────────────────────────────────────────────── */
+function Option3() {
+  const [active, setActive] = React.useState('about');
+  const nav = ['about','projects','writing','contact'];
+
+  const s3 = {
+    root: { fontFamily: "'Cormorant Garamond', serif", background: '#f5f2ec', minHeight: '100%', color: '#1e1a13' },
+    header: { padding: '28px 52px', display: 'flex', justifyContent: 'space-between', alignItems: 'baseline' },
+    logo: { fontSize: 18, fontWeight: 600, letterSpacing: 0.5 },
+    nav: { display: 'flex', gap: 36 },
+    navItem: (a) => ({ fontFamily: "'DM Mono', monospace", fontSize: 11, letterSpacing: 0.5, cursor: 'pointer', color: a ? '#4a7c59' : '#8a7a66', textDecoration: a ? 'underline' : 'none', textUnderlineOffset: 4, textDecorationColor: '#4a7c59' }),
+    heroWrap: { padding: '60px 52px 52px', borderTop: '1px solid #d8d0c4', borderBottom: '1px solid #d8d0c4', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 40 },
+    heroLeft: {},
+    heroNum: { fontFamily: "'DM Mono', monospace", fontSize: 10, color: '#4a7c59', letterSpacing: 1, marginBottom: 24 },
+    heroName: { fontSize: 58, fontWeight: 300, lineHeight: 1.05, color: '#1e1a13', marginBottom: 12, fontStyle: 'italic' },
+    heroRole: { fontSize: 14, fontWeight: 600, letterSpacing: 1, textTransform: 'uppercase', fontFamily: "'DM Mono', monospace", color: '#4a7c59', marginBottom: 0 },
+    heroRight: { paddingTop: 8 },
+    heroDesc: { fontSize: 18, fontWeight: 300, lineHeight: 1.7, color: '#4a3f2e', marginBottom: 24 },
+    heroContact: { fontFamily: "'DM Mono', monospace", fontSize: 10, color: '#8a7a66', letterSpacing: 0.5, lineHeight: 2 },
+    body: { padding: '44px 52px' },
+    secHead: { display: 'flex', alignItems: 'center', gap: 12, marginBottom: 24 },
+    secNum: { fontFamily: "'DM Mono', monospace", fontSize: 9, color: '#4a7c59', letterSpacing: 1 },
+    secTitle: { fontSize: 13, letterSpacing: 2, textTransform: 'uppercase', fontWeight: 600, fontFamily: "'DM Mono', monospace", color: '#4a3f2e' },
+    jobRow: { display: 'grid', gridTemplateColumns: '140px 1fr', gap: '12px 24px', marginBottom: 20, paddingBottom: 20, borderBottom: '1px solid #ddd8cf' },
+    jobDate: { fontFamily: "'DM Mono', monospace", fontSize: 10, color: '#8a7a66', lineHeight: 1.8 },
+    jobTitle: { fontSize: 18, fontWeight: 400, fontStyle: 'italic', marginBottom: 2 },
+    jobOrg: { fontFamily: "'DM Mono', monospace", fontSize: 10, color: '#4a7c59', letterSpacing: 0.5, marginBottom: 6 },
+    jobDesc: { fontSize: 14, color: '#5a4e3e', lineHeight: 1.7, fontWeight: 300 },
+  };
+
+  return (
+    <div style={s3.root}>
+      <div style={s3.header}>
+        <span style={s3.logo}>Frida Li</span>
+        <nav style={s3.nav}>
+          {nav.map(n => <span key={n} style={s3.navItem(active===n)} onClick={() => setActive(n)}>{n}</span>)}
+        </nav>
+      </div>
+      <div style={s3.heroWrap}>
+        <div style={s3.heroLeft}>
+          <div style={s3.heroNum}>№ 001</div>
+          <div style={s3.heroName}>Frida<br/>Li</div>
+          <div style={s3.heroRole}>UX Researcher</div>
+        </div>
+        <div style={s3.heroRight}>
+          <div style={s3.heroDesc}>I research how people make sense of the things they use — and help teams build with that understanding at the center.</div>
+          <div style={s3.heroContact}>
+            xueweili.frida@gmail.com<br/>
+            linkedin.com/in/xueweili
+          </div>
+        </div>
+      </div>
+      <div style={s3.body}>
+        <div style={s3.secHead}><span style={s3.secNum}>§01</span><span style={s3.secTitle}>Experience</span></div>
+        {[
+          { title: 'User Experience Researcher', org: 'ANKER INNOVATIONS', date: 'Feb 2025\n–\nFeb 2026', desc: 'Consumer insights research supporting product strategy and UX decisions for global markets.' },
+          { title: 'Research Assistant', org: 'HRI LAB', date: 'Mar – Dec\n2024', desc: 'Investigated human-robot interaction and the social dynamics of trust with AI systems.' },
+          { title: 'UX Researcher Intern', org: 'TIKTOK', date: 'Apr – Aug\n2023', desc: 'Mixed-methods research on content discovery and creator-audience relationships.' },
+          { title: 'Graduate Researcher', org: 'AUSTRALIAN NATIONAL UNIVERSITY', date: 'Feb – Dec\n2022', desc: 'Academic research on human-computer interaction and digital behavior.' },
+        ].map(j => (
+          <div key={j.org} style={s3.jobRow}>
+            <div style={s3.jobDate}>{j.date}</div>
+            <div>
+              <div style={s3.jobTitle}>{j.title}</div>
+              <div style={s3.jobOrg}>{j.org}</div>
+              <div style={s3.jobDesc}>{j.desc}</div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+/* ─── CANVAS ─────────────────────────────────────────────── */
+function App() {
+  return (
+    <DesignCanvas>
+      <DCSection
+        title="Frida Li — Personal Website · 3 Design Options"
+        subtitle="Scroll / pinch to zoom · drag background to pan · click nav items to interact"
+      >
+        <DCArtboard label="Option 1 — Warm Minimal  (serif · cream · terracotta)" width={560} height={700}>
+          <Option1/>
+        </DCArtboard>
+        <DCArtboard label="Option 2 — Editorial Bold  (sans · white · amber)" width={560} height={700}>
+          <Option2/>
+        </DCArtboard>
+        <DCArtboard label="Option 3 — Cozy Academic  (serif+mono · sand · sage)" width={560} height={700}>
+          <Option3/>
+        </DCArtboard>
+      </DCSection>
+    </DesignCanvas>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App/>);
+</script>
+</body>
+</html>

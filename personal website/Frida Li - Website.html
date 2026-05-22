@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Frida Li — UX Researcher</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Inter', sans-serif;
+  color: #1a1208;
+  overflow-x: hidden;
+  line-height: 1.6;
+}
+
+/* ── section backgrounds: warm cream gradient steps ── */
+#about    { background: #faf7f2; }
+#projects { background: #f5f0e8; }
+#contact  { background: #f0ebe0; }
+
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: #f0ece4; }
+::-webkit-scrollbar-thumb { background: #c8b8a4; border-radius: 3px; }
+
+h1, h2, h3, h4 {
+  font-family: 'Space Grotesk', sans-serif;
+}
+
+/* ── fixed nav ── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  background: rgba(250, 247, 242, 0.92);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.3s;
+  height: 60px;
+  display: flex; align-items: center;
+  padding: 0 56px;
+  justify-content: space-between;
+}
+nav.scrolled { border-bottom-color: #e8e0d4; }
+.nav-logo {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 17px; font-weight: 500;
+  color: #1a1208; cursor: pointer; text-decoration: none;
+  letter-spacing: -0.2px;
+}
+.nav-links { display: flex; gap: 8px; list-style: none; }
+.nav-links a {
+  font-size: 12px; font-weight: 400; letter-spacing: 0.7px;
+  text-transform: uppercase; text-decoration: none;
+  color: #6b5c4a; padding: 5px 10px; border-radius: 20px;
+  transition: color 0.2s, background 0.2s;
+  white-space: nowrap;
+}
+.nav-links a:hover { color: #1a1208; }
+.nav-links a.active { color: #b85c38; background: rgba(184,92,56,0.08); }
+
+/* ── shared layout ── */
+.section-inner {
+  max-width: 1160px;
+  margin: 0 auto;
+  padding: 96px 56px;
+}
+.sec-label {
+  font-size: 10px; letter-spacing: 2.5px; text-transform: uppercase;
+  color: #b85c38; font-weight: 500; margin-bottom: 28px;
+  font-family: 'Inter', sans-serif;
+}
+.section-divider { border: none; border-top: 1px solid #e8e0d4; margin: 0; }
+
+/* ── about hero (new layout) ── */
+.about-hero {
+  padding-top: 120px;
+  padding-bottom: 72px;
+  border-bottom: 1px solid #e8e0d4;
+}
+.about-hero-inner {
+  max-width: 1160px;
+  margin: 0 auto;
+  padding: 0 56px;
+  display: grid;
+  grid-template-columns: 420px 1fr;
+  gap: 72px;
+  align-items: center;
+}
+.about-portrait {
+  margin: 0;
+}
+.about-portrait img {
+  width: 100%;
+  aspect-ratio: 4/5;
+  object-fit: cover;
+  object-position: 35% 30%;
+  border-radius: 4px;
+  display: block;
+  box-shadow: 0 24px 60px rgba(26,18,8,0.15);
+}
+.about-portrait figcaption {
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  color: #9a8878;
+  letter-spacing: 0.6px;
+  margin-top: 14px;
+  text-align: center;
+  font-style: italic;
+}
+.about-hero-text { padding-right: 12px; }
+.hero-eyebrow {
+  font-size: 11px; letter-spacing: 2px; text-transform: uppercase;
+  color: #b85c38; font-weight: 500; margin-bottom: 24px;
+  font-family: 'Inter', sans-serif;
+}
+.hero-h1 {
+  font-size: 64px; font-weight: 400; line-height: 1.04;
+  color: #1a1208; margin-bottom: 24px; letter-spacing: -1px;
+}
+.hero-tagline {
+  font-size: 18px; color: #4a3e2e; line-height: 1.65;
+  max-width: 520px; margin-bottom: 36px;
+  font-family: 'Inter', sans-serif; font-weight: 300;
+}
+.hero-tagline .accent {
+  color: #b85c38; font-weight: 600;
+}
+.avail-pill {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: rgba(46, 125, 50, 0.08);
+  color: #2e7d32;
+  border: 1px solid rgba(46, 125, 50, 0.25);
+  padding: 6px 12px 6px 10px;
+  border-radius: 999px;
+  font-family: 'Inter', sans-serif;
+  font-size: 11px; font-weight: 500;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+}
+.avail-dot {
+  width: 7px; height: 7px; border-radius: 50%;
+  background: #2e7d32;
+  box-shadow: 0 0 0 0 rgba(46, 125, 50, 0.55);
+  animation: availPulse 2s infinite;
+}
+@keyframes availPulse {
+  0%   { box-shadow: 0 0 0 0 rgba(46, 125, 50, 0.55); }
+  70%  { box-shadow: 0 0 0 8px rgba(46, 125, 50, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(46, 125, 50, 0); }
+}
+.about-cta {
+  display: inline-block;
+  background: #1a1208; color: #faf7f2;
+  padding: 14px 28px;
+  font-size: 12px; letter-spacing: 1px;
+  text-transform: uppercase;
+  text-decoration: none;
+  font-weight: 500;
+  border-radius: 2px;
+  transition: background 0.2s, transform 0.2s;
+}
+.about-cta:hover {
+  background: #b85c38;
+  transform: translateY(-2px);
+}
+
+/* ── about body (new layout) ── */
+.about-body {
+  padding-top: 72px;
+  padding-bottom: 96px;
+}
+.about-block {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 80px;
+  padding: 56px 0;
+}
+.about-block:first-child { padding-top: 0; }
+.about-h2 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 28px;
+  font-weight: 500;
+  color: #1a1208;
+  letter-spacing: -0.3px;
+  position: sticky;
+  top: 96px;
+  align-self: start;
+}
+.about-prose { max-width: 680px; }
+.about-prose .body-text { font-size: 16px; line-height: 1.85; margin-bottom: 22px; color: #4a3e2e; }
+.about-prose .body-text strong { color: #1a1208; font-weight: 600; }
+.link-accent {
+  color: #b85c38; text-decoration: none; font-weight: 500;
+  border-bottom: 1px solid rgba(184,92,56,0.25);
+  transition: border-color 0.2s;
+}
+.link-accent:hover { border-bottom-color: #b85c38; }
+.interest-list, .method-list {
+  list-style: none; padding: 0; margin: 16px 0 0;
+}
+.interest-list li, .method-list li {
+  position: relative;
+  padding: 8px 0 8px 22px;
+  font-size: 15px; line-height: 1.6;
+  color: #4a3e2e;
+  border-bottom: 1px dashed #e8e0d4;
+}
+.interest-list li:last-child, .method-list li:last-child { border-bottom: none; }
+.interest-list li::before, .method-list li::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 18px;
+  width: 8px; height: 1px;
+  background: #b85c38;
+}
+.interest-list li strong, .method-list li strong { color: #1a1208; font-weight: 600; }
+.method-h3 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 16px; font-weight: 500;
+  color: #1a1208; margin: 36px 0 6px;
+  letter-spacing: 0.2px;
+}
+
+/* ── about body ── */
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 0 80px; }
+.body-text { font-size: 15px; color: #6b5c4a; line-height: 1.85; margin-bottom: 18px; }
+.skill-group { margin-bottom: 26px; }
+.skill-cat {
+  font-size: 10px; color: #9a8878; letter-spacing: 1px;
+  text-transform: uppercase; margin-bottom: 10px; font-weight: 500;
+}
+.skill-item {
+  display: flex; align-items: center; gap: 10px; margin-bottom: 7px;
+}
+.skill-dot { width: 4px; height: 4px; border-radius: 50%; background: #b85c38; flex-shrink: 0; }
+.skill-name { font-size: 14px; color: #6b5c4a; }
+
+/* ── case cards ── */
+.company-block { margin-bottom: 64px; }
+.company-block:last-child { margin-bottom: 0; }
+.company-label {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 18px; font-weight: 500; color: #1a1208;
+  margin-bottom: 24px; padding-bottom: 16px;
+  border-bottom: 1px solid #e8e0d4;
+}
+.cases-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+.case-card {
+  background: #faf7f2; border-radius: 6px; overflow: hidden;
+  border: 1px solid #e8e0d4; transition: box-shadow 0.35s ease, transform 0.35s ease;
+  transform: translateY(0);
+  display: block; text-decoration: none; color: inherit;
+}
+.case-card:hover { box-shadow: 0 20px 56px rgba(26,18,8,0.18); transform: translateY(-8px); }
+.case-img-wrap { aspect-ratio: 16 / 9; overflow: hidden; }
+.case-img-wrap img {
+  width: 100%; height: 100%; object-fit: cover;
+  display: block; transition: transform 0.4s ease;
+}
+.case-card:hover .case-img-wrap img { transform: scale(1.03); }
+.case-placeholder {
+  width: 100%; height: 100%; background: #ede8e0;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center; gap: 6px;
+}
+.case-placeholder-label {
+  font-size: 11px; color: #9a8878; letter-spacing: 1px;
+  font-family: 'Inter', sans-serif;
+}
+.case-body { padding: 22px 22px 26px; }
+.case-tag { font-size: 11px; color: #b85c38; font-weight: 500; letter-spacing: 0.4px; margin-bottom: 8px; }
+.case-title {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 18px; font-weight: 400; color: #1a1208;
+  line-height: 1.3; margin-bottom: 10px;
+}
+.case-desc { font-size: 13px; color: #6b5c4a; line-height: 1.8; margin-bottom: 14px; }
+.tag-row { display: flex; flex-wrap: wrap; gap: 6px; }
+.tag {
+  padding: 3px 10px;
+  font-size: 11px; border-radius: 20px; font-weight: 500;
+}
+.tag:nth-child(4n+1) { background: #fde8d8; color: #9a3a1a; border: 1px solid #f5c4a8; }
+.tag:nth-child(4n+2) { background: #d8ecd8; color: #2a622a; border: 1px solid #a8d4a8; }
+.tag:nth-child(4n+3) { background: #d8e4f5; color: #1a3a7a; border: 1px solid #a8c0e8; }
+.tag:nth-child(4n+4) { background: #f5e8d8; color: #7a4a1a; border: 1px solid #e0c8a0; }
+
+/* ── opinions ── */
+.opinion-row {
+  display: grid; grid-template-columns: 160px 1fr; gap: 0 56px;
+  padding: 44px 0; border-bottom: 1px solid #e8e0d4;
+}
+.opinion-row:last-child { border-bottom: none; }
+.opinion-topic {
+  font-size: 10px; letter-spacing: 2px; text-transform: uppercase;
+  color: #b85c38; font-weight: 500; margin-bottom: 8px;
+  font-family: 'Inter', sans-serif;
+}
+.opinion-meta { font-size: 12px; color: #9a8878; }
+.opinion-title {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 26px; font-weight: 400; color: #1a1208;
+  line-height: 1.2; margin-bottom: 14px; cursor: pointer;
+  transition: color 0.2s;
+}
+.opinion-title:hover { color: #b85c38; }
+.opinion-desc { font-size: 14.5px; color: #6b5c4a; line-height: 1.85; max-width: 580px; }
+.read-link { margin-top: 18px; font-size: 12px; color: #b85c38; cursor: pointer; letter-spacing: 0.4px; }
+
+/* ── books ── */
+.books-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 48px; }
+.book-cover-wrap { height: 270px; display: flex; align-items: flex-start; margin-bottom: 18px; }
+.book-cover-wrap img {
+  height: 100%; width: auto; max-width: 100%;
+  object-fit: cover; border-radius: 3px;
+  box-shadow: 4px 5px 18px rgba(0,0,0,0.18);
+}
+.book-cover-fallback {
+  width: 175px; height: 260px; background: #ede8e0;
+  border-radius: 3px; box-shadow: 4px 5px 18px rgba(0,0,0,0.12);
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  padding: 20px; text-align: center;
+}
+.book-title {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 17px; font-weight: 400; color: #1a1208; margin-bottom: 4px;
+}
+.book-author { font-size: 12px; color: #9a8878; margin-bottom: 12px; }
+.book-note { font-size: 13.5px; color: #6b5c4a; line-height: 1.8; }
+
+/* ── contact ── */
+.contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0 80px; }
+.form-label {
+  font-size: 10px; letter-spacing: 1px; text-transform: uppercase;
+  color: #9a8878; display: block; margin-bottom: 8px;
+}
+.form-input {
+  width: 100%; background: transparent;
+  border: none; border-bottom: 1px solid #e8e0d4;
+  padding: 10px 0; font-size: 14px; color: #1a1208;
+  font-family: 'Inter', sans-serif; outline: none;
+  margin-bottom: 28px; display: block; transition: border-color 0.2s;
+}
+.form-input:focus { border-bottom-color: #b85c38; }
+.form-textarea { resize: none; height: 110px; }
+.submit-btn {
+  background: #b85c38; color: #fff; border: none;
+  padding: 11px 30px; font-size: 11px; letter-spacing: 1px;
+  text-transform: uppercase; cursor: pointer; border-radius: 2px;
+  font-family: 'Inter', sans-serif; font-weight: 500;
+  transition: opacity 0.2s;
+}
+.submit-btn:hover { opacity: 0.85; }
+.contact-detail { margin-bottom: 22px; padding-bottom: 22px; border-bottom: 1px solid #e8e0d4; }
+.contact-detail-label {
+  font-size: 10px; color: #9a8878; letter-spacing: 1px;
+  text-transform: uppercase; margin-bottom: 6px;
+}
+.contact-detail a {
+  font-size: 14px; color: #1a1208; text-decoration: none; transition: color 0.2s;
+}
+.contact-detail a:hover { color: #b85c38; }
+.currently-text { font-size: 14.5px; color: #6b5c4a; line-height: 1.85; }
+
+/* ── footer ── */
+footer {
+  background: #1a1208; color: #9a8878;
+  padding: 36px 56px;
+  display: flex; justify-content: space-between; align-items: center;
+  max-width: 100%;
+}
+.footer-logo { font-family: 'Space Grotesk', sans-serif; font-size: 14px; color: #c8b8a4; }
+.footer-links { display: flex; gap: 24px; }
+.footer-links a {
+  font-size: 10px; color: #6b5c4a; letter-spacing: 0.8px;
+  text-transform: uppercase; text-decoration: none; cursor: pointer;
+  transition: color 0.2s; white-space: nowrap;
+}
+.footer-links a:hover { color: #c8b8a4; }
+.footer-copy { font-size: 12px; }
+
+/* ── animations ── */
+.fade-up { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
+.fade-up.visible { opacity: 1; transform: translateY(0); }
+.delay-1 { transition-delay: 0.1s; }
+.delay-2 { transition-delay: 0.2s; }
+.delay-3 { transition-delay: 0.3s; }
+</style>
+</head>
+<body>
+
+<!-- ── NAV ── -->
+<nav id="main-nav">
+  <a class="nav-logo" href="#about">Frida Li, MA</a>
+  <ul class="nav-links">
+    <li><a href="#about" class="nav-link active">About</a></li>
+    <li><a href="#projects" class="nav-link">Projects</a></li>
+    <li><a href="#contact" class="nav-link">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- ════════════════════════════════════════════════════
+     ABOUT
+════════════════════════════════════════════════════ -->
+<section id="about">
+
+  <!-- Hero: portrait left, intro right -->
+  <div class="about-hero">
+    <div class="about-hero-inner">
+      <figure class="about-portrait fade-up">
+        <img src="assets/frida-yulong.jpg" alt="Frida Li at Yulong Snow Mountain"/>
+        <figcaption>Yulong Snow Mountain, Yunnan, China · March 2026<br/>(13,123 feet above the ground.)</figcaption>
+      </figure>
+      <div class="about-hero-text">
+        <div class="hero-eyebrow fade-up">RESEARCH · INSIGHTS · STRATEGY</div>
+        <span class="avail-pill fade-up"><span class="avail-dot"></span> Open to new opportunities</span>
+        <h1 class="hero-h1 fade-up delay-1">Frida Li, <span style="color:#b85c38;">MA</span></h1>
+        <p class="hero-tagline fade-up delay-2">Turning user data into business insights for consumer technology companies, big and small.</p>
+        <a href="#read-more" class="about-cta fade-up delay-3">Read more about me</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- About Me -->
+  <div id="read-more" class="section-inner about-body">
+    <div class="about-block">
+      <h2 class="about-h2">About Me</h2>
+      <div class="about-prose">
+        <p class="body-text">I'm Frida Li (she/her), a social scientist and user researcher with 2+ years of experience across health wearables, e-commerce, and research workflow scaleability. I'm now looking for my next role in UX research, consumer insights, or strategy and operations.</p>
+        <p class="body-text">Most recently, I was the sole researcher at <a class="link-accent" href="https://www.anker-in.com/brands" target="_blank" rel="noopener">Anker Innovations</a>, where I led research for their health wearable team that directly shaped the product roadmap. [<a class="link-accent" href="cases/case-health-wearable.html">see this case for example</a>] Alongside that, I built the company's research infrastructure from scratch, including a 70,000-user panel with 100+ behavioral and attitudinal user tags, and a Claude Code-powered Research Agent that lets product teams run synthetic user interviews for early-stage concept testing and pain point discovery (32% adoption across 25 product teams in 30 days).</p>
+        <p class="body-text">Before Anker, I spent time at <a class="link-accent" href="https://newsroom.tiktok.com/introducing-tiktok-shop?lang=en" target="_blank" rel="noopener">TikTok Shop</a>, leading research across Southeast Asia, where my projects touched on <strong>creator commerce</strong>, <strong>user shopping experience</strong>, and <strong>localized shopping behavior</strong>. My findings directly shaped <strong>creator strategy</strong> and <strong>product direction</strong>. [<a class="link-accent" href="cases/case-tiktok-creator.html">see this case for example</a>]</p>
+        <p class="body-text">On the side, I'm a licensed English-Mandarin interpreter and have spent 6+ years coaching Chinese students through the IELTS, the English proficiency exam required for university admission in most English-speaking countries. My students range from college seniors to seasoned professionals making a mid-career leap, and getting to learn from each of them has been one of the best things in my life.</p>
+        <p class="body-text">I'm currently based in Seattle, after having lived in Chicago, Shanghai, Melbourne, Canberra, and Shenzhen. San Francisco and New York are next on the list, if life permits.</p>
+      </div>
+    </div>
+
+    <hr class="section-divider"/>
+
+    <!-- Background -->
+    <div class="about-block">
+      <h2 class="about-h2">Background</h2>
+      <div class="about-prose">
+        <p class="body-text">I received my second MA in Social Sciences from the <a class="link-accent" href="https://mapss.uchicago.edu/" target="_blank" rel="noopener">Master of Arts Program in Social Sciences</a> at the <strong>University of Chicago</strong>, where I was advised by <a class="link-accent" href="https://www.bc.edu/bc-web/schools/morrissey/departments/political-science/people/faculty-directory/jingyuan-qian.html" target="_blank" rel="noopener">Jingyuan Qian</a>. I received my first MA in Political Science at <strong>Australian National University</strong>, where I was advised by <a class="link-accent" href="https://bellschool.anu.edu.au/people/fengming-lu" target="_blank" rel="noopener">Fengming Lu</a>. Before graduate school, I was also a researcher in the <a class="link-accent" href="https://www.isss.pku.edu.cn/english/center/introduction1/index.htm" target="_blank" rel="noopener">Chinese Institute of Social Science Survey</a> at <strong>Peking University</strong> and <a class="link-accent" href="https://en.cgpi.org.cn/aboutuscollege/aboutuscgpi/bid/51.html" target="_blank" rel="noopener">China Global Philanthropy Institute</a>, the first NGO in China dedicated to philanthropy education, founded by Ray Dalio, Bill Gates, and others.</p>
+        <p class="body-text">You can find my selected project portfolio in the Projects section of this page.</p>
+      </div>
+    </div>
+
+    <hr class="section-divider"/>
+
+    <!-- Research Interests -->
+    <div class="about-block">
+      <h2 class="about-h2">Research Interests</h2>
+      <div class="about-prose">
+        <p class="body-text">In my professional work, I conduct user experience research on consumer products and e-commerce platforms, with a particular interest in how people make meaning of the technology they live with.</p>
+        <ul class="interest-list">
+          <li><strong>Health &amp; wearable technology</strong>, behavior change, and long-term product engagement</li>
+          <li><strong>Creator commerce</strong>, social shopping, and platform monetization</li>
+          <li><strong>Cross-cultural product research</strong>, particularly across Southeast Asia and Greater China</li>
+          <li><strong>Human-AI interaction</strong>, AI interview agents, and synthetic users</li>
+        </ul>
+      </div>
+    </div>
+
+    <hr class="section-divider"/>
+
+    <!-- Research Methods -->
+    <div class="about-block">
+      <h2 class="about-h2">Research Methods</h2>
+      <div class="about-prose">
+        <p class="body-text">I have over 2 years of mixed-methods research experience:</p>
+
+        <h3 class="method-h3">Qualitative methods</h3>
+        <ul class="method-list">
+          <li>In-depth interviews &amp; contextual inquiry</li>
+          <li>Usability testing &amp; think-aloud protocol</li>
+          <li>Concept testing &amp; co-design workshops</li>
+          <li>Affinity mapping &amp; thematic analysis</li>
+          <li>International fieldwork &amp; cross-cultural research</li>
+        </ul>
+
+        <h3 class="method-h3">Quantitative methods</h3>
+        <ul class="method-list">
+          <li>Survey sampling, design, &amp; analysis</li>
+          <li>User segmentation &amp; archetype development</li>
+          <li>Behavioral data analysis</li>
+          <li>Statistical modeling (descriptive &amp; inferential)</li>
+        </ul>
+
+        <h3 class="method-h3">Tools</h3>
+        <ul class="method-list">
+          <li>Figma, FigJam</li>
+          <li>UserTesting, SurveyMonkey, Qualtrics</li>
+          <li>Google Analytics</li>
+          <li>R &amp; Python for data analysis</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════
+     PROJECTS
+════════════════════════════════════════════════════ -->
+<section id="projects">
+  <div class="section-inner">
+    <div style="margin-bottom: 56px;">
+      <div class="sec-label">Projects</div>
+      <h2 style="font-size: 40px; font-weight: 400; color: #1a1208; line-height: 1.1; max-width: 520px; letter-spacing: -0.3px;">Research in action.</h2>
+    </div>
+
+    <!-- Generative Studies -->
+    <div class="company-block">
+      <div class="company-label">Generative Studies</div>
+      <div class="cases-grid">
+        <a class="case-card" href="cases/case-health-wearable.html">
+          <div class="case-img-wrap">
+            <img src="assets/case1-cover.jpg" alt="Health Wearable Study"/>
+          </div>
+          <div class="case-body">
+            <div class="case-tag">Anker Innovations · 2025</div>
+            <div class="case-title">Understanding Health Wearable Users: A User Archetype Study</div>
+            <p class="case-desc" style="font-size: 13px;">A new product team at Anker had to ship the company's first health wearable with no prior user research. I led a mixed-methods study (10 in-depth interviews, ~300-person survey) that produced four user archetypes, a jobs-to-be-done map, and the v1 product roadmap.</p>
+            <div class="tag-row">
+              <span class="tag">In-depth Interviews</span>
+              <span class="tag">Survey</span>
+              <span class="tag">Archetype Development</span>
+              <span class="tag">Exploratory Study</span>
+            </div>
+          </div>
+        </a>
+        <a class="case-card" href="cases/case-tiktok-creator.html">
+          <div class="case-img-wrap">
+            <img src="assets/case-tiktok-1-cover.png" alt="TikTok Shop Malaysia Creator Commerce Study"/>
+          </div>
+          <div class="case-body">
+            <div class="case-tag">TikTok · 2023</div>
+            <div class="case-title">Can TikTok Creators Sell? A Survey Study</div>
+            <p class="case-desc">Six months after launch in Malaysia, TikTok Shop's growth had plateaued, yet backend data showed creators were already driving 14% of purchases with zero investment. I designed a three-week, three-segment survey (n=2,500) that surfaced creators as an untapped commercial channel and seeded the first creator-partnership program.</p>
+            <div class="tag-row">
+              <span class="tag">Survey Design</span>
+              <span class="tag">User Segmentation</span>
+              <span class="tag">Cross-Market Research</span>
+              <span class="tag">Strategic Study</span>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <!-- Evaluative Studies -->
+    <div class="company-block">
+      <div class="company-label">Evaluative Studies</div>
+      <div class="cases-grid">
+        <div class="case-card">
+          <div class="case-img-wrap">
+            <img src="assets/case-tiktok-2-cover.png?v=3" alt="TikTok Shop Post-Shopping Experience Survey Usability Study"/>
+          </div>
+          <div class="case-body">
+            <div class="case-tag">TikTok · 2023</div>
+            <div class="case-title">Why Promoters Churned and Detractors Repurchased? A Survey Usability Study</div>
+            <p class="case-desc">The post-shopping survey stopped predicting buying behavior across five SEA markets; 20 think-aloud sessions diagnosed the UI breakdowns, and visual anchors, localized copy, and a per-market guide shipped in the next release.</p>
+            <div class="tag-row">
+              <span class="tag">Usability Study</span>
+              <span class="tag">Cross-Cultural Research</span>
+              <span class="tag">Think-Aloud Protocol</span>
+              <span class="tag">Diagnostic Study</span>
+            </div>
+          </div>
+        </div>
+        <a class="case-card" href="cases/case-ai-agent.html">
+          <div class="case-img-wrap" style="background:#fff;">
+            <img src="assets/case2-cover.jpg" alt="AI Interview Agents Study" style="object-fit: contain;"/>
+          </div>
+          <div class="case-body">
+            <div class="case-tag">Anker Innovations · 2025</div>
+            <div class="case-title">Does AI Interview Agent Work? An Agent Usability Study</div>
+            <p class="case-desc">I designed and ran a study evaluating how AI interview agents perform compared to human moderators, and whether synthetic users can substitute real participants in product discovery.</p>
+            <div class="tag-row">
+              <span class="tag">Agentic Usability Study</span>
+              <span class="tag">Prototype Testing</span>
+              <span class="tag">Problem Statement</span>
+              <span class="tag">Evaluative Study</span>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <!-- Social Science Studies -->
+    <div class="company-block">
+      <div class="company-label">Social Science Studies</div>
+      <div class="cases-grid">
+        <a class="case-card" href="cases/case-housing.html">
+          <div class="case-img-wrap" style="background:#fff;">
+            <img src="assets/case-housing-cover.png" alt="2022 Poverty Rate by Neighborhood — NYC, LA, Chicago" style="object-fit: contain; padding: 12px;"/>
+          </div>
+          <div class="case-body">
+            <div class="case-tag">University of Chicago · 2024</div>
+            <div class="case-title">What Drives Housing Prices in U.S. High-Poverty Neighborhoods? A Computational Social Science Study</div>
+            <p class="case-desc">A team final project for MACS 30112 at UChicago, examining whether housing attributes or neighborhood resources better explain prices in high-poverty tracts across NYC, LA, and Chicago. We scraped Redfin listings and joined them with city open-data layers (parks, transit, hospitals, crime). Regression analysis showed neighborhood attributes outweighed housing attributes overall, with each city showing distinct local preferences: Chicago favoring single-family residential, LA weighting business atmosphere, and NYC discounting hospital proximity.</p>
+            <div class="tag-row">
+              <span class="tag">Web Scraping</span>
+              <span class="tag">Geospatial Analysis</span>
+              <span class="tag">Regression Modeling</span>
+              <span class="tag">Cross-City Comparison</span>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════
+     CONTACT
+════════════════════════════════════════════════════ -->
+<section id="contact">
+  <div class="section-inner">
+    <div style="margin-bottom: 52px;">
+      <div class="sec-label">Contact</div>
+      <h2 style="font-size: 40px; font-weight: 400; color: #1a1208; line-height: 1.1; max-width: 520px; letter-spacing: -0.3px;">Let's talk research, collaboration, or coffee.</h2>
+    </div>
+
+    <div class="contact-grid">
+      <div>
+        <div class="sec-label">Send a message</div>
+        <form id="contact-form" onsubmit="handleSubmit(event)">
+          <label class="form-label">Name</label>
+          <input class="form-input" id="f-name" type="text" placeholder="Your name"/>
+          <label class="form-label">Email</label>
+          <input class="form-input" id="f-email" type="email" placeholder="your@email.com"/>
+          <label class="form-label">Message</label>
+          <textarea class="form-input form-textarea" id="f-msg" placeholder="What's on your mind?"></textarea>
+          <button class="submit-btn" type="submit">Send message</button>
+        </form>
+        <div id="contact-thanks" style="display:none; padding: 24px 0;">
+          <h3 style="font-size: 22px; font-weight: 400; margin-bottom: 10px;">Thank you.</h3>
+          <p style="font-size: 15px; color: #6b5c4a; line-height: 1.8;">I'll get back to you soon — usually within a few days.</p>
+        </div>
+      </div>
+
+      <div>
+        <div class="sec-label">Find me</div>
+        <div class="contact-detail">
+          <div class="contact-detail-label">Email</div>
+          <a href="mailto:xueweili.frida@gmail.com">xueweili.frida@gmail.com</a>
+        </div>
+        <div class="contact-detail">
+          <div class="contact-detail-label">LinkedIn</div>
+          <a href="https://www.linkedin.com/in/xueweili/" target="_blank" rel="noopener">linkedin.com/in/xueweili/</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <span class="footer-logo">Frida Li, MA · User Researcher</span>
+  <div class="footer-links">
+    <a href="#about">About</a>
+    <a href="#projects">Projects</a>
+    <a href="#contact">Contact</a>
+  </div>
+  <span class="footer-copy">© 2026</span>
+</footer>
+
+<script>
+// ── nav active state on scroll ──
+const sections = ['about','projects','contact'];
+const navLinks = document.querySelectorAll('.nav-link');
+const nav = document.getElementById('main-nav');
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      navLinks.forEach(l => l.classList.remove('active'));
+      const active = document.querySelector(`.nav-link[href="#${entry.target.id}"]`);
+      if (active) active.classList.add('active');
+    }
+  });
+}, { threshold: 0.3 });
+
+sections.forEach(id => {
+  const el = document.getElementById(id);
+  if (el) observer.observe(el);
+});
+
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 30);
+});
+
+// ── fade-up on scroll ──
+const fadeEls = document.querySelectorAll('.fade-up');
+const fadeObs = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.1 });
+fadeEls.forEach(el => {
+  const r = el.getBoundingClientRect();
+  if (r.top < window.innerHeight) { el.classList.add('visible'); }
+  else { fadeObs.observe(el); }
+});
+
+// ── contact form ──
+function handleSubmit(e) {
+  e.preventDefault();
+  const name = document.getElementById('f-name').value;
+  const email = document.getElementById('f-email').value;
+  const msg = document.getElementById('f-msg').value;
+  if (name && email && msg) {
+    document.getElementById('contact-form').style.display = 'none';
+    document.getElementById('contact-thanks').style.display = 'block';
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,842 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Does AI Interview Agents Work? A Usability Study — Frida Li</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Inter', sans-serif;
+  color: #1a1208;
+  background: #faf7f2;
+  line-height: 1.6;
+}
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: #f0ece4; }
+::-webkit-scrollbar-thumb { background: #c8b8a4; border-radius: 3px; }
+
+h1, h2, h3, h4 { font-family: 'Space Grotesk', sans-serif; }
+
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  background: rgba(250, 247, 242, 0.92);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.3s;
+  height: 60px;
+  display: flex; align-items: center;
+  padding: 0 56px;
+  justify-content: space-between;
+}
+nav.scrolled { border-bottom-color: #e8e0d4; }
+.nav-back {
+  font-family: 'Inter', sans-serif;
+  font-size: 12px; font-weight: 400; letter-spacing: 0.7px;
+  text-transform: uppercase; text-decoration: none;
+  color: #6b5c4a; padding: 5px 10px; border-radius: 20px;
+  transition: color 0.2s, background 0.2s;
+  display: inline-flex; align-items: center; gap: 8px;
+}
+.nav-back:hover { color: #b85c38; background: rgba(184,92,56,0.06); }
+.nav-back .arrow { font-family: 'Space Grotesk', sans-serif; font-size: 14px; }
+.nav-logo {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 17px; font-weight: 500;
+  color: #1a1208; cursor: pointer; text-decoration: none;
+  letter-spacing: -0.2px;
+}
+
+.section-inner { max-width: 1160px; margin: 0 auto; padding: 0 56px; }
+
+.case-hero {
+  padding-top: 140px;
+  padding-bottom: 80px;
+  border-bottom: 1px solid #e8e0d4;
+  background: #faf7f2;
+}
+.case-hero-inner {
+  max-width: 1160px; margin: 0 auto; padding: 0 56px;
+}
+.case-eyebrow {
+  font-size: 10px; letter-spacing: 2.5px; text-transform: uppercase;
+  color: #b85c38; font-weight: 500; margin-bottom: 28px;
+}
+.case-h1 {
+  font-size: 60px; font-weight: 400; line-height: 1.04;
+  color: #1a1208; margin-bottom: 28px; letter-spacing: -1px;
+  max-width: 900px;
+}
+.case-h1 em { font-style: normal; color: #b85c38; }
+.case-lede {
+  font-size: 19px; color: #4a3e2e; line-height: 1.7;
+  max-width: 720px; font-weight: 300;
+  margin-bottom: 56px;
+}
+.meta-row {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px;
+  padding-top: 32px; border-top: 1px solid #e8e0d4;
+}
+.meta-k {
+  font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase;
+  color: #9a8878; margin-bottom: 6px;
+}
+.meta-v {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 16px; font-weight: 500; color: #1a1208;
+}
+
+.case-body { padding: 56px 0 96px; background: #faf7f2; }
+
+.case-block {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 80px;
+  padding: 56px 0;
+}
+.case-block:first-child { padding-top: 24px; }
+.section-divider { border: none; border-top: 1px solid #e8e0d4; margin: 0; }
+
+.case-h2 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 28px;
+  font-weight: 500;
+  color: #1a1208;
+  letter-spacing: -0.3px;
+  position: sticky;
+  top: 96px;
+  align-self: start;
+}
+.case-h2 .case-num {
+  display: block;
+  font-family: 'Inter', sans-serif;
+  font-size: 10px; letter-spacing: 2.5px; text-transform: uppercase;
+  color: #b85c38; font-weight: 500; margin-bottom: 10px;
+}
+
+.case-prose { max-width: 740px; }
+.case-prose p {
+  font-size: 16px; line-height: 1.85;
+  color: #4a3e2e;
+  margin-bottom: 22px;
+}
+.case-prose p strong { color: #1a1208; font-weight: 600; }
+.case-prose p em { color: #b85c38; font-style: normal; font-weight: 500; }
+
+.case-h3 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 17px; font-weight: 500;
+  color: #1a1208; margin: 32px 0 10px;
+  letter-spacing: 0.1px;
+}
+
+.case-list { list-style: none; padding: 0; margin: 14px 0 0; }
+.case-list li {
+  position: relative;
+  padding: 9px 0 9px 24px;
+  font-size: 15.5px; line-height: 1.6;
+  color: #4a3e2e;
+  border-bottom: 1px dashed #e8e0d4;
+}
+.case-list li:last-child { border-bottom: none; }
+.case-list li::before {
+  content: ''; position: absolute;
+  left: 0; top: 19px;
+  width: 10px; height: 1px; background: #b85c38;
+}
+.case-list li strong { color: #1a1208; font-weight: 600; }
+
+.rq-list { list-style: none; padding: 0; margin: 16px 0 0; }
+.rq-list li {
+  display: grid; grid-template-columns: 56px 1fr; gap: 12px; align-items: baseline;
+  padding: 14px 0;
+  border-bottom: 1px dashed #e8e0d4;
+}
+.rq-list li:last-child { border-bottom: none; }
+.rq-list li .tag {
+  font-family: 'Inter', sans-serif;
+  font-size: 11px; letter-spacing: 1.5px;
+  color: #b85c38; font-weight: 500;
+}
+.rq-list li p {
+  margin: 0; font-size: 16px; line-height: 1.5; color: #1a1208;
+}
+.rq-list li p strong { font-weight: 600; }
+
+.callout {
+  margin-top: 22px;
+  padding: 20px 24px;
+  background: rgba(184,92,56,0.06);
+  border-left: 3px solid #b85c38;
+  border-radius: 0 4px 4px 0;
+}
+.callout-label {
+  font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase;
+  color: #b85c38; font-weight: 500; margin-bottom: 6px;
+}
+.callout-body {
+  font-size: 15.5px; line-height: 1.7; color: #1a1208;
+}
+.callout-body strong { font-weight: 600; }
+
+.callout.dark {
+  background: #1a1208;
+  border-left: 3px solid #b85c38;
+}
+.callout.dark .callout-label { color: #c89438; }
+.callout.dark .callout-body { color: #f5f0e8; }
+.callout.dark .callout-body strong { color: #ffffff; }
+.callout.dark .callout-body em { color: #f5c898; font-style: normal; font-weight: 600; }
+
+.pair-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 18px;
+  margin-top: 18px;
+}
+.pair-card {
+  background: #fff;
+  border: 1px solid #e8e0d4;
+  border-top: 3px solid #b85c38;
+  padding: 22px 24px 24px;
+  border-radius: 0 0 4px 4px;
+}
+.pair-tag {
+  font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase;
+  color: #b85c38; font-weight: 500; margin-bottom: 8px;
+}
+.pair-title {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 17px; font-weight: 500;
+  color: #1a1208; margin-bottom: 10px;
+}
+.pair-body {
+  font-size: 14.5px; line-height: 1.7; color: #4a3e2e;
+}
+
+/* 5-step workflow */
+.flow-grid {
+  display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px;
+  margin-top: 18px;
+}
+.flow-card {
+  background: #fff;
+  border: 1px solid #e8e0d4;
+  border-top: 3px solid #b85c38;
+  padding: 16px 14px 18px;
+  border-radius: 0 0 4px 4px;
+  display: flex; flex-direction: column; gap: 8px;
+  position: relative;
+}
+.flow-card .num {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 22px; font-weight: 400; color: #b85c38;
+  letter-spacing: -0.5px; line-height: 1;
+}
+.flow-card .ttl {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 15px; font-weight: 500; color: #1a1208;
+  margin-bottom: 2px;
+}
+.flow-card .io {
+  font-size: 11.5px; line-height: 1.5; color: #6b5c4a;
+}
+.flow-card .io strong {
+  display: block;
+  font-size: 9.5px; letter-spacing: 1.2px; text-transform: uppercase;
+  color: #9a8878; font-weight: 500;
+  margin-top: 6px; margin-bottom: 2px;
+}
+.flow-card .io:first-of-type strong { margin-top: 0; }
+.flow-card.highlight {
+  border-top-color: #1a1208;
+  background: #fef9f3;
+}
+.flow-card.highlight .num { color: #1a1208; }
+
+/* timeline */
+.timeline {
+  margin-top: 16px;
+  background: #fff;
+  border: 1px solid #e8e0d4;
+  border-radius: 4px;
+  padding: 18px 22px;
+}
+.timeline-axis {
+  display: flex; font-size: 10px; letter-spacing: 1px;
+  color: #9a8878; text-transform: uppercase;
+  padding-bottom: 8px;
+}
+.timeline-axis > div {
+  flex: 1; text-align: center;
+  border-left: 1px dashed #e8e0d4; padding-left: 6px;
+}
+.timeline-axis > div:first-child { border-left: none; padding-left: 0; }
+.timeline-bar {
+  display: flex; gap: 4px; height: 56px;
+}
+.tphase {
+  display: flex; flex-direction: column; justify-content: center;
+  padding: 8px 12px; border-radius: 2px;
+  background: rgba(184,92,56,0.1);
+  border: 1px solid rgba(184,92,56,0.25);
+}
+.tphase.alt {
+  background: rgba(26,18,8,0.05);
+  border: 1px solid #d8cdba;
+}
+.tphase .lbl {
+  font-size: 10px; letter-spacing: 1px;
+  color: #b85c38; text-transform: uppercase; font-weight: 500;
+}
+.tphase.alt .lbl { color: #6b5c4a; }
+.tphase .nm {
+  font-size: 13px; font-weight: 500; color: #1a1208; margin-top: 2px;
+  font-family: 'Space Grotesk', sans-serif;
+}
+
+/* finding cards - Problem / Fix pairs */
+.problem-card {
+  background: #fff;
+  border: 1px solid #e8e0d4;
+  border-top: 3px solid #b85c38;
+  padding: 26px 28px 28px;
+  border-radius: 0 0 4px 4px;
+  margin-top: 16px;
+}
+.problem-head {
+  display: flex; justify-content: space-between; align-items: baseline;
+  margin-bottom: 14px;
+}
+.problem-head .grp {
+  font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase;
+  color: #b85c38; font-weight: 500;
+}
+.problem-head .stage {
+  font-size: 10px; letter-spacing: 1px; text-transform: uppercase;
+  color: #9a8878;
+}
+.problem-title {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 22px; font-weight: 500;
+  color: #1a1208; letter-spacing: -0.2px;
+  margin-bottom: 10px;
+}
+.problem-lede {
+  font-size: 15.5px; line-height: 1.6; color: #4a3e2e;
+  margin-bottom: 18px;
+  font-style: italic;
+}
+.pf-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
+  margin-top: 10px;
+}
+.pf-cell {
+  padding: 16px 18px;
+  border-radius: 4px;
+}
+.pf-cell.problem {
+  background: rgba(184,92,56,0.06);
+  border-left: 3px solid #b85c38;
+}
+.pf-cell.fix {
+  background: rgba(46,125,50,0.06);
+  border-left: 3px solid #2e7d32;
+}
+.pf-cell .lbl {
+  font-size: 10px; letter-spacing: 1.2px; text-transform: uppercase;
+  color: #b85c38; font-weight: 500; margin-bottom: 8px;
+}
+.pf-cell.fix .lbl { color: #2e7d32; }
+.pf-cell .txt {
+  font-size: 14px; line-height: 1.6; color: #1a1208;
+}
+.pf-cell .txt strong { font-weight: 600; }
+.pf-tag {
+  display: inline-block;
+  margin-top: 12px;
+  padding: 4px 10px;
+  border-radius: 20px;
+  background: #fff;
+  border: 1px solid rgba(46,125,50,0.3);
+  color: #2a622a;
+  font-size: 11px; font-weight: 500;
+  letter-spacing: 0.2px;
+}
+.problem-take {
+  margin-top: 18px;
+  padding-top: 16px; border-top: 1px dashed #e8e0d4;
+  font-size: 14.5px; line-height: 1.6; color: #4a3e2e;
+}
+.problem-take strong { color: #1a1208; font-weight: 600; }
+
+/* engineering bug list */
+.bug-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
+  margin-top: 16px;
+}
+.bug-card {
+  background: #fff;
+  border: 1px solid #e8e0d4;
+  border-top: 3px solid #1a1208;
+  padding: 20px 22px 22px;
+  border-radius: 0 0 4px 4px;
+}
+.bug-card .lbl {
+  font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase;
+  color: #6b5c4a; font-weight: 500; margin-bottom: 8px;
+}
+.bug-card .ttl {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 18px; font-weight: 500;
+  color: #1a1208; margin-bottom: 10px;
+}
+.bug-card ul {
+  list-style: none; padding: 0; margin: 0;
+}
+.bug-card ul li {
+  position: relative;
+  padding: 7px 0 7px 16px;
+  font-size: 13.5px; line-height: 1.5;
+  color: #4a3e2e;
+  border-bottom: 1px dashed #e8e0d4;
+}
+.bug-card ul li:last-child { border-bottom: none; }
+.bug-card ul li::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 16px;
+  width: 8px; height: 1px; background: #b85c38;
+}
+
+/* impact stat grid */
+.stat-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px;
+  margin-top: 16px;
+}
+.stat-card {
+  background: #fff;
+  border: 1px solid #e8e0d4;
+  padding: 26px 26px 24px;
+  border-radius: 4px;
+}
+.stat-num {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 36px; font-weight: 400;
+  letter-spacing: -0.7px; line-height: 1.1;
+  color: #b85c38;
+}
+.stat-label {
+  font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase;
+  color: #9a8878; margin-top: 12px; margin-bottom: 10px;
+}
+.stat-body {
+  font-size: 14px; line-height: 1.7; color: #4a3e2e;
+}
+
+/* stat row */
+.stat-row {
+  display: flex; flex-wrap: wrap; gap: 28px;
+  margin-top: 20px; padding-top: 18px; border-top: 1px solid #e8e0d4;
+}
+.stat-row .item {
+  display: flex; align-items: baseline; gap: 8px;
+}
+.stat-row .num {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 26px; font-weight: 500;
+  letter-spacing: -0.7px; color: #1a1208;
+}
+.stat-row .num.accent { color: #b85c38; }
+.stat-row .lbl {
+  font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase;
+  color: #9a8878;
+}
+
+/* feedback row */
+.fb-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 14px;
+  margin-top: 16px;
+}
+.fb-card {
+  background: #fff;
+  border: 1px solid #e8e0d4;
+  border-left: 3px solid #b85c38;
+  padding: 18px 22px;
+  border-radius: 0 4px 4px 0;
+}
+.fb-card .lbl {
+  font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase;
+  color: #b85c38; font-weight: 500; margin-bottom: 6px;
+}
+.fb-card .txt {
+  font-size: 14.5px; line-height: 1.6; color: #1a1208;
+}
+
+/* deck CTA */
+.deck-cta {
+  margin-top: 24px;
+  display: block;
+  padding: 32px 36px;
+  background: #1a1208;
+  color: #faf7f2;
+  border-radius: 4px;
+  text-decoration: none;
+  transition: background 0.2s;
+}
+.deck-cta:hover { background: #b85c38; }
+.deck-cta-label {
+  font-size: 10px; letter-spacing: 2px; text-transform: uppercase;
+  color: #c8b8a4; margin-bottom: 10px;
+}
+.deck-cta-title {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 22px; font-weight: 400;
+  display: flex; justify-content: space-between; align-items: baseline;
+  gap: 24px;
+}
+.deck-cta-title .arrow { font-size: 22px; }
+.deck-cta-sub {
+  font-size: 13.5px; color: #c8b8a4; margin-top: 8px; line-height: 1.6;
+}
+
+footer {
+  background: #1a1208; color: #9a8878;
+  padding: 36px 56px;
+  display: flex; justify-content: space-between; align-items: center;
+}
+.footer-logo { font-family: 'Space Grotesk', sans-serif; font-size: 14px; color: #c8b8a4; }
+.footer-links { display: flex; gap: 24px; }
+.footer-links a {
+  font-size: 10px; color: #6b5c4a; letter-spacing: 0.8px;
+  text-transform: uppercase; text-decoration: none;
+  transition: color 0.2s; white-space: nowrap;
+}
+.footer-links a:hover { color: #c8b8a4; }
+.footer-copy { font-size: 12px; }
+
+.fade-up { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
+.fade-up.visible { opacity: 1; transform: translateY(0); }
+
+@media (max-width: 900px) {
+  .case-h1 { font-size: 44px; }
+  .case-block { grid-template-columns: 1fr; gap: 20px; }
+  .case-h2 { position: static; }
+  .meta-row { grid-template-columns: repeat(2, 1fr); }
+  .pair-grid, .stat-grid, .fb-grid, .bug-grid, .pf-grid { grid-template-columns: 1fr; }
+  .flow-grid { grid-template-columns: repeat(2, 1fr); }
+}
+</style>
+</head>
+<body>
+
+<nav id="main-nav">
+  <a class="nav-back" href="../Frida Li - Website.html#projects"><span class="arrow">←</span> Back to portfolio</a>
+  <a class="nav-logo" href="../Frida Li - Website.html">Frida Li, MA</a>
+</nav>
+
+<!-- HERO -->
+<section class="case-hero">
+  <div class="case-hero-inner">
+    <div class="case-eyebrow fade-up">Evaluative Study · Anker Innovations · 2025</div>
+    <h1 class="case-h1 fade-up">Does <em>AI Interview Agents</em> Work? A Usability Study.</h1>
+    <p class="case-lede fade-up">After building a five-step Research Agent prototype in an internal AI hackathon, I designed and ran a 1:1 usability study with six senior PMs to find out whether the workflow held up before beta. The study surfaced the design and engineering bugs that turned an experimental prototype into a viable workflow tool — and seeded a confident beta launch with <strong>32% PM adoption in 30 days</strong>.</p>
+    <div class="meta-row fade-up">
+      <div><div class="meta-k">Company</div><div class="meta-v">Anker Innovations</div></div>
+      <div><div class="meta-k">Role</div><div class="meta-v">Builder &amp; Sole UXR</div></div>
+      <div><div class="meta-k">Approach</div><div class="meta-v">1:1 usability · 6 senior PMs</div></div>
+      <div><div class="meta-k">Year</div><div class="meta-v">2025 · 1 week</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="case-body">
+  <div class="section-inner">
+
+    <!-- Background & Problem -->
+    <div class="case-block">
+      <h2 class="case-h2"><span class="case-num">01</span>Background &amp; Problem</h2>
+      <div class="case-prose">
+        <p>In December 2025, I built a five-step <strong>Research Agent</strong> prototype during Anker's internal AI hackathon — a multi-agent system that takes a research goal and walks it end-to-end through plan → recruit → interview → insight, with synthetic users substituting for real participants in early-stage discovery.</p>
+        <p>The prototype was technically working but unproven. Senior PMs are the intended users, and I didn't yet know <em>how they would actually use it</em> — what mental model they'd bring, where they'd lose trust, where they'd want to step in. Shipping to beta without testing risked an experimental prototype landing on 160+ PMs' desks and dying quietly.</p>
+        <div class="callout dark">
+          <div class="callout-label">Primary research question</div>
+          <div class="callout-body">Where does the five-step Research Agent break down for senior PMs — and which bugs are <em>blockers for beta</em> versus things we can patch after?</div>
+        </div>
+
+        <h3 class="case-h3">The five-step Research Agent</h3>
+        <p>The agent runs as a sequenced pipeline. Each stage's output becomes the next stage's input — so a bug in stage 2 propagates downstream.</p>
+
+        <div class="flow-grid">
+          <div class="flow-card">
+            <div class="num">01</div>
+            <div class="ttl">Request</div>
+            <div class="io"><strong>In</strong> Goals &amp; needs</div>
+            <div class="io"><strong>Out</strong> Research plan</div>
+          </div>
+          <div class="flow-card">
+            <div class="num">02</div>
+            <div class="ttl">Plan</div>
+            <div class="io"><strong>In</strong> Research plan</div>
+            <div class="io"><strong>Out</strong> Interview guide</div>
+          </div>
+          <div class="flow-card">
+            <div class="num">03</div>
+            <div class="ttl">Recruit</div>
+            <div class="io"><strong>In</strong> Research plan</div>
+            <div class="io"><strong>Out</strong> Synthetic users</div>
+          </div>
+          <div class="flow-card highlight">
+            <div class="num">04</div>
+            <div class="ttl">Interview</div>
+            <div class="io"><strong>In</strong> Guide + synthetic users</div>
+            <div class="io"><strong>Out</strong> Interview transcripts</div>
+          </div>
+          <div class="flow-card highlight">
+            <div class="num">05</div>
+            <div class="ttl">Insight</div>
+            <div class="io"><strong>In</strong> Transcripts</div>
+            <div class="io"><strong>Out</strong> Insight report</div>
+          </div>
+        </div>
+        <p style="font-size: 12.5px; color: #9a8878; margin-top: 10px; font-style: italic;">Stages 4 and 5 (highlighted) are where the study found the two biggest usability breakdowns.</p>
+      </div>
+    </div>
+
+    <hr class="section-divider"/>
+
+    <!-- Approach -->
+    <div class="case-block">
+      <h2 class="case-h2"><span class="case-num">02</span>Approach</h2>
+      <div class="case-prose">
+        <p>One week, sole researcher, sole engineer-partner. The fastest path to actionable signal was a small-N usability study with the right participants and the right tasks. The design choices that mattered:</p>
+
+        <div class="pair-grid">
+          <div class="pair-card">
+            <div class="pair-tag">Choice 01 · Participants</div>
+            <div class="pair-title">Senior PMs with real interview experience.</div>
+            <div class="pair-body">Six senior PMs, each of whom had personally run user interviews on real projects. They knew what a good interview guide and a good insight report looked like, which meant their reactions were diagnostic — not exploratory. Recruited via internal announcements and group chats.</div>
+          </div>
+          <div class="pair-card">
+            <div class="pair-tag">Choice 02 · Tasks</div>
+            <div class="pair-title">Replicate a study you've done.</div>
+            <div class="pair-body">Five tasks per participant — but each PM was asked to replicate <strong>a study they'd already run themselves</strong>. Real goals, real context, real ground truth. No hypothetical scenarios, no synthetic personas to imagine. The PMs could compare the Agent's output against what they'd actually delivered.</div>
+          </div>
+          <div class="pair-card">
+            <div class="pair-tag">Choice 03 · Format</div>
+            <div class="pair-title">60-minute 1:1 sessions.</div>
+            <div class="pair-body">Long enough to run the full five-step pipeline, short enough to schedule six in one week. Think-aloud throughout, with each stage's output reviewed before moving to the next so we could catch where trust eroded in real time.</div>
+          </div>
+          <div class="pair-card">
+            <div class="pair-tag">Choice 04 · Analysis &amp; share-out</div>
+            <div class="pair-title">Problem statements, not vibes.</div>
+            <div class="pair-body">Problem-statement analysis: every issue was written as <em>who · where · what · why it matters</em>, then sorted by stage. A one-pager went to my partner engineer so design fixes and prompt-engineering fixes could ship in parallel.</div>
+          </div>
+        </div>
+
+        <div class="timeline">
+          <div class="timeline-axis">
+            <div>Mon</div><div>Tue</div><div>Wed</div><div>Thu</div><div>Fri</div>
+          </div>
+          <div class="timeline-bar">
+            <div class="tphase" style="flex:2;"><div class="lbl">Set up</div><div class="nm">Tasks · script · recruit</div></div>
+            <div class="tphase alt" style="flex:2;"><div class="lbl">Sessions</div><div class="nm">6 × 60-min 1:1</div></div>
+            <div class="tphase" style="flex:1;"><div class="lbl">Synth</div><div class="nm">Share-out</div></div>
+          </div>
+        </div>
+
+        <div class="stat-row">
+          <div class="item"><div class="num">6</div><div class="lbl">Senior PMs</div></div>
+          <div class="item"><div class="num">5</div><div class="lbl">Tasks per session</div></div>
+          <div class="item"><div class="num">60min</div><div class="lbl">Per session</div></div>
+          <div class="item"><div class="num accent">1 week</div><div class="lbl">End-to-end</div></div>
+        </div>
+      </div>
+    </div>
+
+    <hr class="section-divider"/>
+
+    <!-- Findings · Design -->
+    <div class="case-block">
+      <h2 class="case-h2"><span class="case-num">03</span>Findings · Design</h2>
+      <div class="case-prose">
+        <p>Both blocker-level design issues sat in the back half of the pipeline — stages 4 and 5 — and both came down to the same underlying gap: the Agent had been built as a black box, and senior PMs are <em>not</em> comfortable acting on a black box.</p>
+
+        <div class="problem-card">
+          <div class="problem-head">
+            <span class="grp">Finding 01 · Lack of control</span>
+            <span class="stage">Stage 4 · Interview Agent</span>
+          </div>
+          <div class="problem-title">Users felt sidelined during the interview.</div>
+          <div class="problem-lede">"It's running an interview I can't redirect — so it's not really my interview anymore."</div>
+          <div class="pf-grid">
+            <div class="pf-cell problem">
+              <div class="lbl">Problem</div>
+              <div class="txt">The design was passive. Once the interview started, PMs could not <strong>interrupt</strong>, redirect the conversation, or ask a follow-up. Accountability evaporated — if the synthetic user said something off, no one had asked the next question.</div>
+            </div>
+            <div class="pf-cell fix">
+              <div class="lbl">Fix</div>
+              <div class="txt"><strong>Interactive Mode.</strong> PMs can pause the interview at any point and inject a follow-up or redirect. The Agent picks up the new thread and continues.</div>
+              <span class="pf-tag">Viewer → Director</span>
+            </div>
+          </div>
+          <div class="problem-take"><strong>Why this matters:</strong> turns the Agent from something PMs <em>watch</em> into something they <em>moderate</em>. Same five-step pipeline, but the human is back in the loop where their expertise belongs.</div>
+        </div>
+
+        <div class="problem-card">
+          <div class="problem-head">
+            <span class="grp">Finding 02 · Lack of transparency</span>
+            <span class="stage">Stage 5 · Insight Agent</span>
+          </div>
+          <div class="problem-title">Users wouldn't base decisions on unverifiable insights.</div>
+          <div class="problem-lede">"I can't take this to my VP if I can't show where it came from."</div>
+          <div class="pf-grid">
+            <div class="pf-cell problem">
+              <div class="lbl">Problem</div>
+              <div class="txt">The Insight Agent produced a clean summary report — but with <strong>no reference back to the raw interview data</strong>. Senior PMs refused to use any claim they couldn't trace. The report was a dead end.</div>
+            </div>
+            <div class="pf-cell fix">
+              <div class="lbl">Fix</div>
+              <div class="txt"><strong>Source-labeling.</strong> Footnotes on every claim in the report. Clicking a source reveals the verbatim quote in the transcript, with the synthetic user it came from.</div>
+              <span class="pf-tag">Traceability → Trust</span>
+            </div>
+          </div>
+          <div class="problem-take"><strong>Why this matters:</strong> trust in a research output comes from being able to interrogate it. Source-labeling turned the report from "the Agent says so" into "here's the data, with the synthesis on top."</div>
+        </div>
+      </div>
+    </div>
+
+    <hr class="section-divider"/>
+
+    <!-- Findings · Engineering -->
+    <div class="case-block">
+      <h2 class="case-h2"><span class="case-num">04</span>Findings · Engineering</h2>
+      <div class="case-prose">
+        <p>The other half of the report went to my partner engineer. Two categories of prompt-engineering issues — both invisible to whoever built the prototype, both immediately visible to users.</p>
+
+        <div class="bug-grid">
+          <div class="bug-card">
+            <div class="lbl">Bug class 01</div>
+            <div class="ttl">Latency</div>
+            <ul>
+              <li>Slow responses at multiple stages — PMs lost focus while waiting</li>
+              <li>Too many rounds of conversation per stage — the Agent over-clarified instead of acting</li>
+            </ul>
+          </div>
+          <div class="bug-card">
+            <div class="lbl">Bug class 02</div>
+            <div class="ttl">Instruction adherence</div>
+            <ul>
+              <li>The Agent asked completely irrelevant questions inside the interview stage</li>
+              <li>Omitted explicit instructions in the system prompt</li>
+              <li>Asked the PM a question the PM had already answered — back at them</li>
+            </ul>
+          </div>
+        </div>
+
+        <p style="margin-top: 22px;">Both classes ended up in the engineer's next sprint. The point of running the usability study with senior PMs was that <strong>they could tell the difference</strong> between "the Agent is being unhelpful because the workflow is wrong" and "the Agent is being unhelpful because the prompt is wrong" — and routing those to design vs. engineering separately made the fix tractable for a one-week turnaround.</p>
+      </div>
+    </div>
+
+    <hr class="section-divider"/>
+
+    <!-- Impact -->
+    <div class="case-block">
+      <h2 class="case-h2"><span class="case-num">05</span>Impact</h2>
+      <div class="case-prose">
+        <p>The study turned an experimental prototype into a viable workflow tool, and gave us the evidence to launch with confidence.</p>
+
+        <div class="stat-grid">
+          <div class="stat-card">
+            <div class="stat-num">First</div>
+            <div class="stat-label">Research Agent at the company</div>
+            <div class="stat-body">Confident beta launch on the back of the usability study. The first Research Agent shipped inside Anker.</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-num">32%</div>
+            <div class="stat-label">PM adoption in 30 days</div>
+            <div class="stat-body">Of 160+ PMs in the org, 32% used the Agent within the first 30 days. Total use count exceeded 500.</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-num">500+</div>
+            <div class="stat-label">Total uses · first 30 days</div>
+            <div class="stat-body">Repeat use, not just curiosity. The pipeline held up at real working volume.</div>
+          </div>
+        </div>
+
+        <h3 class="case-h3">Qualitative reception</h3>
+        <div class="fb-grid">
+          <div class="fb-card">
+            <div class="lbl">Junior PMs</div>
+            <div class="txt">Used the Agent as a scaffold — found it helpful for getting started on early-stage discovery without a researcher in the room.</div>
+          </div>
+          <div class="fb-card">
+            <div class="lbl">Senior PMs</div>
+            <div class="txt">Looking forward to better report quality. The source-labeling fix unlocked usage; latency improvements are the next ask.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <hr class="section-divider"/>
+
+    <!-- Lessons -->
+    <div class="case-block">
+      <h2 class="case-h2"><span class="case-num">06</span>Lessons &amp; Reflection</h2>
+      <div class="case-prose">
+        <p>Two lessons I carry forward from this study — one methodological, one about the nature of agentic systems.</p>
+
+        <h3 class="case-h3">01 · Real-life scenarios beat hypothetical tasks for agentic evaluation</h3>
+        <p>Hypothetical tasks ("imagine you're researching X") add a layer of uncertainty: was the Agent bad, or was my imagined scenario unfair to it? Asking PMs to <strong>replicate a study they had actually run</strong> removed that layer entirely. Expert users compared the Agent's output against ground truth they already knew, and gave objective feedback on agent performance instead of trying to imagine what feedback would be fair.</p>
+
+        <div class="callout">
+          <div class="callout-label">Method takeaway</div>
+          <div class="callout-body">For agentic UX work specifically: <strong>real-life scenarios free expert users from imagination work</strong>. Hypothetical tasks make sense for novice users in greenfield concept testing; expert users in evaluative studies should always replicate their own real work.</div>
+        </div>
+
+        <h3 class="case-h3">02 · Black-box pipelines lose senior users at the same two places</h3>
+        <p>The two design bugs — no control during interview, no traceability in the report — are not specific to this Agent. They're <em>structural</em> failure modes of any multi-agent pipeline that hands an expert user a clean output without showing the work. Building <em>Viewer-to-Director</em> control hooks and source-labeling into the spec from day one would have saved us a full design iteration.</p>
+
+        <h3 class="case-h3">03 · Separating design bugs from engineering bugs is the trick</h3>
+        <p>What looks like one bad agent is usually two different bugs in two different shops. Routing the design problems to my own next iteration and the prompt-engineering problems to my partner engineer's sprint — in the same one-pager — is what made the one-week turnaround actually deliverable.</p>
+
+        <a class="deck-cta" href="https://docs.google.com/presentation/d/1UC94yHS90Y_lVwiiQ5BfJd8k0Bz_oCIH66cdL6eNt28/edit" target="_blank" rel="noopener">
+          <div class="deck-cta-label">Full case in deck format</div>
+          <div class="deck-cta-title"><span>Frida Li · UXR Portfolio Deck</span><span class="arrow">↗</span></div>
+          <div class="deck-cta-sub">Slides 14–22 · Research Agent Usability Study</div>
+        </a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<footer>
+  <span class="footer-logo">Frida Li, MA · User Researcher</span>
+  <div class="footer-links">
+    <a href="../Frida Li - Website.html#about">About</a>
+    <a href="../Frida Li - Website.html#projects">Projects</a>
+    <a href="../Frida Li - Website.html#contact">Contact</a>
+  </div>
+  <span class="footer-copy">© 2026</span>
+</footer>
+
+<script>
+const nav = document.getElementById('main-nav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 30);
+});
+
+const fadeEls = document.querySelectorAll('.fade-up');
+const fadeObs = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.1 });
+fadeEls.forEach(el => {
+  const r = el.getBoundingClientRect();
+  if (r.top < window.innerHeight) el.classList.add('visible');
+  else fadeObs.observe(el);
+});
+</script>
+</body>
+</html>

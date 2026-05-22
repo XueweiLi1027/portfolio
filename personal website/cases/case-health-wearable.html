@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Health Wearable User Archetypes — Frida Li</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Inter', sans-serif;
+  color: #1a1208;
+  background: #faf7f2;
+  line-height: 1.6;
+}
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: #f0ece4; }
+::-webkit-scrollbar-thumb { background: #c8b8a4; border-radius: 3px; }
+
+h1, h2, h3, h4 { font-family: 'Space Grotesk', sans-serif; }
+
+/* ── fixed nav ── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  background: rgba(250, 247, 242, 0.92);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.3s;
+  height: 60px;
+  display: flex; align-items: center;
+  padding: 0 56px;
+  justify-content: space-between;
+}
+nav.scrolled { border-bottom-color: #e8e0d4; }
+.nav-back {
+  font-family: 'Inter', sans-serif;
+  font-size: 12px; font-weight: 400; letter-spacing: 0.7px;
+  text-transform: uppercase; text-decoration: none;
+  color: #6b5c4a; padding: 5px 10px; border-radius: 20px;
+  transition: color 0.2s, background 0.2s;
+  display: inline-flex; align-items: center; gap: 8px;
+}
+.nav-back:hover { color: #b85c38; background: rgba(184,92,56,0.06); }
+.nav-back .arrow { font-family: 'Space Grotesk', sans-serif; font-size: 14px; }
+.nav-logo {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 17px; font-weight: 500;
+  color: #1a1208; cursor: pointer; text-decoration: none;
+  letter-spacing: -0.2px;
+}
+
+/* ── layout shared ── */
+.section-inner { max-width: 1160px; margin: 0 auto; padding: 0 56px; }
+
+/* ── hero ── */
+.case-hero {
+  padding-top: 140px;
+  padding-bottom: 80px;
+  border-bottom: 1px solid #e8e0d4;
+  background: #faf7f2;
+}
+.case-hero-inner {
+  max-width: 1160px; margin: 0 auto; padding: 0 56px;
+}
+.case-eyebrow {
+  font-size: 10px; letter-spacing: 2.5px; text-transform: uppercase;
+  color: #b85c38; font-weight: 500; margin-bottom: 28px;
+}
+.case-h1 {
+  font-size: 60px; font-weight: 400; line-height: 1.04;
+  color: #1a1208; margin-bottom: 28px; letter-spacing: -1px;
+  max-width: 900px;
+}
+.case-h1 em { font-style: normal; color: #b85c38; }
+.case-lede {
+  font-size: 19px; color: #4a3e2e; line-height: 1.7;
+  max-width: 700px; font-weight: 300;
+  margin-bottom: 56px;
+}
+.meta-row {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px;
+  padding-top: 32px; border-top: 1px solid #e8e0d4;
+}
+.meta-k {
+  font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase;
+  color: #9a8878; margin-bottom: 6px;
+}
+.meta-v {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 16px; font-weight: 500; color: #1a1208;
+}
+
+/* ── section blocks (mirroring main page about-block) ── */
+.case-body { padding: 56px 0 96px; background: #faf7f2; }
+
+.case-block {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 80px;
+  padding: 56px 0;
+}
+.case-block:first-child { padding-top: 24px; }
+.section-divider { border: none; border-top: 1px solid #e8e0d4; margin: 0; }
+
+.case-h2 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 28px;
+  font-weight: 500;
+  color: #1a1208;
+  letter-spacing: -0.3px;
+  position: sticky;
+  top: 96px;
+  align-self: start;
+}
+.case-h2 .case-num {
+  display: block;
+  font-family: 'Inter', sans-serif;
+  font-size: 10px; letter-spacing: 2.5px; text-transform: uppercase;
+  color: #b85c38; font-weight: 500; margin-bottom: 10px;
+}
+
+.case-prose { max-width: 740px; }
+.case-prose p {
+  font-size: 16px; line-height: 1.85;
+  color: #4a3e2e;
+  margin-bottom: 22px;
+}
+.case-prose p strong { color: #1a1208; font-weight: 600; }
+.case-prose p em { color: #b85c38; font-style: normal; font-weight: 500; }
+
+.case-h3 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 17px; font-weight: 500;
+  color: #1a1208; margin: 32px 0 10px;
+  letter-spacing: 0.1px;
+}
+
+/* lists */
+.case-list { list-style: none; padding: 0; margin: 14px 0 0; }
+.case-list li {
+  position: relative;
+  padding: 9px 0 9px 24px;
+  font-size: 15.5px; line-height: 1.6;
+  color: #4a3e2e;
+  border-bottom: 1px dashed #e8e0d4;
+}
+.case-list li:last-child { border-bottom: none; }
+.case-list li::before {
+  content: ''; position: absolute;
+  left: 0; top: 19px;
+  width: 10px; height: 1px; background: #b85c38;
+}
+.case-list li strong { color: #1a1208; font-weight: 600; }
+
+/* numbered list (RQs) */
+.rq-list { list-style: none; padding: 0; margin: 16px 0 0; counter-reset: rq; }
+.rq-list li {
+  counter-increment: rq;
+  display: grid; grid-template-columns: 60px 1fr; gap: 12px; align-items: baseline;
+  padding: 14px 0;
+  border-bottom: 1px dashed #e8e0d4;
+}
+.rq-list li:last-child { border-bottom: none; }
+.rq-list li::before {
+  content: "RQ." counter(rq);
+  font-family: 'Inter', sans-serif;
+  font-size: 11px; letter-spacing: 1.5px;
+  color: #b85c38; font-weight: 500;
+}
+.rq-list li p {
+  margin: 0; font-size: 16px; line-height: 1.5; color: #1a1208;
+}
+
+/* callout */
+.callout {
+  margin-top: 22px;
+  padding: 20px 24px;
+  background: rgba(184,92,56,0.06);
+  border-left: 3px solid #b85c38;
+  border-radius: 0 4px 4px 0;
+}
+.callout-label {
+  font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase;
+  color: #b85c38; font-weight: 500; margin-bottom: 6px;
+}
+.callout-body {
+  font-size: 15.5px; line-height: 1.7; color: #1a1208;
+}
+.callout-body strong { font-weight: 600; }
+
+/* paired cards (walls / phases) */
+.pair-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 18px;
+  margin-top: 18px;
+}
+.pair-card {
+  background: #fff;
+  border: 1px solid #e8e0d4;
+  border-top: 3px solid #b85c38;
+  padding: 22px 24px 24px;
+  border-radius: 0 0 4px 4px;
+}
+.pair-tag {
+  font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase;
+  color: #b85c38; font-weight: 500; margin-bottom: 8px;
+}
+.pair-title {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 17px; font-weight: 500;
+  color: #1a1208; margin-bottom: 10px;
+}
+.pair-body {
+  font-size: 14.5px; line-height: 1.7; color: #4a3e2e;
+}
+.pair-stat { margin-top: 12px; }
+.pair-stat .row {
+  display: flex; justify-content: space-between; align-items: baseline;
+  padding: 7px 0; border-top: 1px dashed #e8e0d4;
+  font-size: 13.5px; color: #6b5c4a;
+}
+.pair-stat .row .v {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 500; color: #1a1208;
+}
+
+/* impact stats */
+.stat-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px;
+  margin-top: 16px;
+}
+.stat-card {
+  background: #fff;
+  border: 1px solid #e8e0d4;
+  padding: 26px 26px 24px;
+  border-radius: 4px;
+}
+.stat-num {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 56px; font-weight: 400;
+  letter-spacing: -1.5px; line-height: 1;
+  color: #b85c38;
+}
+.stat-label {
+  font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase;
+  color: #9a8878; margin-top: 12px; margin-bottom: 10px;
+}
+.stat-body {
+  font-size: 14px; line-height: 1.7; color: #4a3e2e;
+}
+
+/* findings cards */
+.find-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;
+  margin-top: 18px;
+}
+.find-card {
+  background: #fff;
+  border: 1px solid #e8e0d4;
+  border-top: 3px solid #b85c38;
+  padding: 22px 24px;
+  border-radius: 0 0 4px 4px;
+  display: flex; flex-direction: column; gap: 12px;
+}
+.find-tag {
+  font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase;
+  color: #b85c38; font-weight: 500;
+}
+.find-hero {
+  display: flex; align-items: baseline; gap: 10px;
+  padding: 12px 14px;
+  background: rgba(184,92,56,0.06);
+  border-left: 3px solid #b85c38;
+}
+.find-hero .num {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 32px; font-weight: 500;
+  color: #b85c38; letter-spacing: -1px; line-height: 1;
+}
+.find-hero .txt {
+  font-size: 13.5px; line-height: 1.45; color: #1a1208;
+}
+.find-row {
+  display: flex; justify-content: space-between; align-items: baseline;
+  padding: 8px 0; font-size: 14px; color: #6b5c4a;
+  border-top: 1px dashed #e8e0d4;
+}
+.find-row .v {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 500; color: #1a1208;
+}
+.find-take {
+  font-size: 14.5px; line-height: 1.55; color: #1a1208;
+}
+
+/* archetype mini map */
+.matrix {
+  margin-top: 16px;
+  background: #fff;
+  border: 1px solid #e8e0d4;
+  border-radius: 4px;
+  padding: 22px 24px 18px;
+}
+.matrix-cap {
+  font-size: 11px; color: #9a8878; letter-spacing: 0.4px;
+  margin-top: 10px; text-align: right;
+  font-style: italic;
+}
+
+/* timeline */
+.timeline {
+  margin-top: 16px;
+  background: #fff;
+  border: 1px solid #e8e0d4;
+  border-radius: 4px;
+  padding: 18px 22px;
+}
+.timeline-axis {
+  display: flex; font-size: 10px; letter-spacing: 1px;
+  color: #9a8878; text-transform: uppercase;
+  padding-bottom: 8px;
+}
+.timeline-axis > div {
+  flex: 1; text-align: center;
+  border-left: 1px dashed #e8e0d4; padding-left: 6px;
+}
+.timeline-axis > div:first-child { border-left: none; padding-left: 0; }
+.timeline-bar {
+  display: flex; gap: 4px; height: 56px;
+}
+.tphase {
+  display: flex; flex-direction: column; justify-content: center;
+  padding: 8px 12px; border-radius: 2px;
+  background: rgba(184,92,56,0.1);
+  border: 1px solid rgba(184,92,56,0.25);
+}
+.tphase.alt {
+  background: rgba(26,18,8,0.05);
+  border: 1px solid #d8cdba;
+}
+.tphase .lbl {
+  font-size: 10px; letter-spacing: 1px;
+  color: #b85c38; text-transform: uppercase; font-weight: 500;
+}
+.tphase.alt .lbl { color: #6b5c4a; }
+.tphase .nm {
+  font-size: 13px; font-weight: 500; color: #1a1208; margin-top: 2px;
+  font-family: 'Space Grotesk', sans-serif;
+}
+
+/* deck CTA at end */
+.deck-cta {
+  margin-top: 24px;
+  display: block;
+  padding: 32px 36px;
+  background: #1a1208;
+  color: #faf7f2;
+  border-radius: 4px;
+  text-decoration: none;
+  transition: background 0.2s;
+}
+.deck-cta:hover { background: #b85c38; }
+.deck-cta-label {
+  font-size: 10px; letter-spacing: 2px; text-transform: uppercase;
+  color: #c8b8a4; margin-bottom: 10px;
+}
+.deck-cta-title {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 22px; font-weight: 400;
+  display: flex; justify-content: space-between; align-items: baseline;
+  gap: 24px;
+}
+.deck-cta-title .arrow { font-size: 22px; }
+.deck-cta-sub {
+  font-size: 13.5px; color: #c8b8a4; margin-top: 8px; line-height: 1.6;
+}
+
+/* footer */
+footer {
+  background: #1a1208; color: #9a8878;
+  padding: 36px 56px;
+  display: flex; justify-content: space-between; align-items: center;
+}
+.footer-logo { font-family: 'Space Grotesk', sans-serif; font-size: 14px; color: #c8b8a4; }
+.footer-links { display: flex; gap: 24px; }
+.footer-links a {
+  font-size: 10px; color: #6b5c4a; letter-spacing: 0.8px;
+  text-transform: uppercase; text-decoration: none;
+  transition: color 0.2s; white-space: nowrap;
+}
+.footer-links a:hover { color: #c8b8a4; }
+.footer-copy { font-size: 12px; }
+
+/* fade-up */
+.fade-up { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
+.fade-up.visible { opacity: 1; transform: translateY(0); }
+
+/* responsive */
+@media (max-width: 900px) {
+  .case-h1 { font-size: 44px; }
+  .case-block { grid-template-columns: 1fr; gap: 20px; }
+  .case-h2 { position: static; }
+  .meta-row { grid-template-columns: repeat(2, 1fr); }
+  .pair-grid, .stat-grid, .find-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<nav id="main-nav">
+  <a class="nav-back" href="../Frida Li - Website.html#projects"><span class="arrow">←</span> Back to portfolio</a>
+  <a class="nav-logo" href="../Frida Li - Website.html">Frida Li, MA</a>
+</nav>
+
+<!-- ── HERO ── -->
+<section class="case-hero">
+  <div class="case-hero-inner">
+    <div class="case-eyebrow fade-up">Generative Study · Case 01 · 2025</div>
+    <h1 class="case-h1 fade-up">Understanding Health Wearable Users: A <em>User Archetype</em> Study</h1>
+    <p class="case-lede fade-up">A new product team at Anker had to ship the company's first health wearable with no prior user research. I led a mixed-methods study (10 in-depth interviews and a ~300-person validation survey) to build four user archetypes, a jobs-to-be-done map, and the v1 product roadmap.</p>
+    <div class="meta-row fade-up">
+      <div><div class="meta-k">Company</div><div class="meta-v">Anker Innovations</div></div>
+      <div><div class="meta-k">Role</div><div class="meta-v">Sole UX Researcher</div></div>
+      <div><div class="meta-k">Approach</div><div class="meta-v">Mixed methods</div></div>
+      <div><div class="meta-k">Year</div><div class="meta-v">2025 · 4 months</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ── BODY ── -->
+<section class="case-body">
+  <div class="section-inner">
+
+    <!-- Background & Problem -->
+    <div class="case-block">
+      <h2 class="case-h2"><span class="case-num">01</span>Background &amp; Problem</h2>
+      <div class="case-prose">
+        <p>In early 2025, Anker leadership identified a strategic opportunity in the health wearables category. A new cross-functional team — a PM, designers, and engineers — was assembled to ship the company's first health-monitoring device. Desk research narrowed the core user to <strong>people living with chronic conditions</strong>, but the team had no existing user research, no defined target user, and no map of unmet needs to anchor v1.</p>
+        <p>I joined as the sole UX researcher to understand how this group fits monitoring devices into their daily lives, and surface where the product opportunities live.</p>
+        <h3 class="case-h3">Three research questions</h3>
+        <ol class="rq-list">
+          <li><p>What archetypes describe current health-wearable users with chronic conditions?</p></li>
+          <li><p>What pain points and unmet needs could become product opportunities?</p></li>
+          <li><p>What core features should our first-generation product include to win share?</p></li>
+        </ol>
+      </div>
+    </div>
+
+    <hr class="section-divider"/>
+
+    <!-- Challenge -->
+    <div class="case-block">
+      <h2 class="case-h2"><span class="case-num">02</span>Challenge</h2>
+      <div class="case-prose">
+        <p>My ideal plan was a five-month, two-phase study: a large-scale survey (n≈385–400) followed by a week-long contextual-inquiry field study with 6–8 users per segment. Two weeks in, two walls collapsed it.</p>
+        <div class="pair-grid">
+          <div class="pair-card">
+            <div class="pair-tag">Wall 01 · Panel collapsed</div>
+            <div class="pair-title">The insights team was laid off and vendors were cut.</div>
+            <div class="pair-body">A pilot on Anker's 20k hardware panel returned a 0.2% response rate. Effective sample landed near 40 — a fraction of the 385–400 needed for the planned survey.</div>
+            <div class="pair-stat">
+              <div class="row"><span>Pilot panel</span><span class="v">20k</span></div>
+              <div class="row"><span>Pilot response</span><span class="v">0.2%</span></div>
+              <div class="row"><span>Effective responses</span><span class="v">≈ 40</span></div>
+              <div class="row"><span>Target sample</span><span class="v">385–400</span></div>
+            </div>
+          </div>
+          <div class="pair-card">
+            <div class="pair-tag">Wall 02 · No field budget</div>
+            <div class="pair-title">Multi-week observation was no longer feasible.</div>
+            <div class="pair-body">For episode-triggered patients (e.g., AFib), the device's critical moment only surfaces through prolonged contextual inquiry. A short, in-lab session would have missed exactly the moments the product is designed for.</div>
+            <div class="pair-stat">
+              <div class="row"><span>Contextual inquiry</span><span class="v">Cut</span></div>
+              <div class="row"><span>Risk</span><span class="v">Miss critical moment</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="callout">
+          <div class="callout-label">What this forced</div>
+          <div class="callout-body">An adapted two-phase plan: <strong>qual first</strong> to define archetypes from a smaller interview sample, then a <strong>smaller validation survey</strong> on a re-grown beta panel — directional rather than statistically definitive.</div>
+        </div>
+      </div>
+    </div>
+
+    <hr class="section-divider"/>
+
+    <!-- Approach -->
+    <div class="case-block">
+      <h2 class="case-h2"><span class="case-num">03</span>Approach</h2>
+      <div class="case-prose">
+        <p>I inverted the original order — qualitative first, then quantitative — so the small interview sample could define what we'd validate, rather than guessing categories before the survey.</p>
+
+        <div class="timeline">
+          <div class="timeline-axis">
+            <div>Month 1</div><div>Month 2</div><div>Month 3</div><div>Month 4</div>
+          </div>
+          <div class="timeline-bar">
+            <div class="tphase" style="flex:2.5;"><div class="lbl">Phase 01 · Qual · 2.5 mo</div><div class="nm">10 in-depth interviews → archetypes + JTBD</div></div>
+            <div class="tphase alt" style="flex:1.5;"><div class="lbl">Phase 02 · Quant · 1.5 mo</div><div class="nm">Validation survey · n≈300</div></div>
+          </div>
+        </div>
+
+        <h3 class="case-h3">Phase 01 — Qualitative</h3>
+        <ul class="case-list">
+          <li><strong>10 in-depth interviews</strong> across diverse demographics and chronic conditions.</li>
+          <li>Designed the interview guide, moderated every session, coded all responses.</li>
+          <li>Coded each transcript on a <strong>1–5 scale</strong> across health condition severity, mindset, technology fluency, and data-interaction frequency.</li>
+          <li>Aggregated those dimensions into two factors — <strong>Health Complexity</strong> and <strong>Engagement</strong> — and plotted interviews onto a 2×2 matrix.</li>
+          <li>Synthesized four user archetypes and a Jobs-to-be-Done map for each.</li>
+        </ul>
+
+        <h3 class="case-h3">Phase 02 — Quantitative</h3>
+        <ul class="case-list">
+          <li>Worked with user-ops to grow the beta panel from <strong>20k → 70k</strong> during Phase 1.</li>
+          <li>Fielded a validation survey to test which Phase 1 pain points and unmet needs held up at scale.</li>
+          <li>Effective sample <strong>n≈300</strong> — less precision than the original 385–400 target, but enough directional confidence to prioritize features.</li>
+        </ul>
+
+        <div class="callout">
+          <div class="callout-label">Limitation flagged upfront</div>
+          <div class="callout-body">Archetypes built from a 10-interview sample do not statistically represent the entire target population. I documented this in writing so stakeholders could calibrate the readout — and so the case for next-year's research investment had its argument already built.</div>
+        </div>
+      </div>
+    </div>
+
+    <hr class="section-divider"/>
+
+    <!-- Findings -->
+    <div class="case-block">
+      <h2 class="case-h2"><span class="case-num">04</span>Findings</h2>
+      <div class="case-prose">
+        <p>Ten interviews plotted onto the 2×2 matrix produced four distinct archetypes. Each had its own relationship to health data, device, and product opportunity.</p>
+
+        <div class="matrix">
+          <svg viewBox="0 0 1080 540" style="width:100%; height:auto; display:block;" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <style>
+                .ax-line { stroke: #1a1208; stroke-width: 1.4; fill: none; }
+                .grid-line { stroke: rgba(26,18,8,0.07); stroke-width: 1; }
+                .threshold { stroke: rgba(26,18,8,0.28); stroke-width: 1.1; stroke-dasharray: 5 5; }
+                .tick-num { font-family: 'Inter', sans-serif; font-size: 12px; fill: #9a8878; }
+                .axis-title { font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 500; letter-spacing: 2px; fill: #1a1208; }
+                .quad-label { font-family: 'Space Grotesk', sans-serif; font-size: 16px; font-weight: 500; letter-spacing: 0.5px; }
+              </style>
+            </defs>
+            <g class="grid-line">
+              <line x1="80" y1="20" x2="80" y2="460"/>
+              <line x1="320" y1="20" x2="320" y2="460"/>
+              <line x1="560" y1="20" x2="560" y2="460"/>
+              <line x1="800" y1="20" x2="800" y2="460"/>
+              <line x1="1040" y1="20" x2="1040" y2="460"/>
+              <line x1="80" y1="20" x2="1040" y2="20"/>
+              <line x1="80" y1="108" x2="1040" y2="108"/>
+              <line x1="80" y1="196" x2="1040" y2="196"/>
+              <line x1="80" y1="284" x2="1040" y2="284"/>
+              <line x1="80" y1="372" x2="1040" y2="372"/>
+            </g>
+            <line x1="80" y1="460" x2="1040" y2="460" class="ax-line"/>
+            <line x1="80" y1="20" x2="80" y2="460" class="ax-line"/>
+            <line x1="560" y1="20" x2="560" y2="460" class="threshold"/>
+            <line x1="80" y1="240" x2="1040" y2="240" class="threshold"/>
+
+            <g class="tick-num" text-anchor="middle">
+              <text x="80" y="482">1</text><text x="320" y="482">2</text>
+              <text x="560" y="482">3</text><text x="800" y="482">4</text>
+              <text x="1040" y="482">5</text>
+            </g>
+            <g class="tick-num" text-anchor="end">
+              <text x="68" y="465">0</text><text x="68" y="377">1</text>
+              <text x="68" y="289">2</text><text x="68" y="201">3</text>
+              <text x="68" y="113">4</text><text x="68" y="25">5</text>
+            </g>
+            <text x="560" y="520" class="axis-title" text-anchor="middle">HEALTH COMPLEXITY  →</text>
+            <text x="28" y="240" class="axis-title" text-anchor="middle" transform="rotate(-90 28 240)">ENGAGEMENT  →</text>
+
+            <text x="96" y="42" class="quad-label" fill="#c89438">HEALTH OPTIMIZER</text>
+            <text x="1024" y="42" class="quad-label" fill="#2d6b47" text-anchor="end">DATA-DRIVEN CO-MANAGER</text>
+            <text x="96" y="450" class="quad-label" fill="#5b7c8e">PASSIVE PATIENT</text>
+            <text x="1024" y="450" class="quad-label" fill="#b85c38" text-anchor="end">OVERWHELMED REACTOR</text>
+
+            <g opacity="0.9">
+              <circle cx="184" cy="74" r="8" fill="#c89438"/>
+              <circle cx="280" cy="142" r="8" fill="#c89438"/>
+              <circle cx="424" cy="98" r="8" fill="#c89438"/>
+              <circle cx="688" cy="62" r="8" fill="#2d6b47"/>
+              <circle cx="808" cy="116" r="8" fill="#2d6b47"/>
+              <circle cx="952" cy="92" r="8" fill="#2d6b47"/>
+              <circle cx="760" cy="166" r="8" fill="#2d6b47"/>
+              <circle cx="148" cy="316" r="8" fill="#5b7c8e"/>
+              <circle cx="272" cy="392" r="8" fill="#5b7c8e"/>
+              <circle cx="416" cy="338" r="8" fill="#5b7c8e"/>
+              <circle cx="688" cy="342" r="8" fill="#b85c38"/>
+              <circle cx="856" cy="406" r="8" fill="#b85c38"/>
+              <circle cx="760" cy="292" r="8" fill="#b85c38"/>
+            </g>
+          </svg>
+          <div class="matrix-cap">Coordinates illustrative · data redacted for portfolio</div>
+        </div>
+
+        <h3 class="case-h3">Jobs-to-be-Done · example</h3>
+        <p>For the <strong>Data-Driven Co-Manager</strong>, the job is to <em>monitor health data continuously, day and night</em>. Today they rely on an Apple Watch — but its battery life is shorter than the monitoring window they need, leaving gaps overnight and in the morning. The workaround is telling:</p>
+        <div class="callout">
+          <div class="callout-label">Workaround surfaced</div>
+          <div class="callout-body">Participants <strong>owned two Apple Watches</strong> and alternated them, so one was always charged. The need is "no gaps in monitoring" — battery longevity is the v1 product opportunity hiding behind a workaround.</div>
+        </div>
+
+        <h3 class="case-h3">From insight to roadmap</h3>
+        <ul class="case-list">
+          <li>Worked with PMs, designers, and engineers to narrow from four archetypes to <strong>two target users</strong>, anchored on hardware constraints and market viability.</li>
+          <li>Co-defined a v1 product roadmap built around the validated pain points.</li>
+          <li>Final deliverable: user insights, JTBD map, and prioritized product recommendations.</li>
+        </ul>
+      </div>
+    </div>
+
+    <hr class="section-divider"/>
+
+    <!-- Impact -->
+    <div class="case-block">
+      <h2 class="case-h2"><span class="case-num">05</span>Impact</h2>
+      <div class="case-prose">
+        <p>The findings landed in a readout to the leadership group and the wider business team — limitations and all — and seeded both immediate roadmap decisions and longer-term changes to how research is used in the org.</p>
+
+        <div class="stat-grid">
+          <div class="stat-card">
+            <div class="stat-num">30+</div>
+            <div class="stat-label">Stakeholders at readout</div>
+            <div class="stat-body">Walked leadership and the wider business group through the report, caveats included.</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-num">60+</div>
+            <div class="stat-label">Feature comments sparked</div>
+            <div class="stat-body">Generated live in the readout room and fed straight into the v1 backlog.</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-num">300+</div>
+            <div class="stat-label">Views · internal course</div>
+            <div class="stat-body">Authored a qual-research course for PMs; 300+ views in two months.</div>
+          </div>
+        </div>
+
+        <h3 class="case-h3">Long-term outcomes</h3>
+        <ul class="case-list">
+          <li>The <strong>Health team's first target user map</strong> and v1 product recommendations were adopted into the roadmap.</li>
+          <li><strong>Built research credibility</strong> — I was subsequently invited to lead MaxDiff, value-prop, and concept-testing studies for the same team.</li>
+          <li><strong>Raised the org's qual literacy</strong> — the internal course became standard onboarding for new PMs.</li>
+        </ul>
+      </div>
+    </div>
+
+    <hr class="section-divider"/>
+
+    <!-- Lessons / Reflection -->
+    <div class="case-block">
+      <h2 class="case-h2"><span class="case-num">06</span>Lessons &amp; Reflection</h2>
+      <div class="case-prose">
+        <p>The biggest lesson was about naming limitations early, in writing.</p>
+        <p>When the panel collapsed two weeks in, the temptation was to quietly downscale the study and hope the smaller sample held up at readout. Instead, I documented every trade-off upfront: the archetypes were built on 10 interviews, the survey was directional, the field study was cut, and a follow-up was needed.</p>
+        <p>That same caveat — the one I worried would weaken the readout — <em>became</em> the PM's argument to leadership for next year's research investment. Naming the boundary built more long-term collaboration than smoothing it over ever could.</p>
+        <h3 class="case-h3">Lessons</h3>
+        <ul class="case-list">
+          <li><strong>Naming research limitations upfront builds long-term collaboration.</strong> The boundary I flagged at readout later became the argument for the next investment.</li>
+          <li><strong>Qual-first is the right pivot when a market is unknown.</strong> Letting interviews define the categories the survey validates beats guessing closed-response scales.</li>
+        </ul>
+
+        <a class="deck-cta" href="../uploads/Frida Li - Portfolio Deck _standalone_.html" target="_blank" rel="noopener">
+          <div class="deck-cta-label">Full case in deck format</div>
+          <div class="deck-cta-title"><span>Frida Li · UXR Portfolio Deck</span><span class="arrow">→</span></div>
+          <div class="deck-cta-sub">Slides 03–11 · Health Wearable User Archetypes</div>
+        </a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<footer>
+  <span class="footer-logo">Frida Li, MA · User Researcher</span>
+  <div class="footer-links">
+    <a href="../Frida Li - Website.html#about">About</a>
+    <a href="../Frida Li - Website.html#projects">Projects</a>
+    <a href="../Frida Li - Website.html#contact">Contact</a>
+  </div>
+  <span class="footer-copy">© 2026</span>
+</footer>
+
+<script>
+const nav = document.getElementById('main-nav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 30);
+});
+
+const fadeEls = document.querySelectorAll('.fade-up');
+const fadeObs = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.1 });
+fadeEls.forEach(el => {
+  const r = el.getBoundingClientRect();
+  if (r.top < window.innerHeight) el.classList.add('visible');
+  else fadeObs.observe(el);
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,59 @@
+﻿STAR 版
+Situation
+At TikTok Shop, our post-shopping experience survey, an in-app NPS, stopped predicting actual buying behavior in our five SEA markets. Promoters were churning, detractors were repurchasing. With the next release a week out, leadership wanted to know if the survey UI itself was the problem.
+Task
+I did a one-week study to find where the new 5-point UI broke down across Indonesia, Malaysia, Philippines, Thailand, and Vietnam, and to give the product something concrete to fix before launch.
+Action
+•     I framed the study around four lenses: entry point, UI interaction, scale comprehension, and language and presentation.
+•     I recruited 20 TikTok local employees as proxy users, 4 per market. Two reasons: only internal recruiting could meet the one-week timeline, and the study had to run in English, which average SEA shoppers are not fluent in.
+•     I moderated all 20 sessions myself over Lark, 30 to 40 minutes each. We tested the new 5-point design in pre-release: pure numbers 1 to 5, no emoji, no color, no helper words. Participants thought aloud while completing the localized survey on their own iOS or Android device.
+•     For synthesis I used affinity mapping in Figjam, then a 5x4 markets-by-dimensions matrix to separate universal usability problems from market-specific ones.
+Result
+•     The team shipped my recommendations in the early-June release: visual anchors on the scale, a clearer entry point, and rewritten copy across all five markets.
+•     The per-market language and presentation guide became a localization framework reused well beyond this survey.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Full Writeup 版
+The problem
+At TikTok Shop, our post-shopping experience survey ran in five Southeast Asia markets as an in-app NPS, and the scores were not predicting buying behavior. The team had already taken one shot at fixing this. The survey originally used an 11-point scale, the predictions were off, and last quarter they revamped it down to 5 points. The predictions still did not match transaction data. So this time the hypothesis was that the problem was not scale length at all, it was the survey UI itself. And the team wanted that diagnosed before the next release shipped.
+What I had to figure out
+I was the sole researcher, and I had one week. The questions were where in the new 5-point UI users break down across the five markets, whether those breakdowns were universal or market-specific, and what changes would close the gap between scores and behavior.
+How I would have run it ideally
+Before I describe what I actually did, let me say what the ideal version would have looked like, because that framed every trade-off I made. Ideally, I would have pulled real TikTok Shop buyers from our backend transaction data, filtered to recent purchasers in each market, and stratified by purchase frequency, basket size, and tenure. I would have run six to eight per market, so thirty to forty total, and I would have had local moderators run sessions in the participant’s native language. The protocol itself would stay the same: 1:1 think-aloud over Lark on their own device.
+What I actually did
+But none of that fit in one week with one researcher. So I compressed in two places. On recruiting, I went with TikTok local employees as proxy users, four per market, twenty total. The two reasons were speed and language. Only internal recruiting could turn around in a week across five markets, and the study had to run in English, which average SEA shoppers are not fluent in. On moderation, I ran all twenty sessions myself in English over Lark, thirty to forty minutes each.
+On format, I went with a video-stimulus interview rather than hands-on think-aloud, again because of the timeline. Each session opened the same way. I asked which platform the participant used, iOS or Android, and played them a 60-second video of the full NPS flow recorded on that platform. After the video, I walked through screenshots from the clip and asked targeted questions across the four diagnostic dimensions: entry point, UI interaction, scale comprehension, and language and presentation.
+One detail worth flagging about what we tested. The version of the UI in pre-release was the new 5-point design, but it was just pure numbers, 1 to 5, with no emoji, no color gradient, no helper words. So users had to infer the scale’s meaning from the title and surrounding copy alone. That ended up mattering a lot.
+How I synthesized
+For analysis I did two passes. First, an affinity map in Figma: I extracted observations onto stickies, color-coded by participant, and clustered until themes emerged. Then I dropped the themes into a five-by-four matrix, markets by my four diagnostic dimensions, which let me separate universal usability problems from market-specific ones. The rule was simple. If an issue surfaced in three or more markets, I treated it as universal and called for a redesign. If it showed up in only one or two with a clear local explanation, I treated it as market-specific and called for localization rules.
+What I found
+First, the good news on the entry point. When I asked where they would tap to leave feedback, every participant identified it without prompting, so that dimension came back clean. That was useful, because it told me the friction was downstream of the entry point and confirmed the team’s hypothesis that the issue was inside the survey itself. From there, four themes came out: two universal, two market-specific.
+On the universal side, the pure-number scale gave users no anchor. Without emoji, color, or helper words, they had to guess what each number meant and which end was positive. And the copy across all five markets read like an official document rather than casual social commerce, with several non-localized strings still shipping in the Indonesian and Filipino builds.
+On the market-specific side, Vietnam was the most striking. On dominant VN social media platforms, 1 means highest and 5 means lowest, which is the inverse of our scale. With no visual anchors to override that prior habit, VN participants silently inverted their scores. So that was not a usability bug, that was a measurement-validity bug. Indonesia was different. ID users are used to lighter local apps like GrabFood with progressive disclosure, so they wanted emoji faces, gradient color, and reasons grouped by category instead of a wall of options.
+What it meant
+The biggest implication tied straight back to the original problem. Scaling down from 11 points to 5 was not enough. The number of points was not the real blocker. The blocker was presentation, copy, and the absence of any visual anchor on the new scale. So 5-point was the right call, but it could not ship as pure numbers. And one global UI was insufficient for SEA: visual design could converge, but copy, taxonomy, and scale labelling had to be set per market.
+What shipped
+The team shipped my recommendations in the early-June release. The 5-point scale got visual anchors, emoji and a red-to-green gradient. Local copy was rewritten across all five markets. The multi-answer flow was restructured so the comment box no longer got skipped. And on top of that, the per-market language and presentation guide I produced was adopted as a localization framework that got reused beyond this survey for other survey and feedback touchpoints across SEA.
+Looking back
+A few things I would flag honestly. Domain language felt more natural to employees than to outside shoppers, so my copy findings are a lower bound. English-medium discussion may have flattened nuance for non-native English speakers, so a native-language audit was the natural follow-up. And the sample size was not powered for stats, so a post-launch re-baseline was part of the plan.
+If I had more time and a team, I would do the ideal version I described at the start: real buyers from backend, larger sample, native-language moderation. But for the question we needed to answer in the timeline we had, the constrained study gave us the right answer.

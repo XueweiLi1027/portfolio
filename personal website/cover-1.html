@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<title>Cover 1</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600;700&family=Patrick+Hand&family=Space+Grotesk:wght@400;500;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html, body { width: 100%; height: 100vh; margin: 0; padding: 0; overflow: hidden; }
+body {
+  font-family: 'Inter', sans-serif;
+  position: relative;
+  background: linear-gradient(135deg, #f7efde 0%, #efe3cb 100%);
+}
+body::after {
+  content: ""; position: absolute; inset: 0;
+  background:
+    radial-gradient(circle at 20% 30%, rgba(184,92,56,0.05), transparent 40%),
+    radial-gradient(circle at 80% 70%, rgba(122,90,40,0.06), transparent 45%);
+  pointer-events: none;
+}
+
+/* Phone */
+.phone {
+  position: absolute;
+  left: 50%; top: 50%;
+  transform: translate(-50%, -50%);
+  width: 18.5vw; height: 61.5vh;
+  background: #fffaf0;
+  border: 0.22vw solid #2a1f12;
+  border-radius: 2.5vw;
+  box-shadow: 0.4vw 0.6vw 0 rgba(42,31,18,0.15);
+  padding: 1.5vw 1.2vw;
+  display: flex; flex-direction: column;
+  z-index: 3;
+}
+.phone .notch {
+  width: 30%; height: 2.3vh;
+  background: #2a1f12;
+  border-radius: 0 0 1vw 1vw;
+  margin: 0 auto 1.6vh;
+}
+.screen-shop {
+  flex: 1;
+  background: linear-gradient(180deg, #ffe9d4 0%, #f5d9bb 100%);
+  border-radius: 1.1vw;
+  border: 0.15vw solid #2a1f12;
+  position: relative;
+  overflow: hidden;
+  display: flex; flex-direction: column;
+  padding: 0.8vw;
+}
+.creator-frame {
+  flex: 1;
+  background: #d9c4a0;
+  border-radius: 0.7vw;
+  border: 0.12vw solid #2a1f12;
+  position: relative;
+  display: flex; align-items: flex-end; justify-content: center;
+}
+.creator-figure {
+  width: 4.3vw; height: 10vh;
+  background: #b85c38;
+  border: 0.12vw solid #2a1f12;
+  border-radius: 2.5vw 2.5vw 0.6vw 0.6vw;
+  position: relative;
+  margin-bottom: 2vh;
+}
+.creator-figure::before {
+  content: ""; position: absolute;
+  width: 2.6vw; height: 4.6vh;
+  background: #e8b896;
+  border: 0.1vw solid #2a1f12;
+  border-radius: 50%;
+  top: -3.6vh; left: 50%;
+  transform: translateX(-50%);
+}
+.live-tag {
+  position: absolute; top: 0.7vw; left: 0.7vw;
+  background: #c0392b; color: #fff;
+  font-family: 'Inter', sans-serif; font-weight: 700;
+  font-size: 0.78vw; padding: 0.25vw 0.55vw; border-radius: 0.3vw;
+  letter-spacing: 0.5px;
+}
+.heart {
+  position: absolute;
+  width: 1vw; height: 1vw;
+  background: #e74c3c;
+  transform: rotate(-45deg);
+}
+.heart::before, .heart::after {
+  content: ""; position: absolute; width: 1vw; height: 1vw;
+  background: #e74c3c; border-radius: 50%;
+}
+.heart::before { top: -0.5vw; left: 0; }
+.heart::after { top: 0; left: 0.5vw; }
+.h1 { right: 1vw; top: 4vh; opacity: 0.9; }
+.h2 { right: 1.7vw; top: 9vh; opacity: 0.7; }
+.h3 { right: 0.6vw; top: 14vh; opacity: 0.5; }
+
+.price-tag {
+  background: #fffaf0;
+  border: 0.12vw solid #2a1f12;
+  border-radius: 0.55vw;
+  padding: 0.45vw 0.6vw;
+  margin-top: 0.6vw;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.82vw; color: #2a1f12;
+  display: flex; justify-content: space-between; align-items: center;
+}
+.price-tag .price { font-weight: 700; color: #b85c38; }
+.buy-btn {
+  background: #b85c38; color: #fffaf0;
+  text-align: center; border-radius: 0.55vw;
+  padding: 0.5vw; margin-top: 0.45vw;
+  font-family: 'Inter', sans-serif;
+  font-weight: 700; font-size: 0.82vw;
+  letter-spacing: 0.5px;
+}
+
+/* Bubbles */
+.bubble {
+  position: absolute;
+  background: #fffaf0;
+  border: 0.16vw solid #2a1f12;
+  border-radius: 1.6vw;
+  padding: 1vw 1.4vw;
+  font-family: 'Caveat', cursive;
+  color: #2a1f12;
+  line-height: 1.2;
+  box-shadow: 0.22vw 0.3vw 0 rgba(42,31,18,0.10);
+  z-index: 4;
+}
+.bubble .tail {
+  position: absolute;
+  width: 1.5vw; height: 1.5vw;
+  background: #fffaf0;
+  border-right: 0.16vw solid #2a1f12;
+  border-bottom: 0.16vw solid #2a1f12;
+  transform: rotate(45deg);
+}
+.seg-label {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.72vw; font-weight: 700;
+  color: #b85c38; letter-spacing: 1.5px;
+  text-transform: uppercase;
+  margin-bottom: 0.25vw;
+}
+.seg-line { font-size: 1.7vw; line-height: 1.15; font-weight: 600; }
+
+.seg1 { left: 5vw; top: 14vh; max-width: 21vw; }
+.seg1 .tail { left: 6vw; bottom: -0.7vw; }
+.seg2 { right: 5vw; top: 14vh; max-width: 21vw; }
+.seg2 .tail { right: 6vw; bottom: -0.7vw; }
+.seg3 { left: 5vw; bottom: 8vh; max-width: 22vw; }
+.seg3 .tail { left: 7vw; top: -0.7vw; transform: rotate(225deg); }
+
+/* Stat */
+.stat {
+  position: absolute;
+  right: 5vw; bottom: 8vh;
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 500;
+  text-align: right;
+  z-index: 4;
+}
+.stat .num {
+  font-size: 7vw; line-height: 0.9; color: #2a1f12;
+  letter-spacing: -3px; display: block;
+}
+.stat .arrow {
+  font-family: 'Caveat', cursive;
+  font-size: 4vw; color: #b85c38;
+  line-height: 1; margin-top: -0.5vw;
+  font-weight: 700;
+}
+
+.competitor {
+  position: absolute;
+  font-family: 'Patrick Hand', cursive;
+  font-size: 1.3vw;
+  color: rgba(42,31,18,0.32);
+  font-style: italic;
+  z-index: 2;
+}
+.comp-shopee { left: 36vw; top: 6vh; transform: rotate(-6deg); }
+.comp-lazada { right: 36vw; bottom: 10vh; transform: rotate(4deg); }
+
+.location {
+  position: absolute;
+  left: 5vw; top: 4vh;
+  font-family: 'Patrick Hand', cursive;
+  font-size: 1.3vw; color: #6b4a28;
+  display: flex; align-items: center; gap: 0.6vw;
+  z-index: 4;
+}
+.pin {
+  width: 0.9vw; height: 0.9vw;
+  background: #b85c38;
+  border-radius: 50% 50% 50% 0;
+  transform: rotate(-45deg);
+}
+
+.annot {
+  position: absolute;
+  font-family: 'Caveat', cursive;
+  color: #6b4a28;
+  font-size: 1.6vw;
+  font-weight: 600;
+  z-index: 4;
+}
+.annot-sample {
+  right: 5vw; top: 4vh;
+  line-height: 1.2;
+  text-align: right;
+  font-size: 1.4vw;
+}
+</style>
+</head>
+<body>
+
+<!-- Phone -->
+<div class="phone">
+  <div class="notch"></div>
+  <div class="screen-shop">
+    <div class="creator-frame">
+      <div class="live-tag">LIVE</div>
+      <div class="heart h1"></div>
+      <div class="heart h2"></div>
+      <div class="heart h3"></div>
+      <div class="creator-figure"></div>
+    </div>
+    <div class="price-tag">
+      <span>Lipstick &middot; matte</span>
+      <span class="price">RM 29</span>
+    </div>
+    <div class="buy-btn">BUY NOW</div>
+  </div>
+</div>
+
+<!-- Three segments -->
+<div class="bubble seg1">
+  <div class="seg-label">Group 1 &middot; buyers</div>
+  <div class="seg-line">price, promo,<br/>product clarity</div>
+  <div class="tail"></div>
+</div>
+<div class="bubble seg2">
+  <div class="seg-label">Group 2 &middot; exposed</div>
+  <div class="seg-line">"Shopee &amp; Lazada<br/>have a better deal"</div>
+  <div class="tail"></div>
+</div>
+<div class="bubble seg3">
+  <div class="seg-label">Group 3 &middot; unexposed</div>
+  <div class="seg-line">latent, but shallow.<br/>not fans, not yet.</div>
+  <div class="tail"></div>
+</div>
+
+<!-- Big stat -->
+<div class="stat">
+  <span class="num">14%</span>
+  <div class="arrow">&rarr; can it grow?</div>
+</div>
+
+<div class="competitor comp-shopee">Shopee.</div>
+<div class="competitor comp-lazada">Lazada.</div>
+
+<div class="location">
+  <span class="pin"></span>
+  <span>TikTok Shop &middot; Malaysia</span>
+</div>
+
+<div class="annot annot-sample">
+  830 responses<br/>per segment, n &asymp; 2,500
+</div>
+
+</body>
+</html>

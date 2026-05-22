@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Can Creator Commerce Grow TikTok Shop? — Frida Li</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Inter', sans-serif;
+  color: #1a1208;
+  background: #faf7f2;
+  line-height: 1.6;
+}
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: #f0ece4; }
+::-webkit-scrollbar-thumb { background: #c8b8a4; border-radius: 3px; }
+
+h1, h2, h3, h4 { font-family: 'Space Grotesk', sans-serif; }
+
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  background: rgba(250, 247, 242, 0.92);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.3s;
+  height: 60px;
+  display: flex; align-items: center;
+  padding: 0 56px;
+  justify-content: space-between;
+}
+nav.scrolled { border-bottom-color: #e8e0d4; }
+.nav-back {
+  font-family: 'Inter', sans-serif;
+  font-size: 12px; font-weight: 400; letter-spacing: 0.7px;
+  text-transform: uppercase; text-decoration: none;
+  color: #6b5c4a; padding: 5px 10px; border-radius: 20px;
+  transition: color 0.2s, background 0.2s;
+  display: inline-flex; align-items: center; gap: 8px;
+}
+.nav-back:hover { color: #b85c38; background: rgba(184,92,56,0.06); }
+.nav-back .arrow { font-family: 'Space Grotesk', sans-serif; font-size: 14px; }
+.nav-logo {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 17px; font-weight: 500;
+  color: #1a1208; cursor: pointer; text-decoration: none;
+  letter-spacing: -0.2px;
+}
+
+.section-inner { max-width: 1160px; margin: 0 auto; padding: 0 56px; }
+
+.case-hero {
+  padding-top: 140px;
+  padding-bottom: 80px;
+  border-bottom: 1px solid #e8e0d4;
+  background: #faf7f2;
+}
+.case-hero-inner {
+  max-width: 1160px; margin: 0 auto; padding: 0 56px;
+}
+.case-eyebrow {
+  font-size: 10px; letter-spacing: 2.5px; text-transform: uppercase;
+  color: #b85c38; font-weight: 500; margin-bottom: 28px;
+}
+.case-h1 {
+  font-size: 60px; font-weight: 400; line-height: 1.04;
+  color: #1a1208; margin-bottom: 28px; letter-spacing: -1px;
+  max-width: 900px;
+}
+.case-h1 em { font-style: normal; color: #b85c38; }
+.case-lede {
+  font-size: 19px; color: #4a3e2e; line-height: 1.7;
+  max-width: 720px; font-weight: 300;
+  margin-bottom: 56px;
+}
+.meta-row {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px;
+  padding-top: 32px; border-top: 1px solid #e8e0d4;
+}
+.meta-k {
+  font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase;
+  color: #9a8878; margin-bottom: 6px;
+}
+.meta-v {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 16px; font-weight: 500; color: #1a1208;
+}
+
+.case-body { padding: 56px 0 96px; background: #faf7f2; }
+
+.case-block {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 80px;
+  padding: 56px 0;
+}
+.case-block:first-child { padding-top: 24px; }
+.section-divider { border: none; border-top: 1px solid #e8e0d4; margin: 0; }
+
+.case-h2 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 28px;
+  font-weight: 500;
+  color: #1a1208;
+  letter-spacing: -0.3px;
+  position: sticky;
+  top: 96px;
+  align-self: start;
+}
+.case-h2 .case-num {
+  display: block;
+  font-family: 'Inter', sans-serif;
+  font-size: 10px; letter-spacing: 2.5px; text-transform: uppercase;
+  color: #b85c38; font-weight: 500; margin-bottom: 10px;
+}
+
+.case-prose { max-width: 740px; }
+.case-prose p {
+  font-size: 16px; line-height: 1.85;
+  color: #4a3e2e;
+  margin-bottom: 22px;
+}
+.case-prose p strong { color: #1a1208; font-weight: 600; }
+.case-prose p em { color: #b85c38; font-style: normal; font-weight: 500; }
+
+.case-h3 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 17px; font-weight: 500;
+  color: #1a1208; margin: 32px 0 10px;
+  letter-spacing: 0.1px;
+}
+
+.case-list { list-style: none; padding: 0; margin: 14px 0 0; }
+.case-list li {
+  position: relative;
+  padding: 9px 0 9px 24px;
+  font-size: 15.5px; line-height: 1.6;
+  color: #4a3e2e;
+  border-bottom: 1px dashed #e8e0d4;
+}
+.case-list li:last-child { border-bottom: none; }
+.case-list li::before {
+  content: ''; position: absolute;
+  left: 0; top: 19px;
+  width: 10px; height: 1px; background: #b85c38;
+}
+.case-list li strong { color: #1a1208; font-weight: 600; }
+
+.rq-list { list-style: none; padding: 0; margin: 16px 0 0; }
+.rq-list li {
+  display: grid; grid-template-columns: 56px 1fr; gap: 12px; align-items: baseline;
+  padding: 14px 0;
+  border-bottom: 1px dashed #e8e0d4;
+}
+.rq-list li:last-child { border-bottom: none; }
+.rq-list li .tag {
+  font-family: 'Inter', sans-serif;
+  font-size: 11px; letter-spacing: 1.5px;
+  color: #b85c38; font-weight: 500;
+}
+.rq-list li p {
+  margin: 0; font-size: 16px; line-height: 1.5; color: #1a1208;
+}
+.rq-list li p strong { font-weight: 600; }
+
+.callout {
+  margin-top: 22px;
+  padding: 20px 24px;
+  background: rgba(184,92,56,0.06);
+  border-left: 3px solid #b85c38;
+  border-radius: 0 4px 4px 0;
+}
+.callout-label {
+  font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase;
+  color: #b85c38; font-weight: 500; margin-bottom: 6px;
+}
+.callout-body {
+  font-size: 15.5px; line-height: 1.7; color: #1a1208;
+}
+.callout-body strong { font-weight: 600; }
+
+.callout.dark {
+  background: #1a1208;
+  border-left: 3px solid #b85c38;
+}
+.callout.dark .callout-label { color: #c89438; }
+.callout.dark .callout-body { color: #f5f0e8; }
+.callout.dark .callout-body strong { color: #ffffff; }
+.callout.dark .callout-body em { color: #f5c898; font-style: normal; font-weight: 600; }
+
+.pair-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 18px;
+  margin-top: 18px;
+}
+.pair-card {
+  background: #fff;
+  border: 1px solid #e8e0d4;
+  border-top: 3px solid #b85c38;
+  padding: 22px 24px 24px;
+  border-radius: 0 0 4px 4px;
+}
+.pair-tag {
+  font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase;
+  color: #b85c38; font-weight: 500; margin-bottom: 8px;
+}
+.pair-title {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 17px; font-weight: 500;
+  color: #1a1208; margin-bottom: 10px;
+}
+.pair-body {
+  font-size: 14.5px; line-height: 1.7; color: #4a3e2e;
+}
+
+/* survey sections */
+.survey-grid {
+  display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px;
+  margin-top: 18px;
+}
+.survey-card {
+  background: #fff;
+  border: 1px solid #e8e0d4;
+  border-top: 3px solid #b85c38;
+  padding: 16px 14px 18px;
+  border-radius: 0 0 4px 4px;
+}
+.survey-card .num {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 24px; font-weight: 400; color: #b85c38;
+  letter-spacing: -0.5px; line-height: 1; margin-bottom: 12px;
+}
+.survey-card .ttl {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 14px; font-weight: 500; color: #1a1208;
+  line-height: 1.3; margin-bottom: 6px;
+}
+.survey-card .sub {
+  font-size: 11px; color: #9a8878; letter-spacing: 0.2px;
+}
+
+/* stats inline */
+.stat-row {
+  display: flex; flex-wrap: wrap; gap: 28px;
+  margin-top: 20px; padding-top: 18px; border-top: 1px solid #e8e0d4;
+}
+.stat-row .item {
+  display: flex; align-items: baseline; gap: 8px;
+}
+.stat-row .num {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 26px; font-weight: 500;
+  letter-spacing: -0.7px; color: #1a1208;
+}
+.stat-row .num.accent { color: #b85c38; }
+.stat-row .lbl {
+  font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase;
+  color: #9a8878;
+}
+
+/* finding cards */
+.find-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;
+  margin-top: 18px;
+}
+.find-card {
+  background: #fff;
+  border: 1px solid #e8e0d4;
+  border-top: 3px solid #b85c38;
+  padding: 22px 24px;
+  border-radius: 0 0 4px 4px;
+  display: flex; flex-direction: column; gap: 14px;
+}
+.find-head {
+  display: flex; justify-content: space-between; align-items: baseline;
+}
+.find-head .grp {
+  font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase;
+  color: #b85c38; font-weight: 500;
+}
+.find-head .ask {
+  font-size: 10px; letter-spacing: 1px; text-transform: uppercase;
+  color: #9a8878;
+}
+.find-hero {
+  display: flex; align-items: baseline; gap: 12px;
+  padding: 12px 14px;
+  background: rgba(184,92,56,0.06);
+  border-left: 3px solid #b85c38;
+}
+.find-hero .num {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 32px; font-weight: 500;
+  color: #b85c38; letter-spacing: -0.7px; line-height: 1;
+}
+.find-hero .txt {
+  font-size: 13.5px; line-height: 1.45; color: #1a1208;
+}
+.find-row {
+  display: flex; justify-content: space-between; align-items: baseline;
+  padding: 8px 0; font-size: 14px; color: #6b5c4a;
+  border-top: 1px dashed #e8e0d4;
+}
+.find-row .v {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 500; color: #1a1208;
+}
+.find-take {
+  font-size: 14.5px; line-height: 1.55; color: #1a1208;
+}
+
+/* stat-grid (impact) */
+.stat-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px;
+  margin-top: 16px;
+}
+.stat-card {
+  background: #fff;
+  border: 1px solid #e8e0d4;
+  padding: 26px 26px 24px;
+  border-radius: 4px;
+}
+.stat-num {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 36px; font-weight: 400;
+  letter-spacing: -0.7px; line-height: 1.1;
+  color: #b85c38;
+}
+.stat-label {
+  font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase;
+  color: #9a8878; margin-top: 12px; margin-bottom: 10px;
+}
+.stat-body {
+  font-size: 14px; line-height: 1.7; color: #4a3e2e;
+}
+
+/* timeline */
+.timeline {
+  margin-top: 16px;
+  background: #fff;
+  border: 1px solid #e8e0d4;
+  border-radius: 4px;
+  padding: 18px 22px;
+}
+.timeline-axis {
+  display: flex; font-size: 10px; letter-spacing: 1px;
+  color: #9a8878; text-transform: uppercase;
+  padding-bottom: 8px;
+}
+.timeline-axis > div {
+  flex: 1; text-align: center;
+  border-left: 1px dashed #e8e0d4; padding-left: 6px;
+}
+.timeline-axis > div:first-child { border-left: none; padding-left: 0; }
+.timeline-bar {
+  display: flex; gap: 4px; height: 56px;
+}
+.tphase {
+  display: flex; flex-direction: column; justify-content: center;
+  padding: 8px 12px; border-radius: 2px;
+  background: rgba(184,92,56,0.1);
+  border: 1px solid rgba(184,92,56,0.25);
+}
+.tphase.alt {
+  background: rgba(26,18,8,0.05);
+  border: 1px solid #d8cdba;
+}
+.tphase .lbl {
+  font-size: 10px; letter-spacing: 1px;
+  color: #b85c38; text-transform: uppercase; font-weight: 500;
+}
+.tphase.alt .lbl { color: #6b5c4a; }
+.tphase .nm {
+  font-size: 13px; font-weight: 500; color: #1a1208; margin-top: 2px;
+  font-family: 'Space Grotesk', sans-serif;
+}
+
+/* deck CTA */
+.deck-cta {
+  margin-top: 24px;
+  display: block;
+  padding: 32px 36px;
+  background: #1a1208;
+  color: #faf7f2;
+  border-radius: 4px;
+  text-decoration: none;
+  transition: background 0.2s;
+}
+.deck-cta:hover { background: #b85c38; }
+.deck-cta-label {
+  font-size: 10px; letter-spacing: 2px; text-transform: uppercase;
+  color: #c8b8a4; margin-bottom: 10px;
+}
+.deck-cta-title {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 22px; font-weight: 400;
+  display: flex; justify-content: space-between; align-items: baseline;
+  gap: 24px;
+}
+.deck-cta-title .arrow { font-size: 22px; }
+.deck-cta-sub {
+  font-size: 13.5px; color: #c8b8a4; margin-top: 8px; line-height: 1.6;
+}
+
+footer {
+  background: #1a1208; color: #9a8878;
+  padding: 36px 56px;
+  display: flex; justify-content: space-between; align-items: center;
+}
+.footer-logo { font-family: 'Space Grotesk', sans-serif; font-size: 14px; color: #c8b8a4; }
+.footer-links { display: flex; gap: 24px; }
+.footer-links a {
+  font-size: 10px; color: #6b5c4a; letter-spacing: 0.8px;
+  text-transform: uppercase; text-decoration: none;
+  transition: color 0.2s; white-space: nowrap;
+}
+.footer-links a:hover { color: #c8b8a4; }
+.footer-copy { font-size: 12px; }
+
+.fade-up { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
+.fade-up.visible { opacity: 1; transform: translateY(0); }
+
+@media (max-width: 900px) {
+  .case-h1 { font-size: 44px; }
+  .case-block { grid-template-columns: 1fr; gap: 20px; }
+  .case-h2 { position: static; }
+  .meta-row { grid-template-columns: repeat(2, 1fr); }
+  .pair-grid, .stat-grid, .find-grid { grid-template-columns: 1fr; }
+  .survey-grid { grid-template-columns: repeat(2, 1fr); }
+}
+</style>
+</head>
+<body>
+
+<nav id="main-nav">
+  <a class="nav-back" href="../Frida Li - Website.html#projects"><span class="arrow">←</span> Back to portfolio</a>
+  <a class="nav-logo" href="../Frida Li - Website.html">Frida Li, MA</a>
+</nav>
+
+<!-- HERO -->
+<section class="case-hero">
+  <div class="case-hero-inner">
+    <div class="case-eyebrow fade-up">Generative Study · Case 02 · 2023</div>
+    <h1 class="case-h1 fade-up">Can <em>TikTok Creators</em> Sell?</h1>
+    <p class="case-lede fade-up">Six months after launch in Malaysia, TikTok Shop's growth had plateaued — yet backend data showed creators were already driving 14% of purchases with zero active investment. I designed and fielded a 3-week, three-segment survey (n≈2,500) that reframed creators as a commercial channel and seeded the first creator-partnership program.</p>
+    <div class="meta-row fade-up">
+      <div><div class="meta-k">Company</div><div class="meta-v">TikTok · TTS Malaysia</div></div>
+      <div><div class="meta-k">Role</div><div class="meta-v">UXR Intern (sole researcher)</div></div>
+      <div><div class="meta-k">Approach</div><div class="meta-v">Survey · 3 segments</div></div>
+      <div><div class="meta-k">Year</div><div class="meta-v">2023 · 3 weeks</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="case-body">
+  <div class="section-inner">
+
+    <!-- Background & Problem -->
+    <div class="case-block">
+      <h2 class="case-h2"><span class="case-num">01</span>Background &amp; Problem</h2>
+      <div class="case-prose">
+        <p>In 2023, TikTok Shop launched in Malaysia through a dedicated Shop tab inside the TikTok app. New-customer growth was organic and strong at first, then <strong>plateaued six months in</strong>. Backend data showed creator content was already driving <strong>14% of purchases with zero active investment</strong> — the remainder coming from users browsing the Shop tab, in-app search, and brand promotions.</p>
+        <p>Leadership wanted to know whether actively partnering with creators could push that 14% higher. My PM came to me to build the study that would inform their recommendation, three weeks before the leadership goal-alignment meeting.</p>
+        <div class="callout dark">
+          <div class="callout-label">Primary research question</div>
+          <div class="callout-body">Can creator influence on TikTok Shop purchases grow <em>beyond 14%</em>, and where would that growth come from?</div>
+        </div>
+        <h3 class="case-h3">Three sub-questions · one per backend-defined segment</h3>
+        <ol class="rq-list">
+          <li><span class="tag">G1</span><p><strong>Creator-influenced buyers.</strong> What role does the creator actually play?</p></li>
+          <li><span class="tag">G2</span><p><strong>Exposed non-buyers.</strong> What blocks conversion despite reach?</p></li>
+          <li><span class="tag">G3</span><p><strong>Unexposed non-buyers.</strong> Is there latent demand we could unlock?</p></li>
+        </ol>
+      </div>
+    </div>
+
+    <hr class="section-divider"/>
+
+    <!-- Challenge -->
+    <div class="case-block">
+      <h2 class="case-h2"><span class="case-num">02</span>Challenge</h2>
+      <div class="case-prose">
+        <p>The best-practice approach for this brief was a six-week mixed-methods study: 24 semi-structured in-depth interviews (8 per segment), then a 1,200-person survey (400 per segment) sized via power analysis to detect 10-percentage-point differences at 95% confidence and 80% power.</p>
+        <p>Two real constraints made that plan impossible.</p>
+
+        <div class="pair-grid">
+          <div class="pair-card">
+            <div class="pair-tag">Constraint 01 · Timeline</div>
+            <div class="pair-title">Three weeks, not six.</div>
+            <div class="pair-body">The PM needed presentable insights in <strong>three weeks</strong> for a leadership goal-alignment meeting. Phase-1 interviews alone would have consumed the entire window.</div>
+          </div>
+          <div class="pair-card">
+            <div class="pair-tag">Constraint 02 · No incentives</div>
+            <div class="pair-title">No budget for participant incentives.</div>
+            <div class="pair-body">Malaysia's typical unincentivized response rate is 2–3%. With multiple open-ended questions, I estimated <strong>1–1.5%</strong> — pushing the field size required well above normal.</div>
+          </div>
+        </div>
+
+        <div class="callout">
+          <div class="callout-label">What this forced</div>
+          <div class="callout-body">A <strong>survey-only</strong> study that still preserved the "why" — and a written agreement with stakeholders that the output would be <strong>surface-level signals, not definitive conclusions</strong>, with a deeper follow-up to be scoped if the signal was positive.</div>
+        </div>
+      </div>
+    </div>
+
+    <hr class="section-divider"/>
+
+    <!-- Approach -->
+    <div class="case-block">
+      <h2 class="case-h2"><span class="case-num">03</span>Approach</h2>
+      <div class="case-prose">
+        <p>I designed a single survey across three backend-defined segments — creator-influenced buyers, exposed non-buyers, unexposed non-buyers — each answering a different strategic question. To preserve qualitative depth I embedded <strong>open-ended fields after every "why" closed question</strong> and added "other, please specify" options throughout. To accelerate design, I borrowed closed-answer categories from a prior TikTok Shop China study that had tackled the same creator-growth problem.</p>
+
+        <div class="timeline">
+          <div class="timeline-axis">
+            <div>Week 1</div><div>Week 2</div><div>Week 3</div>
+          </div>
+          <div class="timeline-bar">
+            <div class="tphase" style="flex:1;"><div class="lbl">Design</div><div class="nm">Design · translation · pilot</div></div>
+            <div class="tphase alt" style="flex:1;"><div class="lbl">Field</div><div class="nm">Backend pull · field to 120k Malay users</div></div>
+            <div class="tphase" style="flex:1;"><div class="lbl">Analyze</div><div class="nm">Clean · code open-ends · readout</div></div>
+          </div>
+        </div>
+
+        <h3 class="case-h3">Survey structure · five sections · 8–10 min · English + Malay</h3>
+        <div class="survey-grid">
+          <div class="survey-card"><div class="num">01</div><div class="ttl">Screening &amp; demographics</div><div class="sub">Backend cross-referenced</div></div>
+          <div class="survey-card"><div class="num">02</div><div class="ttl">TikTok &amp; shopping context</div><div class="sub">All respondents</div></div>
+          <div class="survey-card"><div class="num">03</div><div class="ttl">Shop awareness &amp; perception</div><div class="sub">All groups</div></div>
+          <div class="survey-card"><div class="num">04</div><div class="ttl">Group-specific deep dive</div><div class="sub">Routed per segment</div></div>
+          <div class="survey-card"><div class="num">05</div><div class="ttl">Open-ended reflection</div><div class="sub">Capture the "why"</div></div>
+        </div>
+
+        <h3 class="case-h3">Trade-offs flagged in writing</h3>
+        <ul class="case-list">
+          <li><strong>Borrowed categories may miss Malaysia-specific reasons.</strong> Trust dynamics, multi-ethnic and multi-religious context, and the Shopee + Lazada-shaped competitive set don't transfer from China cleanly. Open-ends were the safety net.</li>
+          <li><strong>Open-ends drag response rate.</strong> I oversampled the field to 120k backend-matched users to compensate.</li>
+          <li><strong>This study delivers surface signals, not conclusions.</strong> A deeper follow-up would be needed if the signal was positive.</li>
+        </ul>
+
+        <h3 class="case-h3">Analysis</h3>
+        <ul class="case-list">
+          <li>Two-proportion <strong>z-tests</strong> across segments for headline comparisons; <strong>95% confidence intervals</strong> on each driving proportion.</li>
+          <li><strong>Thematic coding</strong> of every "why" response, cross-referenced against the closed-question patterns.</li>
+          <li>Structured findings around the three sub-questions; folded a directional recommendation into each.</li>
+        </ul>
+
+        <div class="stat-row">
+          <div class="item"><div class="num">120k</div><div class="lbl">Backend-matched users</div></div>
+          <div class="item"><div class="num">~2,500</div><div class="lbl">Effective sample</div></div>
+          <div class="item"><div class="num">~830</div><div class="lbl">Per segment</div></div>
+          <div class="item"><div class="num accent">2%</div><div class="lbl">Response rate · above 1–1.5% estimate</div></div>
+        </div>
+      </div>
+    </div>
+
+    <hr class="section-divider"/>
+
+    <!-- Findings -->
+    <div class="case-block">
+      <h2 class="case-h2"><span class="case-num">04</span>Findings</h2>
+      <div class="case-prose">
+        <p>The headline answer to the primary question: <em>creator influence can grow beyond 14% — but the mechanism is commercial, not parasocial.</em> Users buy through creators because of price, promotions, and product clarity, not because they're fans.</p>
+
+        <div class="find-grid">
+          <div class="find-card">
+            <div class="find-head">
+              <span class="grp">Group 01 · Buyers</span>
+              <span class="ask">Why they bought</span>
+            </div>
+            <div class="find-hero">
+              <div class="num">49.8%</div>
+              <div class="txt">cited <strong>price</strong> or <strong>promotions</strong> as the reason</div>
+            </div>
+            <div class="find-row"><span>Bought as a <strong>fan</strong> of the creator</span><span class="v">6.2%</span></div>
+            <div class="find-take">Commercial reasons dwarf parasocial ones — by <strong>8×</strong>. Top categories tracked the same logic: beauty (47.8%), apparel (38.8%), accessories (38.6%).</div>
+          </div>
+
+          <div class="find-card">
+            <div class="find-head">
+              <span class="grp">Group 02 · Exposed</span>
+              <span class="ask">Why they didn't</span>
+            </div>
+            <div class="find-hero">
+              <div class="num">24.9%</div>
+              <div class="txt">blocked by <strong>better deals or lower prices elsewhere</strong></div>
+            </div>
+            <div class="find-row"><span>Open-ends named <strong>Shopee &amp; Lazada</strong></span><span class="v">—</span></div>
+            <div class="find-take">Awareness and trust were not the issue. The deal was. The competition is commercial, not creator-driven.</div>
+          </div>
+
+          <div class="find-card">
+            <div class="find-head">
+              <span class="grp">Group 03 · Unexposed</span>
+              <span class="ask">What pulls them</span>
+            </div>
+            <div class="find-hero">
+              <div class="num">37.6%</div>
+              <div class="txt">would buy for <strong>creator coupons</strong></div>
+            </div>
+            <div class="find-row"><span>Knew <strong>none</strong> of listed creators</span><span class="v">73.7%</span></div>
+            <div class="find-take">Latent demand exists but is shallow and conditional — pulled by incentives, not fandom. Roughly a fifth won't convert on any lever.</div>
+          </div>
+        </div>
+
+        <div class="callout">
+          <div class="callout-label">What the open-ends caught</div>
+          <div class="callout-body"><strong>Shopee</strong> and <strong>Lazada</strong> showed up <em>by name</em> in open-ended responses — both absent from any China-borrowed answer set. That single finding reframed the real competition set for creator commerce in Malaysia.</div>
+        </div>
+
+        <h3 class="case-h3">Bringing it back to the primary question</h3>
+        <p>The recommendation I took into the leadership readout was to <strong>treat creators as a commercial channel that competes with Shopee and Lazada on the deal</strong> — equipped with creator-specific coupons, exclusive promotions, after-sales accountability tied to the creator, and content that clearly presents sizes, colors, and usage. As a follow-on, I scoped a dedicated investigation into the Malaysia creator economy to cover the local reasons the borrowed scales couldn't.</p>
+      </div>
+    </div>
+
+    <hr class="section-divider"/>
+
+    <!-- Impact -->
+    <div class="case-block">
+      <h2 class="case-h2"><span class="case-num">05</span>Impact</h2>
+      <div class="case-prose">
+        <p>The study delivered a positive signal that creator influence could grow beyond the 14% baseline — and a written argument for the deeper follow-up needed to act on it.</p>
+
+        <div class="stat-grid">
+          <div class="stat-card">
+            <div class="stat-num">Sign-off</div>
+            <div class="stat-label">Creator partnership program</div>
+            <div class="stat-body">Leadership approved a creator partnership program <strong>built around commercial tools</strong>, not brand relationships.</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-num">Approved</div>
+            <div class="stat-label">Follow-up research</div>
+            <div class="stat-body">Leadership signed off on the <strong>deeper creator-economy study</strong> I had flagged upfront, and unlocked collaboration with the Malaysia TTS product team for it.</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-num">Reused</div>
+            <div class="stat-label">Segmentation playbook</div>
+            <div class="stat-body">First creator-commerce segmentation playbook for TTS Malaysia — <strong>reused</strong> for return-reasons and re-engagement studies.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <hr class="section-divider"/>
+
+    <!-- Lessons -->
+    <div class="case-block">
+      <h2 class="case-h2"><span class="case-num">06</span>Lessons &amp; Reflection</h2>
+      <div class="case-prose">
+        <p>The two methods lessons I carry forward from this study:</p>
+
+        <h3 class="case-h3">01 · A survey-only study can still surface the "why"</h3>
+        <p>— if open-ended fields and "other, please specify" boxes are placed <em>deliberately</em> at every "why" closed question. The trade-off is response rate, which is why I oversampled the field. Suitable when participant incentive isn't a lever you can pull.</p>
+
+        <h3 class="case-h3">02 · Borrowed scales accelerate design — but pair them with open-ends</h3>
+        <p>Borrowing closed-answer categories from another market is fast, but risks miscoding reasons unique to the new context. Pairing borrowed scales with open-ended fields is what surfaced <strong>Shopee and Lazada by name</strong>, neither of which sat in any borrowed answer set. The open-ends weren't a polite addition — they were the safety net that caught the real finding.</p>
+
+        <h3 class="case-h3">03 · Scope under constraint pays off when trade-offs are written down</h3>
+        <p>Naming what the study could and could not support, in writing, kept the readout focused on actionable findings and made the case for the follow-up phase easier — the boundaries had already been drawn.</p>
+
+        <a class="deck-cta" href="../uploads/Frida Li - Portfolio Deck _standalone_.html" target="_blank" rel="noopener">
+          <div class="deck-cta-label">Full case in deck format</div>
+          <div class="deck-cta-title"><span>Frida Li · UXR Portfolio Deck</span><span class="arrow">→</span></div>
+          <div class="deck-cta-sub">Slides 12–20 · How TikTok Creators Sell · with full timeline, survey architecture, analysis approach, and findings detail.</div>
+        </a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<footer>
+  <span class="footer-logo">Frida Li, MA · User Researcher</span>
+  <div class="footer-links">
+    <a href="../Frida Li - Website.html#about">About</a>
+    <a href="../Frida Li - Website.html#projects">Projects</a>
+    <a href="../Frida Li - Website.html#contact">Contact</a>
+  </div>
+  <span class="footer-copy">© 2026</span>
+</footer>
+
+<script>
+const nav = document.getElementById('main-nav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 30);
+});
+
+const fadeEls = document.querySelectorAll('.fade-up');
+const fadeObs = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.1 });
+fadeEls.forEach(el => {
+  const r = el.getBoundingClientRect();
+  if (r.top < window.innerHeight) el.classList.add('visible');
+  else fadeObs.observe(el);
+});
+</script>
+</body>
+</html>
