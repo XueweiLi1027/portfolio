@@ -388,6 +388,77 @@ footer {
 .delay-1 { transition-delay: 0.1s; }
 .delay-2 { transition-delay: 0.2s; }
 .delay-3 { transition-delay: 0.3s; }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 768px) {
+
+  /* Nav */
+  nav {
+    padding: 0 20px;
+    height: 52px;
+  }
+  .nav-links a {
+    padding: 5px 7px;
+    font-size: 11px;
+  }
+
+  /* Hero: stack portrait above text */
+  .about-hero-inner {
+    grid-template-columns: 1fr;
+    gap: 32px;
+    padding: 0 20px;
+  }
+  .about-portrait img {
+    aspect-ratio: 3/2;
+    object-position: 35% 25%;
+  }
+  .about-hero-text { padding-right: 0; }
+  .hero-h1 { font-size: 40px; }
+  .hero-tagline { font-size: 15px; }
+
+  /* About body: collapse sidebar layout */
+  .section-inner { padding: 56px 20px; }
+  .about-body { padding-top: 48px; padding-bottom: 64px; }
+  .about-block {
+    grid-template-columns: 1fr;
+    gap: 16px;
+    padding: 40px 0;
+  }
+  .about-h2 {
+    position: static;
+    font-size: 22px;
+  }
+
+  /* Project cards: single column */
+  .cases-grid { grid-template-columns: 1fr; }
+
+  /* Contact: single column */
+  .contact-grid { grid-template-columns: 1fr; gap: 48px; }
+
+  /* Footer */
+  footer {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 28px 20px;
+  }
+
+  /* Books grid */
+  .books-grid { grid-template-columns: 1fr 1fr; gap: 28px; }
+
+  /* Opinion rows */
+  .opinion-row {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  .opinion-title { font-size: 20px; }
+}
+
+@media (max-width: 420px) {
+  .hero-h1 { font-size: 32px; }
+  .books-grid { grid-template-columns: 1fr; }
+  .nav-links { gap: 2px; }
+}
 </style>
 </head>
 <body>
