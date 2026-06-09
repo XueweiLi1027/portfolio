@@ -1,0 +1,864 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Experience, Expertise, and Strategic Diversification · Frida Li</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Inter', sans-serif;
+  color: #1a1208;
+  background: #faf7f2;
+  line-height: 1.6;
+}
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: #f0ece4; }
+::-webkit-scrollbar-thumb { background: #c8b8a4; border-radius: 3px; }
+
+h1, h2, h3, h4 { font-family: 'Space Grotesk', sans-serif; }
+
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  background: rgba(250, 247, 242, 0.92);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.3s;
+  height: 60px;
+  display: flex; align-items: center;
+  padding: 0 56px;
+  justify-content: space-between;
+}
+nav.scrolled { border-bottom-color: #e8e0d4; }
+.nav-back {
+  font-family: 'Inter', sans-serif;
+  font-size: 12px; font-weight: 400; letter-spacing: 0.7px;
+  text-transform: uppercase; text-decoration: none;
+  color: #6b5c4a; padding: 5px 10px; border-radius: 20px;
+  transition: color 0.2s, background 0.2s;
+  display: inline-flex; align-items: center; gap: 8px;
+}
+.nav-back:hover { color: #b85c38; background: rgba(184,92,56,0.06); }
+.nav-back .arrow { font-family: 'Space Grotesk', sans-serif; font-size: 14px; }
+.nav-logo {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 17px; font-weight: 500;
+  color: #1a1208; cursor: pointer; text-decoration: none;
+  letter-spacing: -0.2px;
+}
+
+.section-inner { max-width: 1160px; margin: 0 auto; padding: 0 56px; }
+
+.case-hero {
+  padding-top: 140px;
+  padding-bottom: 80px;
+  border-bottom: 1px solid #e8e0d4;
+  background: #faf7f2;
+}
+.case-hero-inner {
+  max-width: 1160px; margin: 0 auto; padding: 0 56px;
+}
+.case-eyebrow {
+  font-size: 10px; letter-spacing: 2.5px; text-transform: uppercase;
+  color: #b85c38; font-weight: 500; margin-bottom: 28px;
+}
+.case-h1 {
+  font-size: 46px; font-weight: 400; line-height: 1.1;
+  color: #1a1208; margin-bottom: 28px; letter-spacing: -0.8px;
+  max-width: 980px;
+}
+.case-h1 em { font-style: normal; color: #b85c38; }
+.case-lede {
+  font-size: 19px; color: #4a3e2e; line-height: 1.7;
+  max-width: 760px; font-weight: 300;
+  margin-bottom: 56px;
+}
+.meta-row {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px;
+  padding-top: 32px; border-top: 1px solid #e8e0d4;
+}
+.meta-k {
+  font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase;
+  color: #9a8878; margin-bottom: 6px;
+}
+.meta-v {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 16px; font-weight: 500; color: #1a1208;
+}
+
+.case-body { padding: 56px 0 96px; background: #faf7f2; }
+
+.case-block {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 80px;
+  padding: 56px 0;
+}
+.case-block:first-child { padding-top: 24px; }
+.section-divider { border: none; border-top: 1px solid #e8e0d4; margin: 0; }
+
+.case-h2 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 28px;
+  font-weight: 500;
+  color: #1a1208;
+  letter-spacing: -0.3px;
+  position: sticky;
+  top: 96px;
+  align-self: start;
+}
+.case-h2 .case-num {
+  display: block;
+  font-family: 'Inter', sans-serif;
+  font-size: 10px; letter-spacing: 2.5px; text-transform: uppercase;
+  color: #b85c38; font-weight: 500; margin-bottom: 10px;
+}
+
+.case-prose { max-width: 760px; }
+.case-prose p {
+  font-size: 16px; line-height: 1.85;
+  color: #4a3e2e;
+  margin-bottom: 22px;
+}
+.case-prose p strong { color: #1a1208; font-weight: 600; }
+.case-prose p em { color: #b85c38; font-style: normal; font-weight: 500; }
+
+.case-h3 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 17px; font-weight: 500;
+  color: #1a1208; margin: 32px 0 10px;
+  letter-spacing: 0.1px;
+}
+
+.case-list { list-style: none; padding: 0; margin: 14px 0 0; }
+.case-list li {
+  position: relative;
+  padding: 9px 0 9px 24px;
+  font-size: 15.5px; line-height: 1.6;
+  color: #4a3e2e;
+  border-bottom: 1px dashed #e8e0d4;
+}
+.case-list li:last-child { border-bottom: none; }
+.case-list li::before {
+  content: ''; position: absolute;
+  left: 0; top: 19px;
+  width: 10px; height: 1px; background: #b85c38;
+}
+.case-list li strong { color: #1a1208; font-weight: 600; }
+
+.rq-list { list-style: none; padding: 0; margin: 16px 0 0; }
+.rq-list li {
+  display: grid; grid-template-columns: 56px 1fr; gap: 12px; align-items: baseline;
+  padding: 14px 0;
+  border-bottom: 1px dashed #e8e0d4;
+}
+.rq-list li:last-child { border-bottom: none; }
+.rq-list li .tag {
+  font-family: 'Inter', sans-serif;
+  font-size: 11px; letter-spacing: 1.5px;
+  color: #b85c38; font-weight: 500;
+}
+.rq-list li p {
+  margin: 0; font-size: 16px; line-height: 1.5; color: #1a1208;
+}
+.rq-list li p strong { font-weight: 600; }
+
+.callout {
+  margin-top: 22px;
+  padding: 20px 24px;
+  background: rgba(184,92,56,0.06);
+  border-left: 3px solid #b85c38;
+  border-radius: 0 4px 4px 0;
+}
+.callout-label {
+  font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase;
+  color: #b85c38; font-weight: 500; margin-bottom: 6px;
+}
+.callout-body {
+  font-size: 15.5px; line-height: 1.7; color: #1a1208;
+}
+.callout-body strong { font-weight: 600; }
+
+.callout.dark {
+  background: #1a1208;
+  border-left: 3px solid #b85c38;
+}
+.callout.dark .callout-label { color: #c89438; }
+.callout.dark .callout-body { color: #f5f0e8; }
+.callout.dark .callout-body strong { color: #ffffff; }
+.callout.dark .callout-body em { color: #f5c898; font-style: normal; font-weight: 600; }
+
+.pair-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 18px;
+  margin-top: 18px;
+}
+.pair-card {
+  background: #fff;
+  border: 1px solid #e8e0d4;
+  border-top: 3px solid #b85c38;
+  padding: 22px 24px 24px;
+  border-radius: 0 0 4px 4px;
+}
+.pair-tag {
+  font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase;
+  color: #b85c38; font-weight: 500; margin-bottom: 8px;
+}
+.pair-title {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 17px; font-weight: 500;
+  color: #1a1208; margin-bottom: 10px;
+}
+.pair-body {
+  font-size: 14.5px; line-height: 1.7; color: #4a3e2e;
+}
+.pair-body strong { color: #1a1208; font-weight: 600; }
+
+/* typology cards (three delegate categories) */
+.city-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px;
+  margin-top: 18px;
+}
+.city-card {
+  background: #fff;
+  border: 1px solid #e8e0d4;
+  border-top: 3px solid #b85c38;
+  padding: 20px 22px 22px;
+  border-radius: 0 0 4px 4px;
+}
+.city-card .tag {
+  font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase;
+  color: #b85c38; font-weight: 500; margin-bottom: 8px;
+}
+.city-card .name {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 19px; font-weight: 500;
+  color: #1a1208; margin-bottom: 12px;
+  letter-spacing: -0.2px;
+}
+.city-card .row {
+  display: flex; justify-content: space-between; gap: 12px;
+  padding: 7px 0;
+  font-size: 13px; color: #6b5c4a;
+  border-top: 1px dashed #e8e0d4;
+}
+.city-card .row .v {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 500; color: #1a1208; text-align: right;
+}
+
+/* findings cards */
+.find-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;
+  margin-top: 18px;
+}
+.find-card {
+  background: #fff;
+  border: 1px solid #e8e0d4;
+  border-top: 3px solid #b85c38;
+  padding: 22px 24px;
+  border-radius: 0 0 4px 4px;
+  display: flex; flex-direction: column; gap: 14px;
+}
+.find-head {
+  display: flex; justify-content: space-between; align-items: baseline; gap: 10px;
+}
+.find-head .grp {
+  font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase;
+  color: #b85c38; font-weight: 500;
+}
+.find-head .ask {
+  font-size: 10px; letter-spacing: 1px; text-transform: uppercase;
+  color: #9a8878; text-align: right;
+}
+.find-hero {
+  display: flex; flex-direction: column; gap: 6px;
+  padding: 12px 14px;
+  background: rgba(184,92,56,0.06);
+  border-left: 3px solid #b85c38;
+}
+.find-hero .lbl {
+  font-size: 10px; letter-spacing: 1.2px; text-transform: uppercase;
+  color: #b85c38; font-weight: 500;
+}
+.find-hero .txt {
+  font-size: 14px; line-height: 1.55; color: #1a1208;
+  font-weight: 500;
+}
+.find-hero .txt strong { font-weight: 700; }
+.find-take {
+  font-size: 14.5px; line-height: 1.6; color: #4a3e2e;
+}
+.find-take strong { color: #1a1208; font-weight: 600; }
+
+/* stat grid */
+.stat-grid {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px;
+  margin-top: 20px;
+}
+.stat-card {
+  background: #fff;
+  border: 1px solid #e8e0d4;
+  padding: 22px 22px 20px;
+  border-radius: 4px;
+}
+.stat-num {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 30px; font-weight: 400;
+  letter-spacing: -0.7px; line-height: 1.1;
+  color: #b85c38;
+}
+.stat-label {
+  font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase;
+  color: #9a8878; margin-top: 10px;
+}
+
+/* tool / keyword chips */
+.chip-row {
+  display: flex; flex-wrap: wrap; gap: 6px;
+  margin-top: 14px;
+}
+.chip {
+  font-size: 11.5px;
+  padding: 4px 10px;
+  border-radius: 20px;
+  background: rgba(184,92,56,0.08);
+  color: #9a3a1a;
+  border: 1px solid rgba(184,92,56,0.2);
+  font-weight: 500;
+  letter-spacing: 0.1px;
+}
+.chip.alt {
+  background: #ede8e0;
+  color: #4a3e2e;
+  border-color: #d8cdba;
+}
+
+/* contribution row */
+.contrib-list { list-style: none; padding: 0; margin: 14px 0 0; }
+.contrib-list li {
+  display: grid; grid-template-columns: 200px 1fr; gap: 18px;
+  padding: 11px 0;
+  border-bottom: 1px dashed #e8e0d4;
+  font-size: 15px;
+}
+.contrib-list li:last-child { border-bottom: none; }
+.contrib-list li .role {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 13px; font-weight: 500;
+  color: #b85c38; letter-spacing: 0.1px;
+  text-transform: uppercase;
+}
+.contrib-list li .who { color: #4a3e2e; }
+.contrib-list li .who strong { color: #1a1208; font-weight: 600; }
+
+/* ── regression / data tables ── */
+.rt-fig {
+  background: #fff;
+  border: 1px solid #e8e0d4;
+  border-radius: 4px;
+  overflow: hidden;
+  margin-top: 22px;
+}
+.rt-fig + .rt-fig { margin-top: 26px; }
+.rt-head {
+  padding: 20px 26px 16px;
+  border-bottom: 1px solid #efe7da;
+  background: #fcfaf6;
+}
+.rt-head .rt-title {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 15px; font-weight: 600; color: #1a1208;
+  letter-spacing: 0.1px;
+}
+.rt-head .rt-sub {
+  font-size: 11.5px; color: #9a8878; margin-top: 6px; line-height: 1.5;
+}
+table.rt {
+  width: 100%; border-collapse: collapse;
+  font-size: 13px;
+}
+table.rt thead th {
+  font-family: 'Inter', sans-serif;
+  font-size: 9.5px; letter-spacing: 1.3px; text-transform: uppercase;
+  color: #9a8878; font-weight: 500; text-align: right;
+  padding: 12px 26px; border-bottom: 1px solid #e8e0d4;
+  white-space: nowrap;
+}
+table.rt thead th:first-child { text-align: left; }
+table.rt tbody td {
+  padding: 10px 26px;
+  border-bottom: 1px dashed #efe7da;
+  color: #4a3e2e; text-align: right;
+  font-family: 'Space Grotesk', sans-serif;
+  white-space: nowrap;
+}
+table.rt tbody td:first-child {
+  text-align: left; color: #1a1208;
+  font-family: 'Inter', sans-serif; font-size: 13.5px;
+}
+table.rt tbody td.note {
+  font-family: 'Inter', sans-serif; color: #9a8878; font-size: 12px;
+}
+table.rt tr.rt-panel td {
+  background: #f6f1e8;
+  font-family: 'Inter', sans-serif;
+  font-size: 9.5px; letter-spacing: 1.3px; text-transform: uppercase;
+  color: #b85c38; font-weight: 600; text-align: left;
+  padding: 10px 26px;
+}
+table.rt tbody tr:last-child td { border-bottom: none; }
+.rt .beta { font-weight: 500; font-size: 14px; }
+.rt .pos { color: #1f7a4d; }
+.rt .neg { color: #b8431f; }
+.rt .sig { color: #9a8878; font-size: 12px; font-family: 'Inter', sans-serif; }
+.rt-foot {
+  padding: 14px 26px 18px;
+  font-size: 11px; color: #9a8878; line-height: 1.6;
+  border-top: 1px solid #efe7da; background: #fcfaf6;
+}
+.rt-foot strong { color: #6b5c4a; font-weight: 600; }
+.fig-cap {
+  font-size: 12px; color: #9a8878; letter-spacing: 0.2px;
+  margin-top: 12px; font-style: italic; line-height: 1.6;
+}
+
+/* data table (descriptive) */
+table.dt { width: 100%; border-collapse: collapse; font-size: 13px; }
+table.dt thead th {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 12px; color: #1a1208; font-weight: 600; text-align: right;
+  padding: 12px 20px; border-bottom: 1px solid #e8e0d4; white-space: nowrap;
+}
+table.dt thead th:first-child { text-align: left; font-weight: 500; color: #9a8878; font-family: 'Inter', sans-serif; font-size: 9.5px; letter-spacing: 1.2px; text-transform: uppercase; }
+table.dt tbody td {
+  padding: 9px 20px; border-bottom: 1px dashed #efe7da;
+  text-align: right; font-family: 'Space Grotesk', sans-serif; color: #4a3e2e;
+}
+table.dt tbody td:first-child {
+  text-align: left; font-family: 'Inter', sans-serif; color: #1a1208; font-size: 13.5px;
+}
+table.dt tr.dt-sub td {
+  background: #f6f1e8; font-family: 'Inter', sans-serif;
+  font-size: 9.5px; letter-spacing: 1.2px; text-transform: uppercase;
+  color: #b85c38; font-weight: 600; text-align: left;
+}
+table.dt tbody tr:last-child td { border-bottom: none; }
+table.dt .hl { color: #b8431f; font-weight: 600; }
+
+.fade-up { opacity: 0; transform: translateY(20px); transition: opacity 0.7s ease, transform 0.7s ease; }
+.fade-up.visible { opacity: 1; transform: none; }
+
+/* thesis cta */
+.repo-cta {
+  margin-top: 24px; display: block;
+  padding: 28px 32px;
+  background: #faf7f2;
+  border: 1px solid #e8e0d4;
+  border-radius: 4px;
+  text-decoration: none;
+  transition: border-color 0.2s, transform 0.2s;
+  color: inherit;
+}
+.repo-cta:hover { border-color: #b85c38; transform: translateY(-2px); }
+.repo-cta-label {
+  font-size: 10px; letter-spacing: 2px; text-transform: uppercase;
+  color: #b85c38; margin-bottom: 8px; font-weight: 500;
+}
+.repo-cta-title {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 19px; font-weight: 500; color: #1a1208;
+  display: flex; justify-content: space-between; align-items: baseline; gap: 24px;
+}
+.repo-cta-title .arrow { font-size: 18px; color: #b85c38; }
+.repo-cta-sub { font-size: 13px; color: #6b5c4a; margin-top: 6px; }
+
+footer {
+  background: #1a1208; color: #9a8878;
+  padding: 36px 56px;
+  display: flex; justify-content: space-between; align-items: center;
+}
+.footer-logo { font-family: 'Space Grotesk', sans-serif; font-size: 14px; color: #c8b8a4; }
+.footer-links { display: flex; gap: 24px; }
+.footer-links a { font-size: 13px; color: #9a8878; text-decoration: none; transition: color 0.2s; }
+.footer-links a:hover { color: #f5f0e8; }
+.footer-copy { font-size: 12px; color: #6b5c4a; }
+
+@media (max-width: 900px) {
+  nav { padding: 0 20px; }
+  .case-hero-inner, .section-inner { padding: 0 20px; }
+  .case-hero { padding-top: 110px; padding-bottom: 56px; }
+  .case-h1 { font-size: 32px; }
+  .case-lede { font-size: 17px; }
+  .meta-row { grid-template-columns: 1fr 1fr; gap: 22px; }
+  .case-block { grid-template-columns: 1fr; gap: 18px; padding: 40px 0; }
+  .case-h2 { position: static; font-size: 22px; }
+  .pair-grid, .find-grid, .city-grid { grid-template-columns: 1fr; }
+  .stat-grid { grid-template-columns: 1fr 1fr; }
+  .contrib-list li { grid-template-columns: 1fr; gap: 4px; }
+  table.rt, table.dt { font-size: 12px; }
+  table.rt tbody td, table.rt thead th, table.dt tbody td, table.dt thead th { padding-left: 16px; padding-right: 16px; }
+  .rt-fig { overflow-x: auto; }
+  footer { flex-direction: column; align-items: flex-start; gap: 16px; padding: 28px 20px; }
+}
+@media (max-width: 420px) {
+  .case-h1 { font-size: 26px; }
+  .meta-row { grid-template-columns: 1fr; }
+  .stat-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<nav id="main-nav">
+  <a class="nav-back" href="../index.html#projects"><span class="arrow">←</span> Back to portfolio</a>
+  <a class="nav-logo" href="../index.html">Frida Li, MA</a>
+</nav>
+
+<!-- HERO -->
+<section class="case-hero">
+  <div class="case-hero-inner">
+    <div class="case-eyebrow fade-up">Social Science Study · 2024 · University of Chicago · MA Thesis</div>
+    <h1 class="case-h1 fade-up">How does <em>Professional Background</em> Shape Legislative Behavior in China's National People's Congress?</h1>
+    <p class="case-lede fade-up">My MA thesis at the University of Chicago, testing two theories of why delegates in an authoritarian legislature sponsor the bills they do. Drawing on an <strong>original dataset of 622 delegates and the 2,209 bills they sponsored</strong> in the 13th National People's Congress (2018 to 2022), it links professional background to bill subject matter, the first study to do so in a setting without electoral accountability.</p>
+    <div class="meta-row fade-up">
+      <div><div class="meta-k">Program</div><div class="meta-v">MAPSS · UChicago</div></div>
+      <div><div class="meta-k">Role</div><div class="meta-v">Sole author</div></div>
+      <div><div class="meta-k">Methods</div><div class="meta-v">Content analysis · logistic models</div></div>
+      <div><div class="meta-k">Year</div><div class="meta-v">2024</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="case-body">
+  <div class="section-inner">
+
+    <!-- 01 Background -->
+    <div class="case-block">
+      <h2 class="case-h2"><span class="case-num">01</span>Background &amp; Question</h2>
+      <div class="case-prose">
+        <p>Authoritarian regimes face a hard problem: without competitive elections, how do they learn what the public actually wants, especially its discontent, before that discontent threatens the regime? One strand of scholarship answers that <strong>legislatures</strong> are the venue where this information gets collected. But that answer leans on electoral representation, which implies legislatures <em>without</em> elections should be largely useless for the task.</p>
+        <p>China's <strong>National People's Congress (NPC)</strong> complicates that story. Commonly dismissed as a "rubber stamp," it nonetheless shows a vibrant internal dynamic: tens of thousands of bills sponsored over the decades, yet only a tiny fraction promulgated. Drafting a bill is genuinely costly. It demands research trips, public conferences, and the political capital to gather at least <strong>30 co-signatures</strong>. So why do delegates do it at all, and why do they so often sponsor bills <em>unrelated</em> to their own interests?</p>
+
+        <div class="callout dark">
+          <div class="callout-label">Primary research question</div>
+          <div class="callout-body">In the absence of electoral accountability, what determines the <em>subject matter</em> of a delegate's bill, and what drives legislators to sponsor bills at all in the face of a very low acceptance rate?</div>
+        </div>
+
+        <p>Answering this matters beyond China. Single-party regimes are among the most resilient of dictatorships, and information provision is empirically linked to regime longevity. Probing how that information surfaces without electoral contests fills a real gap in the study of authoritarian institutions.</p>
+      </div>
+    </div>
+
+    <hr class="section-divider"/>
+
+    <!-- 02 Theory -->
+    <div class="case-block">
+      <h2 class="case-h2"><span class="case-num">02</span>Theory · Two Competing Accounts</h2>
+      <div class="case-prose">
+        <p>Two existing theories make the clearest predictions about what kind of information delegates provide, and why. I test them against one another.</p>
+
+        <div class="pair-grid">
+          <div class="pair-card">
+            <div class="pair-tag">Theory 01 · Co-optation</div>
+            <div class="pair-title">Expertise as the currency.</div>
+            <div class="pair-body">In settings where opposition parties are banned, the regime performs <strong>functional co-optation</strong>, capturing prominent professionals (doctors, lawyers, academics, military) for their specialized knowledge. These delegates signal value to regime elites by sponsoring bills <strong>inside their own domain</strong>, and should do so more as they accumulate seniority.</div>
+          </div>
+          <div class="pair-card">
+            <div class="pair-tag">Theory 02 · Reputation-boost</div>
+            <div class="pair-title">Visibility as the currency.</div>
+            <div class="pair-body">Other delegates use the legislature to build a <strong>broad public reputation</strong>. Rather than staying in their lane, they branch into many policy areas to be seen as engaged, well-rounded representatives, so as they gain experience their bills should drift <strong>away from</strong> their professional background.</div>
+          </div>
+        </div>
+
+        <h3 class="case-h3">Two hypotheses</h3>
+        <ol class="rq-list">
+          <li><span class="tag">H1</span><p><strong>Functional delegates</strong> sponsor increasingly professionally-congruent bills as they gain seniority. <em>(co-optation)</em></p></li>
+          <li><span class="tag">H2</span><p><strong>Non-functional delegates</strong>, especially CEOs, increasingly diversify <em>beyond</em> their professional domain as they gain seniority. <em>(reputation-boost)</em></p></li>
+        </ol>
+
+        <p>The hinge of both hypotheses is a single concept, <em>professional congruence</em>, and how it changes with a delegate's time in office.</p>
+      </div>
+    </div>
+
+    <hr class="section-divider"/>
+
+    <!-- 03 Data -->
+    <div class="case-block">
+      <h2 class="case-h2"><span class="case-num">03</span>Data &amp; Variables</h2>
+      <div class="case-prose">
+        <p>I built an <strong>original dataset</strong> covering every delegate who sponsored at least one bill in the 13th NPC and all of their sponsored bills, collected from public government documents and online sources. For each delegate I coded terms in office, party affiliation, gender, ethnicity, and the character of their employment.</p>
+
+        <div class="stat-grid">
+          <div class="stat-card"><div class="stat-num">622</div><div class="stat-label">Bill-sponsoring delegates</div></div>
+          <div class="stat-card"><div class="stat-num">2,209</div><div class="stat-label">Sponsored bills coded</div></div>
+          <div class="stat-card"><div class="stat-num">13<span style="font-size:18px;">th</span></div><div class="stat-label">NPC · 2018 to 2022</div></div>
+          <div class="stat-card"><div class="stat-num">3</div><div class="stat-label">Delegate categories</div></div>
+        </div>
+
+        <h3 class="case-h3">The delegate typology</h3>
+        <p>Because there is no clean separation of legislative and executive branches in an authoritarian state, I first sorted delegates by the nature of their occupation, then collapsed them into <strong>functional</strong> vs. <strong>non-functional</strong> for hypothesis testing.</p>
+        <div class="city-grid">
+          <div class="city-card">
+            <div class="tag">Type 01 · Functional</div>
+            <div class="name">Professionals</div>
+            <div class="row"><span>Examples</span><span class="v">Doctors · lawyers · academics · military</span></div>
+            <div class="row"><span>Congruent when</span><span class="v">Bill matches their field</span></div>
+            <div class="row"><span>Group</span><span class="v">Functional</span></div>
+          </div>
+          <div class="city-card">
+            <div class="tag">Type 02 · Non-functional</div>
+            <div class="name">CEOs</div>
+            <div class="row"><span>Examples</span><span class="v">Owners · chief executives of private firms</span></div>
+            <div class="row"><span>Congruent when</span><span class="v">Bill matches their business sector</span></div>
+            <div class="row"><span>Group</span><span class="v">Non-functional</span></div>
+          </div>
+          <div class="city-card">
+            <div class="tag">Type 03 · Non-functional</div>
+            <div class="name">Govt &amp; Party Cadres</div>
+            <div class="row"><span>Examples</span><span class="v">Officials · provincial / county CCP branches</span></div>
+            <div class="row"><span>Congruent when</span><span class="v">Bill concerns local governance</span></div>
+            <div class="row"><span>Group</span><span class="v">Non-functional</span></div>
+          </div>
+        </div>
+
+        <h3 class="case-h3">Variables</h3>
+        <ul class="case-list">
+          <li><strong>Outcome: professional congruence.</strong> A dummy variable for whether the bill's subject matter matches the sponsor's occupational domain (1) or not (0).</li>
+          <li><strong>Explanatory: terms in office.</strong> The number of five-year terms a delegate has served (1 to 5), including the 13th NPC, used as a proxy for seniority.</li>
+          <li><strong>Controls: bill inclusion, gender, ethnicity, and party.</strong> Whether a bill made the next year's legislative plan (an elite-preference signal), plus the demographic factors that may moderate behavior.</li>
+        </ul>
+
+        <div class="chip-row">
+          <span class="chip">Original dataset</span>
+          <span class="chip">Hand-coded congruence</span>
+          <span class="chip">Public gov. documents</span>
+          <span class="chip alt">Biographical coding</span>
+          <span class="chip alt">Annual legislative plans 2019 to 2023</span>
+          <span class="chip alt">Pairwise deletion (39 missing)</span>
+        </div>
+      </div>
+    </div>
+
+    <hr class="section-divider"/>
+
+    <!-- 04 Method -->
+    <div class="case-block">
+      <h2 class="case-h2"><span class="case-num">04</span>Method · Coding &amp; Models</h2>
+      <div class="case-prose">
+        <p>The empirical strategy is two-step: <strong>content-analytic coding</strong> to build the congruence variable, then <strong>logistic regression</strong> to test how it moves with seniority across delegate types.</p>
+
+        <div class="pair-grid">
+          <div class="pair-card">
+            <div class="pair-tag">Step 01 · Coding</div>
+            <div class="pair-title">Matching bills to backgrounds.</div>
+            <div class="pair-body">Each bill was read and coded for congruence against its leading sponsor's occupation. A lawyer's bill on arbitration law counts as congruent, as does a clean-energy CEO's bill on environmental protection, or a village party secretary's bill on village committees. Congruence meant local governance for cadres, a sector match for CEOs, and a field match for functional delegates.</div>
+          </div>
+          <div class="pair-card">
+            <div class="pair-tag">Step 02 · Modeling</div>
+            <div class="pair-title">Five logistic specifications.</div>
+            <div class="pair-body">A binomial logit of professional congruence on terms in office. <strong>Model 1</strong> isolates functional delegates; <strong>Models 2 to 4</strong> the non-functional groups (combined, CEOs, cadres); <strong>Model 5</strong> pools everything with <strong>interaction terms</strong> so the term-effect can be compared directly across delegate types.</div>
+          </div>
+        </div>
+
+        <p>Bill inclusion enters as a key control: because the NPC Standing Committee decides behind closed doors which bills advance, inclusion status is a readable signal of elite policy preference, and a potential confounder for why a delegate picks a given subject.</p>
+      </div>
+    </div>
+
+    <hr class="section-divider"/>
+
+    <!-- 05 Key tables -->
+    <div class="case-block">
+      <h2 class="case-h2"><span class="case-num">05</span>Key Tables &amp; Figures</h2>
+      <div class="case-prose">
+        <p>Two tables carry the argument: a descriptive snapshot of who sponsors what, and the logistic model that formally tests the two hypotheses.</p>
+
+        <!-- TABLE 3 -->
+        <div class="rt-fig">
+          <div class="rt-head">
+            <div class="rt-title">Table 3 · Bill characteristics &amp; sponsor demographics, by delegate type</div>
+            <div class="rt-sub">13th NPC · descriptive statistics across the three delegate categories</div>
+          </div>
+          <div style="overflow-x:auto;">
+          <table class="dt">
+            <thead>
+              <tr><th>Characteristic</th><th>Functional</th><th>Non-func.</th><th>CEO</th><th>Govt &amp; Cadre</th></tr>
+            </thead>
+            <tbody>
+              <tr class="dt-sub"><td colspan="5">Bill characteristics</td></tr>
+              <tr><td>Total bills (N)</td><td>1,326</td><td>883</td><td>520</td><td>363</td></tr>
+              <tr><td>Professional congruence (%)</td><td class="hl">65.8</td><td>30.2</td><td>32.7</td><td>26.7</td></tr>
+              <tr><td>Bill inclusion (%)</td><td>56.0</td><td>52.9</td><td>49.8</td><td>57.3</td></tr>
+              <tr><td>Bills per legislator (N)</td><td>3.7</td><td>3.4</td><td class="hl">5.0</td><td>2.3</td></tr>
+              <tr class="dt-sub"><td colspan="5">Sponsor demographics</td></tr>
+              <tr><td>Sponsors (N)</td><td>359</td><td>263</td><td>105</td><td>158</td></tr>
+              <tr><td>CCP member (%)</td><td>50.7</td><td>71.2</td><td>68.3</td><td>75.4</td></tr>
+              <tr><td>Female (%)</td><td>46.8</td><td>35.7</td><td>37.1</td><td>33.6</td></tr>
+              <tr><td>Ethnic minority (%)</td><td>9.5</td><td>20.0</td><td>23.7</td><td>14.9</td></tr>
+              <tr><td>First-time legislator (%)</td><td>63.9</td><td>47.1</td><td>32.5</td><td>68.0</td></tr>
+              <tr><td>Avg. terms in office</td><td>1.4</td><td>1.5</td><td>1.7</td><td>1.3</td></tr>
+            </tbody>
+          </table>
+          </div>
+          <div class="rt-foot">Functional delegates show by far the highest professional congruence (<strong>65.8%</strong> vs. 30.2% for non-functional); CEOs are the most productive sponsors (<strong>5.0 bills each</strong>) yet only about one-third of their bills match their business, the first descriptive signal for both hypotheses.</div>
+        </div>
+
+        <!-- TABLE 4 -->
+        <div class="rt-fig" id="table4">
+          <div class="rt-head">
+            <div class="rt-title">Table 4 · Logistic estimates of terms in office and bill professional congruence</div>
+            <div class="rt-sub">DV: professional congruence (1 = bill matches sponsor's domain) · 622 delegates · 2,209 bills · selected coefficients</div>
+          </div>
+          <div style="overflow-x:auto;">
+          <table class="rt">
+            <thead>
+              <tr><th>Predictor</th><th>β</th><th>Odds / term</th><th>Sig.</th></tr>
+            </thead>
+            <tbody>
+              <tr class="rt-panel"><td colspan="4">A · Effect of an additional term, by delegate type (separate models)</td></tr>
+              <tr><td>Functional delegates (M1)</td><td class="beta pos">+0.319</td><td class="note">▲ congruence</td><td class="sig">p &lt; .01 ***</td></tr>
+              <tr><td>CEO delegates (M3)</td><td class="beta neg">−0.208</td><td class="note">▼ congruence</td><td class="sig">p &lt; .10 *</td></tr>
+              <tr><td>Govt execs &amp; party cadres (M4)</td><td class="beta neg">−0.149</td><td class="note">▼ congruence</td><td class="sig">n.s.</td></tr>
+              <tr class="rt-panel"><td colspan="4">B · Interaction model (M5), reference category: functional</td></tr>
+              <tr><td>Terms in office (main effect)</td><td class="beta pos">+0.267</td><td class="pos">+30.6%</td><td class="sig">p &lt; .01 ***</td></tr>
+              <tr><td>Terms × CEO</td><td class="beta neg">−0.529</td><td class="neg">−23.1%</td><td class="sig">p &lt; .01 ***</td></tr>
+              <tr><td>Terms × Govt &amp; cadre</td><td class="beta neg">−0.399</td><td class="neg">−12.4%</td><td class="sig">p &lt; .05 **</td></tr>
+              <tr class="rt-panel"><td colspan="4">C · Selected controls &amp; demographic moderators</td></tr>
+              <tr><td>Bill inclusion (CEO model)</td><td class="beta neg">−0.728</td><td class="neg">−51.7%</td><td class="sig">p &lt; .01 ***</td></tr>
+              <tr><td>Female · Govt execs &amp; cadres</td><td class="beta pos">+0.922</td><td class="pos">+151.4%</td><td class="sig">p &lt; .01 ***</td></tr>
+              <tr><td>Female · functional</td><td class="beta neg">−0.277</td><td class="note">n/a</td><td class="sig">p &lt; .05 **</td></tr>
+              <tr><td>Female · CEO</td><td class="beta neg">−0.571</td><td class="note">n/a</td><td class="sig">p &lt; .01 ***</td></tr>
+              <tr><td>Han · CEO</td><td class="beta pos">+1.872</td><td class="note">n/a</td><td class="sig">p &lt; .01 ***</td></tr>
+              <tr><td>Han · non-functional</td><td class="beta pos">+0.844</td><td class="note">n/a</td><td class="sig">p &lt; .01 ***</td></tr>
+            </tbody>
+          </table>
+          </div>
+          <div class="rt-foot"><strong>Reading:</strong> a positive β means more seniority raises the odds of a professionally-congruent bill; negative means it lowers them. Significance: *** p&lt;.01 · ** p&lt;.05 · * p&lt;.10. Odds changes are per additional five-year term, computed from the model's coefficients. Selected estimates from the thesis's five-model specification.</div>
+        </div>
+        <p class="fig-cap">Table 4 is the analytical core of the thesis: functional delegates grow more congruent with tenure (H1), while CEOs and cadres move the opposite way (H2), and the demographic interactions reveal who deviates and why.</p>
+      </div>
+    </div>
+
+    <hr class="section-divider"/>
+
+    <!-- 06 Findings -->
+    <div class="case-block">
+      <h2 class="case-h2"><span class="case-num">06</span>Findings</h2>
+      <div class="case-prose">
+        <p>Both hypotheses hold, and the divergence between delegate types is sharp and statistically robust, surviving controls for demographics and elite preference.</p>
+
+        <div class="callout">
+          <div class="callout-label">Headline finding</div>
+          <div class="callout-body">Seniority pulls the two groups in <strong>opposite directions</strong>. Functional delegates lean ever harder into their expertise (co-optation); CEOs and cadres branch ever wider beyond it (reputation-boost). The same legislature rewards two completely different strategies for accumulating influence.</div>
+        </div>
+
+        <div class="find-grid">
+          <div class="find-card">
+            <div class="find-head"><span class="grp">H1 · Supported</span><span class="ask">Functional</span></div>
+            <div class="find-hero">
+              <div class="lbl">Expertise deepens with tenure</div>
+              <div class="txt">Each additional term raises the odds of a professionally-congruent bill by <strong>+30.6%</strong> for functional delegates.</div>
+            </div>
+            <div class="find-take">Professionals behave exactly as the co-optation theory predicts: the longer they serve, the more they specialize, signalling their value to regime elites through domain expertise.</div>
+          </div>
+
+          <div class="find-card">
+            <div class="find-head"><span class="grp">H2 · Supported</span><span class="ask">CEOs</span></div>
+            <div class="find-hero">
+              <div class="lbl">Senior CEOs diversify</div>
+              <div class="txt">For CEOs the effect inverts, with each term cutting the odds of congruence by <strong>23.1%</strong>. They are also the most prolific sponsors (5.0 bills each).</div>
+            </div>
+            <div class="find-take">High output, low congruence, rising with experience: CEOs use the legislature to build a broad reputation rather than to push their own industry's agenda.</div>
+          </div>
+
+          <div class="find-card">
+            <div class="find-head"><span class="grp">Mixed signal</span><span class="ask">Govt &amp; cadres</span></div>
+            <div class="find-hero">
+              <div class="lbl">Broadest reach, best access</div>
+              <div class="txt">Cadres show the <strong>lowest congruence</strong> (26.7%) yet the <strong>highest bill-inclusion rate</strong> (57.3%): success without specialization.</div>
+            </div>
+            <div class="find-take">Their term-effect is negative too, but their institutional position seems to win inclusion regardless of focus, hinting at political networks the data can't yet fully resolve.</div>
+          </div>
+        </div>
+
+        <h3 class="case-h3">Demographic patterns: who deviates, and why</h3>
+        <div class="find-grid">
+          <div class="find-card">
+            <div class="find-head"><span class="grp">Gender</span><span class="ask">Women's interests</span></div>
+            <div class="find-hero">
+              <div class="lbl">Female cadres are the exception</div>
+              <div class="txt">Female government executives are <strong>+151%</strong> more likely to sponsor congruent bills, uniquely folding <strong>women's-interest</strong> issues into their professional domain.</div>
+            </div>
+            <div class="find-take">Other female delegates trend the opposite way: they use sponsorship to raise women's issues over their own expertise, consistent with a well-established gendered pattern in legislative priorities.</div>
+          </div>
+
+          <div class="find-card">
+            <div class="find-head"><span class="grp">Ethnicity</span><span class="ask">Beyond expertise</span></div>
+            <div class="find-hero">
+              <div class="lbl">Minorities range wider</div>
+              <div class="txt">Ethnic-minority delegates in non-functional roles are <strong>far less</strong> congruent than their Han counterparts (Han · CEO β = <strong>+1.872</strong>).</div>
+            </div>
+            <div class="find-take">Minority delegates are more active sponsors overall, but pursue influence beyond their professional lane, likely to speak to their communities rather than their occupation.</div>
+          </div>
+
+          <div class="find-card">
+            <div class="find-head"><span class="grp">Control</span><span class="ask">Log-rolling?</span></div>
+            <div class="find-hero">
+              <div class="lbl">Inclusion ↔ lower congruence</div>
+              <div class="txt">CEO bills that <strong>make the legislative plan</strong> are about 52% less likely to be congruent (β = <strong>−0.728</strong>), a possible trace of vote-trading.</div>
+            </div>
+            <div class="find-take">The pattern hints at reciprocity networks among delegates, though confirming it would need co-sponsor data the current dataset doesn't contain. That is flagged for future work.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <hr class="section-divider"/>
+
+    <!-- 07 Contribution -->
+    <div class="case-block">
+      <h2 class="case-h2"><span class="case-num">07</span>What I Did</h2>
+      <div class="case-prose">
+        <p>A <strong>sole-authored MA thesis</strong>. Every layer, from the research question to the final regression, was my own work.</p>
+        <ul class="contrib-list">
+          <li><span class="role">Design</span><span class="who"><strong>Framed the puzzle and the theory test</strong>, pitting co-optation against reputation-boost as competing accounts of authoritarian legislative behavior.</span></li>
+          <li><span class="role">Data</span><span class="who"><strong>Built the original dataset</strong> of 622 delegates and 2,209 bills from public government documents, adding biographical and bill-inclusion coding.</span></li>
+          <li><span class="role">Coding</span><span class="who"><strong>Hand-coded professional congruence</strong> for every bill against its sponsor's occupation, with a typology to handle the blurred line between executive and legislative roles.</span></li>
+          <li><span class="role">Analysis</span><span class="who"><strong>Specified and ran the five logistic models</strong>, including the interaction model, and interpreted coefficients as odds changes.</span></li>
+          <li><span class="role">Writing</span><span class="who"><strong>Wrote the full thesis</strong> and situated the findings in the authoritarian-institutions and gender-representation literatures.</span></li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<footer>
+  <span class="footer-logo">Frida Li, MA · User Researcher</span>
+  <div class="footer-links">
+    <a href="../index.html#about">About</a>
+    <a href="../index.html#projects">Projects</a>
+    <a href="../index.html#contact">Contact</a>
+  </div>
+  <span class="footer-copy">© 2026</span>
+</footer>
+
+<script>
+const nav = document.getElementById('main-nav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 30);
+});
+
+const fadeEls = document.querySelectorAll('.fade-up');
+const fadeObs = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.1 });
+fadeEls.forEach(el => {
+  const r = el.getBoundingClientRect();
+  if (r.top < window.innerHeight) el.classList.add('visible');
+  else fadeObs.observe(el);
+});
+</script>
+</body>
+</html>

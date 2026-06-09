@@ -223,6 +223,34 @@ nav.scrolled { border-bottom-color: #e8e0d4; }
   letter-spacing: 0.2px;
 }
 
+/* ── compact research-methods grid ── */
+.method-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px 32px;
+  margin-top: 20px;
+}
+.method-grid .method-col-h {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 11px; font-weight: 600;
+  letter-spacing: 1.4px; text-transform: uppercase;
+  color: #b85c38;
+  padding-bottom: 9px; margin-bottom: 4px;
+  border-bottom: 1px solid #e8e0d4;
+}
+.method-tight { list-style: none; padding: 0; margin: 0; }
+.method-tight li {
+  position: relative;
+  padding: 5px 0 5px 16px;
+  font-size: 13.5px; line-height: 1.45;
+  color: #4a3e2e;
+}
+.method-tight li::before {
+  content: ''; position: absolute;
+  left: 0; top: 12px;
+  width: 7px; height: 1px; background: #c8a48c;
+}
+
 /* ── about body ── */
 .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 0 80px; }
 .body-text { font-size: 15px; color: #6b5c4a; line-height: 1.85; margin-bottom: 18px; }
@@ -240,12 +268,81 @@ nav.scrolled { border-bottom-color: #e8e0d4; }
 /* ── case cards ── */
 .company-block { margin-bottom: 64px; }
 .company-block:last-child { margin-bottom: 0; }
+.company-block { scroll-margin-top: 84px; }
 .company-label {
   font-family: 'Space Grotesk', sans-serif;
   font-size: 18px; font-weight: 500; color: #1a1208;
   margin-bottom: 24px; padding-bottom: 16px;
   border-bottom: 1px solid #e8e0d4;
+  display: flex; align-items: baseline; gap: 12px;
 }
+.company-label .cl-count {
+  font-size: 11px; letter-spacing: 1.2px; text-transform: uppercase;
+  color: #9a8878; font-weight: 500;
+}
+
+/* ── projects at-a-glance index ── */
+.projects-sub {
+  font-size: 16px; color: #6b5c4a; line-height: 1.7;
+  max-width: 560px; margin-top: 16px;
+}
+.projects-sub strong { color: #1a1208; font-weight: 600; }
+.projects-layout {
+  display: grid;
+  grid-template-columns: 248px 1fr;
+  gap: 36px;
+  align-items: start;
+}
+.study-rail {
+  display: flex; flex-direction: column; gap: 12px;
+  position: sticky; top: 84px;
+}
+.study-stage { min-width: 0; }
+.study-stage .company-block { margin-bottom: 0; }
+.study-stage .company-label { display: none; }
+.study-index-item {
+  display: block; width: 100%; text-align: left; font: inherit; cursor: pointer;
+  -webkit-appearance: none; appearance: none;
+  text-decoration: none; color: inherit;
+  background: #f0ebe1; border: 1px solid #e5ddcf; border-radius: 6px;
+  padding: 22px 24px 20px;
+  transition: border-color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+}
+.study-index-item:hover { border-color: #cbb9a3; transform: translateY(-2px); }
+.study-index-item.active {
+  background: #faf7f2; border-color: #b85c38;
+  box-shadow: 0 12px 30px rgba(26,18,8,0.08); transform: none;
+}
+.study-index-item.active:hover { transform: none; border-color: #b85c38; }
+.si-top { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; }
+.si-count {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 40px; font-weight: 400; color: #c2ad95;
+  line-height: 1; letter-spacing: -1px;
+  transition: color 0.25s ease;
+}
+.study-index-item.active .si-count { color: #b85c38; }
+.si-count span { font-size: 13px; letter-spacing: 0.5px; color: #9a8878; margin-left: 4px; }
+.si-num {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 11px; font-weight: 500; color: #c8b8a4;
+  letter-spacing: 1px;
+}
+.si-name {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 16px; font-weight: 500; color: #6b5c4a;
+  margin-top: 16px; letter-spacing: -0.1px;
+  transition: color 0.25s ease;
+}
+.study-index-item.active .si-name { color: #1a1208; }
+.si-desc {
+  font-size: 12.5px; color: #8a7a68; line-height: 1.5; margin-top: 5px;
+}
+
+/* filtered study blocks */
+#evaluative, #social { display: none; }
+@keyframes cbFade { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+.company-block.cb-show { animation: cbFade 0.4s ease; }
 .cases-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
 .case-card {
   background: #faf7f2; border-radius: 6px; overflow: hidden;
@@ -424,6 +521,7 @@ footer {
     gap: 16px;
     padding: 40px 0;
   }
+  .method-grid { grid-template-columns: 1fr 1fr; gap: 24px; }
   .about-h2 {
     position: static;
     font-size: 22px;
@@ -431,6 +529,12 @@ footer {
 
   /* Project cards: single column */
   .cases-grid { grid-template-columns: 1fr; }
+  .projects-layout { grid-template-columns: 1fr; gap: 18px; }
+  .study-rail { position: static; flex-direction: row; flex-wrap: wrap; gap: 10px; }
+  .study-rail .study-index-item { flex: 1 1 28%; padding: 14px 16px 13px; }
+  .study-rail .si-desc { display: none; }
+  .study-rail .si-count { font-size: 28px; }
+  .study-rail .si-name { margin-top: 10px; }
 
   /* Contact: single column */
   .contact-grid { grid-template-columns: 1fr; gap: 48px; }
@@ -541,32 +645,38 @@ footer {
     <div class="about-block">
       <h2 class="about-h2">Research Methods</h2>
       <div class="about-prose">
-        <p class="body-text">I have over 2 years of mixed-methods research experience:</p>
+        <p class="body-text" style="margin-bottom: 4px;">Over 2 years of mixed-methods research experience.</p>
 
-        <h3 class="method-h3">Qualitative methods</h3>
-        <ul class="method-list">
-          <li>In-depth interviews &amp; contextual inquiry</li>
-          <li>Usability testing &amp; think-aloud protocol</li>
-          <li>Concept testing &amp; co-design workshops</li>
-          <li>Affinity mapping &amp; thematic analysis</li>
-          <li>International fieldwork &amp; cross-cultural research</li>
-        </ul>
-
-        <h3 class="method-h3">Quantitative methods</h3>
-        <ul class="method-list">
-          <li>Survey sampling, design, &amp; analysis</li>
-          <li>User segmentation &amp; archetype development</li>
-          <li>Behavioral data analysis</li>
-          <li>Statistical modeling (descriptive &amp; inferential)</li>
-        </ul>
-
-        <h3 class="method-h3">Tools</h3>
-        <ul class="method-list">
-          <li>Figma, FigJam</li>
-          <li>UserTesting, SurveyMonkey, Qualtrics</li>
-          <li>Google Analytics</li>
-          <li>R &amp; Python for data analysis</li>
-        </ul>
+        <div class="method-grid">
+          <div class="method-col">
+            <div class="method-col-h">Qualitative</div>
+            <ul class="method-tight">
+              <li>In-depth interviews &amp; contextual inquiry</li>
+              <li>Usability testing &amp; think-aloud protocol</li>
+              <li>Concept testing &amp; co-design workshops</li>
+              <li>Affinity mapping &amp; thematic analysis</li>
+              <li>International fieldwork &amp; cross-cultural research</li>
+            </ul>
+          </div>
+          <div class="method-col">
+            <div class="method-col-h">Quantitative</div>
+            <ul class="method-tight">
+              <li>Survey sampling, design, &amp; analysis</li>
+              <li>User segmentation &amp; archetype development</li>
+              <li>Behavioral data analysis</li>
+              <li>Statistical modeling (descriptive &amp; inferential)</li>
+            </ul>
+          </div>
+          <div class="method-col">
+            <div class="method-col-h">Tools</div>
+            <ul class="method-tight">
+              <li>Figma, FigJam</li>
+              <li>UserTesting, SurveyMonkey, Qualtrics</li>
+              <li>Google Analytics</li>
+              <li>R &amp; Python</li>
+            </ul>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -577,14 +687,44 @@ footer {
 ════════════════════════════════════════════════════ -->
 <section id="projects">
   <div class="section-inner">
-    <div style="margin-bottom: 56px;">
+    <div style="margin-bottom: 40px;">
       <div class="sec-label">Projects</div>
-      <h2 style="font-size: 40px; font-weight: 400; color: #1a1208; line-height: 1.1; max-width: 520px; letter-spacing: -0.3px;">Research in action.</h2>
+      <p class="projects-sub" style="margin-top: 0;"><strong>Six selected studies</strong> across three kinds of research, from product discovery to academic modeling.</p>
     </div>
 
+    <div class="projects-layout">
+      <div class="study-rail">
+      <button class="study-index-item" type="button" data-filter="generative">
+        <div class="si-top">
+          <div class="si-count">2<span>studies</span></div>
+          <div class="si-num">01</div>
+        </div>
+        <div class="si-name">Generative Studies</div>
+        <div class="si-desc">Uncovering users, needs, and opportunities before a product exists.</div>
+      </button>
+      <button class="study-index-item" type="button" data-filter="evaluative">
+        <div class="si-top">
+          <div class="si-count">2<span>studies</span></div>
+          <div class="si-num">02</div>
+        </div>
+        <div class="si-name">Evaluative Studies</div>
+        <div class="si-desc">Testing and diagnosing designs and prototypes already in motion.</div>
+      </button>
+      <button class="study-index-item" type="button" data-filter="social">
+        <div class="si-top">
+          <div class="si-count">2<span>studies</span></div>
+          <div class="si-num">03</div>
+        </div>
+        <div class="si-name">Social Science Studies</div>
+        <div class="si-desc">Academic research, original datasets, and statistical modeling.</div>
+      </button>
+      </div>
+
+      <div class="study-stage">
+
     <!-- Generative Studies -->
-    <div class="company-block">
-      <div class="company-label">Generative Studies</div>
+    <div class="company-block" id="generative">
+      <div class="company-label">Generative Studies <span class="cl-count">01 · 2 studies</span></div>
       <div class="cases-grid">
         <a class="case-card" href="cases/case-health-wearable.html">
           <div class="case-img-wrap">
@@ -622,8 +762,8 @@ footer {
     </div>
 
     <!-- Evaluative Studies -->
-    <div class="company-block">
-      <div class="company-label">Evaluative Studies</div>
+    <div class="company-block" id="evaluative">
+      <div class="company-label">Evaluative Studies <span class="cl-count">02 · 2 studies</span></div>
       <div class="cases-grid">
         <div class="case-card">
           <div class="case-img-wrap">
@@ -646,7 +786,7 @@ footer {
             <img src="assets/case2-cover.jpg" alt="AI Interview Agents Study" style="object-fit: contain;"/>
           </div>
           <div class="case-body">
-            <div class="case-tag">Anker Innovations · 2025</div>
+            <div class="case-tag">Anker Innovations · 2026</div>
             <div class="case-title">Does AI Interview Agent Work? An Agent Usability Study</div>
             <p class="case-desc">I designed and ran a study evaluating how AI interview agents perform compared to human moderators, and whether synthetic users can substitute real participants in product discovery.</p>
             <div class="tag-row">
@@ -661,9 +801,25 @@ footer {
     </div>
 
     <!-- Social Science Studies -->
-    <div class="company-block">
-      <div class="company-label">Social Science Studies</div>
+    <div class="company-block" id="social">
+      <div class="company-label">Social Science Studies <span class="cl-count">03 · 2 studies</span></div>
       <div class="cases-grid">
+        <a class="case-card" href="cases/case-npc-legislature.html">
+          <div class="case-img-wrap" style="background:#fff;">
+            <img src="assets/case-npc-cover.png" alt="Table 4: Logistic estimates of terms in office and bill professional congruence in the 13th NPC" style="object-fit: contain; padding: 12px;"/>
+          </div>
+          <div class="case-body">
+            <div class="case-tag">University of Chicago · 2024</div>
+            <div class="case-title">How does Professional Background Shape Legislative Behavior in China's National People's Congress?</div>
+            <p class="case-desc">China's National People's Congress is often dismissed as a rubber stamp, yet its delegates freely choose which bills to sponsor. What does professional background predict about that choice? Across 622 delegates and 2,209 bills, functional delegates (doctors, lawyers, officials) increasingly sponsor bills in their own field as they gain seniority, while CEOs and party cadres drift beyond theirs. The finding shows two distinct strategies for winning influence without elections.</p>
+            <div class="tag-row">
+              <span class="tag">Content Analysis</span>
+              <span class="tag">Logistic Regression</span>
+              <span class="tag">Authoritarian Politics</span>
+              <span class="tag">Legislative Behavior</span>
+            </div>
+          </div>
+        </a>
         <a class="case-card" href="cases/case-housing.html">
           <div class="case-img-wrap" style="background:#fff;">
             <img src="assets/case-housing-cover.png" alt="2022 Poverty Rate by Neighborhood — NYC, LA, Chicago" style="object-fit: contain; padding: 12px;"/>
@@ -671,7 +827,7 @@ footer {
           <div class="case-body">
             <div class="case-tag">University of Chicago · 2024</div>
             <div class="case-title">What Drives Housing Prices in U.S. High-Poverty Neighborhoods? A Computational Social Science Study</div>
-            <p class="case-desc">A team final project for MACS 30112 at UChicago, examining whether housing attributes or neighborhood resources better explain prices in high-poverty tracts across NYC, LA, and Chicago. We scraped Redfin listings and joined them with city open-data layers (parks, transit, hospitals, crime). Regression analysis showed neighborhood attributes outweighed housing attributes overall, with each city showing distinct local preferences: Chicago favoring single-family residential, LA weighting business atmosphere, and NYC discounting hospital proximity.</p>
+            <p class="case-desc">In high-poverty neighborhoods across NYC, LA, and Chicago, it was unclear whether a home's own attributes or its surrounding neighborhood resources better explained its price. Neighborhood attributes mattered most overall, with each city showing distinct preferences: Chicago favored single-family residential, LA weighted business atmosphere, and NYC discounted hospital proximity.</p>
             <div class="tag-row">
               <span class="tag">Web Scraping</span>
               <span class="tag">Geospatial Analysis</span>
@@ -680,6 +836,8 @@ footer {
             </div>
           </div>
         </a>
+      </div>
+    </div>
       </div>
     </div>
   </div>
@@ -774,6 +932,29 @@ fadeEls.forEach(el => {
   if (r.top < window.innerHeight) { el.classList.add('visible'); }
   else { fadeObs.observe(el); }
 });
+
+// ── project study filter (tabs) ──
+(function () {
+  const tabs = document.querySelectorAll('.study-index-item');
+  const keys = ['generative', 'evaluative', 'social'];
+  function select(key) {
+    tabs.forEach(t => t.classList.toggle('active', t.dataset.filter === key));
+    keys.forEach(k => {
+      const el = document.getElementById(k);
+      if (!el) return;
+      if (k === key) {
+        el.style.display = 'block';
+        el.classList.remove('cb-show');
+        void el.offsetWidth;
+        el.classList.add('cb-show');
+      } else {
+        el.style.display = 'none';
+      }
+    });
+  }
+  tabs.forEach(t => t.addEventListener('click', () => select(t.dataset.filter)));
+  select('generative');
+})();
 
 // ── contact form ──
 function handleSubmit(e) {
